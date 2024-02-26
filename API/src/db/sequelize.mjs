@@ -4,7 +4,7 @@ import { livres } from "./mocks-livre.mjs";
 
 // connexion à la base de données
 const sequelize = new Sequelize(
-  "db_library", // Nom de la DB qui doit exister
+  "db_librairie", // Nom de la DB qui doit exister
   "root", // Nom de l'utilisateur
   "root", // Mot de passe de l'utilisateur
   {
