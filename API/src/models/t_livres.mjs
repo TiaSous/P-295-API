@@ -1,3 +1,4 @@
+//TODO à mettre au nouvelle norme
 const LivreModel = (sequelize, DataTypes) => {
   return sequelize.define("Livres", {
     id: {

@@ -1,5 +1,6 @@
 import express from "express";
 import { sequelize, initDB } from "./db/sequelize.mjs";
+import { getLivres } from "./routes/getLivres.mjs";
 
 const app = express();
 
@@ -18,12 +19,16 @@ app.get("/", (req, res) => {
   res.send("Bienvenu sur notre api");
 });
 
+app.get("/api/", (req, res) => {
+    res.redirect(`http://localhost:${port}/`);
+});
+
+app.use("/api/livres", getLivres);
+
 // va écouter sur le port
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
 });
 
-app.get("/api/", (req, res) => {
-    res.redirect(`http://localhost:${port}/`);
-});
+
     
