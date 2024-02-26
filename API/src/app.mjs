@@ -1,6 +1,7 @@
 import express from "express";
 import { sequelize, initDB } from "./db/sequelize.mjs";
 import { getLivres } from "./routes/getLivres.mjs";
+import { addLivre } from "./routes/addLivre.mjs";
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.get("/api/", (req, res) => {
 });
 
 app.use("/api/livres", getLivres);
+app.use("/api/livres", addLivre)
 
 // va écouter sur le port
 app.listen(port, () => {
