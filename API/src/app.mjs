@@ -2,6 +2,8 @@ import express from "express";
 import { sequelize, initDB } from "./db/sequelize.mjs";
 import { getLivres } from "./routes/getLivres.mjs";
 import { addLivre } from "./routes/addLivre.mjs";
+import { deleteLivre } from "./routes/deleteLivre.mjs";
+import { updateLivre } from "./routes/updateLivre.mjs";
 
 const app = express();
 
@@ -17,7 +19,7 @@ sequelize.authenticate().then((_) =>
 
 // message de bienvenu
 app.get("/", (req, res) => {
-  res.send("Bienvenu sur notre api");
+  res.send("Bienvenu sur notre api REST");
 });
 
 app.get("/api/", (req, res) => {
@@ -25,7 +27,9 @@ app.get("/api/", (req, res) => {
 });
 
 app.use("/api/livres", getLivres);
-app.use("/api/livres", addLivre)
+app.use("/api/livres", addLivre);
+app.use("/api/livres", deleteLivre);
+app.use("/api/livres", updateLivre);
 
 // va écouter sur le port
 app.listen(port, () => {

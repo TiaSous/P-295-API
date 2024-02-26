@@ -4,6 +4,7 @@ import { Livre } from "../db/sequelize.mjs";
 
 const addLivre = express();
 
+// si le livre existe déjà (même titre) alors impossible de post
 addLivre.post("/", (req, res) => {
     const infoLivre = {...req.body};
     Livre.create(infoLivre).then((livre) => {
