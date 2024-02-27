@@ -1,7 +1,7 @@
 CREATE TABLE t_utilisateur(
    id_utilisateur INT,
    utiPseudo VARCHAR(50) NOT NULL,
-   utiMotDePasse VARCHAR(50),
+   utiMotDePasse VARCHAR(50)  NOT NULL,
    utiDateEntree DATE,
    utiNbOuvrageProposer INT,
    utiNbCommentaire INT,
@@ -23,7 +23,7 @@ CREATE TABLE t_ecrivain(
 
 CREATE TABLE t_editeur(
    id_editeur INT,
-   ecriNom VARCHAR(50) NOT NULL,
+   ediNom VARCHAR(50) NOT NULL,
    PRIMARY KEY(id_editeur)
 );
 
@@ -57,3 +57,34 @@ CREATE TABLE t_commantaire(
    FOREIGN KEY(fk_ouvrage) REFERENCES t_ouvrage(id_ouvrage),
    FOREIGN KEY(fk_utilisateur) REFERENCES t_utilisateur(id_utilisateur)
 );
+
+
+INSERT INTO t_utilisateur (id_utilisateur, utiPseudo, utiMotDePasse, utiDateEntree, utiNbOuvrageProposer, utiNbCommentaire)
+VALUES 
+(1, 'JohnDoe', 'motdepasse123', '2022-01-01', 5, 10),
+(2, 'AliceSmith', 'password456', '2022-02-01', 3, 7),
+(3, 'BobJohnson', 'securepass', '2022-03-15', 8, 12);
+
+-- Insérer des catégories
+INSERT INTO t_categorie (id_categorie, catType)
+VALUES 
+(1, 'Science-Fiction'),
+(2, 'Romance'),
+(3, 'Mystère'),
+(4, 'Historique');
+
+-- Insérer des écrivains
+INSERT INTO t_ecrivain (id_ecrivain, ecrNom, ecrPrenom)
+VALUES 
+(1, 'Martin', 'George R. R.'),
+(2, 'Rowling', 'J.K.'),
+(3, 'Christie', 'Agatha'),
+(4, 'Hemingway', 'Ernest');
+
+-- Insérer des éditeurs
+INSERT INTO t_editeur (id_editeur, ediNom)
+VALUES 
+(1, 'Editions Albin Michel'),
+(2, 'Editions Gallimard'),
+(3, 'HarperCollins'),
+(4, 'Random House');
