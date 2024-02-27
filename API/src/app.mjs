@@ -1,5 +1,5 @@
 import express from "express";
-import { sequelize, initDB } from "./db/sequelize.mjs";
+import { sequelize } from "./db/sequelize.mjs";
 import { getLivres } from "./routes/getLivres.mjs";
 import { addLivre } from "./routes/addLivre.mjs";
 import { deleteLivre } from "./routes/deleteLivre.mjs";
@@ -15,7 +15,6 @@ const port = 3000;
 // à mettre en commentaire si db non allumée
 sequelize.authenticate().then((_) =>
     console.log("La connexion à la base de données a bien été établie"),
-    initDB()
 ).catch((error) => console.error("Impossible de se connecter à la DB"));
 
 // message de bienvenu

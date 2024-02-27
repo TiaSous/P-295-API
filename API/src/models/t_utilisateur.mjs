@@ -22,11 +22,6 @@ const UtilisateurModel = (sequelize, DataTypes) => {
     utiNbCommentaire: {
         type: DataTypes.INTEGER,
     }
-  },
-  {
-    timestamps: true,
-    createdAt: "created",
-    updateAt: false,
   });
 };
 

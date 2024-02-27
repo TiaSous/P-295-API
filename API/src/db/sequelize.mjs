@@ -1,11 +1,11 @@
 import { DataTypes, Sequelize } from "sequelize";
 import { livres } from "./mocks-livre.mjs";
-import { LivreModel } from "../models/t_ouvrages.mjs";
-import { CategorieModel } from "../models/t_categories.mjs";
-import { CommentaireModel } from "../models/t_commentaires.mjs";
-import { EcrivainModel } from "../models/t_ecrivains.mjs";
-import { EditeurModel } from "../models/t_editeurs.mjs";
-import { UtilisateurModel } from "../models/t_utilisateurs.mjs";
+import { LivreModel } from "../models/t_ouvrage.mjs";
+import { CategorieModel } from "../models/t_categorie.mjs";
+import { CommentaireModel } from "../models/t_commentaire.mjs";
+import { EcrivainModel } from "../models/t_ecrivain.mjs";
+import { EditeurModel } from "../models/t_editeur.mjs";
+import { UtilisateurModel } from "../models/t_utilisateur.mjs";
 
 // connexion à la base de données
 const sequelize = new Sequelize(
@@ -28,23 +28,22 @@ const Editeur = EditeurModel(sequelize, DataTypes);
 const Utilisateur = UtilisateurModel(sequelize, DataTypes);
 
 // va syncroniser la db et le mock
-let initDB = () => {
-  return sequelize.sync({ force: true }).then((_) => {
-    importLivres();
-    console.log("La base de données db_products a bien été synchronisé");
-  });
-};
+// let initDB = () => {
+//   return sequelize.sync({ force: true }).then((_) => {
+//     console.log("La base de données db_products a bien été synchronisé");
+//   });
+// };
 
 // pour importer le mock livre
-const importLivres = () => {
-  livres.map((livre) => {
-    Livre.create({
-      titre: livre.titre,
-      categorie: livre.categorie,
-      nbPages: livre.nbPages,
-      resume: livre.resume
-    }).then((livre) => console.log(livre.toJSON()));
-  });
-};
+// const importLivres = () => {
+//   livres.map((livre) => {
+//     Livre.create({
+//       titre: livre.titre,
+//       categorie: livre.categorie,
+//       nbPages: livre.nbPages,
+//       resume: livre.resume
+//     }).then((livre) => console.log(livre.toJSON()));
+//   });
+// };
 
-export { sequelize, initDB, Livre, Categorie, Commentaire, Ecrivain, Editeur, Utilisateur };
+export { sequelize, Livre, Categorie, Commentaire, Ecrivain, Editeur, Utilisateur };

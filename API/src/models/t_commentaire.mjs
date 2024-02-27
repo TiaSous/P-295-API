@@ -19,11 +19,6 @@ const CommentaireModel = (sequelize, DataTypes) => {
       fk_utilisateur: {
         type: DataTypes.INTEGER,
       },
-    },
-    {
-      timestamps: true,
-      createdAt: "created",
-      updateAt: false,
     }
   );
 };

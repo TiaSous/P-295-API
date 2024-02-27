@@ -11,11 +11,6 @@ const CategorieModel = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-    },
-    {
-      timestamps: true,
-      createdAt: "created",
-      updateAt: false,
     }
   );
 };
