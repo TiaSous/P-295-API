@@ -1,10 +1,15 @@
 import { DataTypes, Sequelize } from "sequelize";
-import { LivreModel } from "../models/t_ouvrages.mjs";
 import { livres } from "./mocks-livre.mjs";
+import { LivreModel } from "../models/t_ouvrages.mjs";
+import { CategorieModel } from "../models/t_categories.mjs";
+import { CommentaireModel } from "../models/t_commentaires.mjs";
+import { EcrivainModel } from "../models/t_ecrivains.mjs";
+import { EditeurModel } from "../models/t_editeurs.mjs";
+import { UtilisateurModel } from "../models/t_utilisateurs.mjs";
 
 // connexion à la base de données
 const sequelize = new Sequelize(
-  "db_libraire", // Nom de la DB qui doit exister
+  "db_librairie", // Nom de la DB qui doit exister
   "root", // Nom de l'utilisateur
   "root", // Mot de passe de l'utilisateur
   {
@@ -16,6 +21,11 @@ const sequelize = new Sequelize(
 );
 
 const Livre = LivreModel(sequelize, DataTypes);
+const Categorie = CategorieModel(sequelize, DataTypes);
+const Commentaire = CommentaireModel(sequelize, DataTypes);
+const Ecrivain = EcrivainModel(sequelize, DataTypes);
+const Editeur = EditeurModel(sequelize, DataTypes);
+const Utilisateur = UtilisateurModel(sequelize, DataTypes);
 
 // va syncroniser la db et le mock
 let initDB = () => {
@@ -37,4 +47,4 @@ const importLivres = () => {
   });
 };
 
-export { sequelize, initDB, Livre };
+export { sequelize, initDB, Livre, Categorie, Commentaire, Ecrivain, Editeur, Utilisateur };

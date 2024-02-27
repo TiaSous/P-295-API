@@ -17,7 +17,6 @@ const LivreModel = (sequelize, DataTypes) => {
         msg: "Le nom est une propriété obligatoire.",
       },
     },
-    
     ouvNbPage: {
         type: DataTypes.INTEGER
     },
