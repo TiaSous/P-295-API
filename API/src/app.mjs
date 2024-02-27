@@ -4,6 +4,7 @@ import { getLivres } from "./routes/getLivres.mjs";
 import { addLivre } from "./routes/addLivre.mjs";
 import { deleteLivre } from "./routes/deleteLivre.mjs";
 import { updateLivre } from "./routes/updateLivre.mjs";
+import { getLivreId } from "./routes/getLivreId.mjs";
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.get("/api/", (req, res) => {
 });
 
 app.use("/api/livres", getLivres);
+app.use("/api/livres", getLivreId);
 app.use("/api/livres", addLivre);
 app.use("/api/livres", deleteLivre);
 app.use("/api/livres", updateLivre);

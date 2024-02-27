@@ -1,10 +1,10 @@
 import { DataTypes, Sequelize } from "sequelize";
-import { LivreModel } from "../models/t_livres.mjs";
+import { LivreModel } from "../models/t_ouvrages.mjs";
 import { livres } from "./mocks-livre.mjs";
 
 // connexion à la base de données
 const sequelize = new Sequelize(
-  "db_librairie", // Nom de la DB qui doit exister
+  "db_libraire", // Nom de la DB qui doit exister
   "root", // Nom de l'utilisateur
   "root", // Mot de passe de l'utilisateur
   {
@@ -17,6 +17,7 @@ const sequelize = new Sequelize(
 
 const Livre = LivreModel(sequelize, DataTypes);
 
+// va syncroniser la db et le mock
 let initDB = () => {
   return sequelize.sync({ force: true }).then((_) => {
     importLivres();
@@ -24,6 +25,7 @@ let initDB = () => {
   });
 };
 
+// pour importer le mock livre
 const importLivres = () => {
   livres.map((livre) => {
     Livre.create({
