@@ -4,6 +4,12 @@ const CategorieModel = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
+        },
+        catType: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     })
-}
+};
+
+export {CategorieModel};
