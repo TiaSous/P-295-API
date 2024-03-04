@@ -3,10 +3,10 @@ import { success } from "./helper.mjs";
 import { Livre } from "../db/sequelize.mjs";
 // op = opérateur
 import { Op } from "sequelize";
+import { auth } from "../auth/auth.mjs";
+const getLivre = express();
 
-const getLivres = express();
-
-getLivres.get("/", (req, res) => {
+getLivre.get("/", auth,(req, res) => {
   // s'il y une recherche pas titre
   if (req.query.titre) {
     if (req.query.titre.length < 2) {
@@ -20,7 +20,7 @@ getLivres.get("/", (req, res) => {
     }
     // va trier par les paramètres mis
     return Livre.findAndCountAll({
-      where: { name: { [Op.like]: `%${req.query.titre}%` } },
+      where: { ouvTitre: { [Op.like]: `%${req.query.titre}%` } },
       limit: limit,
     }).then((livres) => {
       const message = `Il y a ${livres.count} livres qui correspondent au terme de la recherche`;
@@ -40,4 +40,4 @@ getLivres.get("/", (req, res) => {
     });
 });
 
-export { getLivres };
+export { getLivre };
