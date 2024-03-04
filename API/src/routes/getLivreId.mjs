@@ -1,10 +1,11 @@
 import express from "express";
 import { success } from "./helper.mjs";
 import { Livre } from "../db/sequelize.mjs";
+import { auth } from "../auth/auth.mjs";
 
 const getLivreId = express();
 
-getLivreId.get("/:id", (req, res) => {
+getLivreId.get("/:id", auth, (req, res) => {
   Livre.findByPk(req.params.id)
     .then((livre) => {
       //vérifie si le livre avec existe

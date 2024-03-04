@@ -1,13 +1,14 @@
 import express from "express";
 import { Livre } from "../db/sequelize.mjs";
 import { success } from "./helper.mjs";
+import { auth } from "../auth/auth.mjs";
 
 const updateLivre = express();
 
 updateLivre.put("/:id", (req, res) => {
   const idLivre = req.params.id;
 
-  Livre.update(req.body, { where: { id_ouvrage: idLivre } })
+  Livre.update(req.body,auth, { where: { id_ouvrage: idLivre } })
     .then((_) => {
       Livre.findByPk(idLivre).then((updatedLivre) => {
         if (updatedLivre === null) {

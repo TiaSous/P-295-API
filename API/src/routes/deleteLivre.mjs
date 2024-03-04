@@ -1,10 +1,12 @@
 import express from "express";
 import { success } from "./helper.mjs";
 import { Livre } from "../db/sequelize.mjs";
+import { Commentaire } from "../db/sequelize.mjs";
+import { auth } from "../auth/auth.mjs";
 
 const deleteLivre = express();
 
-deleteLivre.delete("/:id", (req, res) => {
+deleteLivre.delete("/:id", auth, (req, res) => {
   // recherche dans les livres pour trouver le livre
   Livre.findByPk(req.params.id)
     .then((deletedLivre) => {
@@ -14,11 +16,16 @@ deleteLivre.delete("/:id", (req, res) => {
           "Le livre demandé n'existe pas. Merci de réessayer avec un autre identifiant.";
         return res.status(404).json({ message });
       }
+      // détruit les commentaires
+      Commentaire.destroy({
+        where: {fk_ouvrage: deletedLivre.id_ouvrage}
+      }).then((_) => {
+      });
       // détruit le livre
       Livre.destroy({
-        where: { id: deletedLivre.id },
+        where: { id_ouvrage: deletedLivre.id_ouvrage },
       }).then((_) => {
-        const message = `Le livre ${deletedLivre.name} a bien été supprimé !`;
+        const message = `Le livre ${deletedLivre.ouvTitre} et tout ses commentaires a bien été supprimé !`;
         res.json(success(message, deletedLivre));
       });
     })

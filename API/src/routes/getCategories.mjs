@@ -2,10 +2,11 @@ import express from "express";
 import { success } from "./helper.mjs";
 import { Categorie } from "../db/sequelize.mjs";
 import { Op } from "sequelize";
+import { auth } from "../auth/auth.mjs";
 
 const getCategories = express();
 
-getCategories.get("/", (req, res) => {
+getCategories.get("/", auth, (req, res) => {
   // Ajout de la recherche par nom de catégorie
   if (req.query.nom) {
     if (req.query.nom.length < 2) {
@@ -17,7 +18,7 @@ getCategories.get("/", (req, res) => {
       limit = parseInt(req.query.limit);
     }
     return Categorie.findAndCountAll({
-      where: { name: { [Op.like]: `%${req.query.nom}%` } },
+      where: { catType: { [Op.like]: `%${req.query.nom}%` } },
       limit: limit,
     }).then((categories) => {
       const message = `Il y a ${categories.count} catégories qui correspondent au terme de la recherche`;

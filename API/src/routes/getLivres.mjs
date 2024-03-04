@@ -3,10 +3,10 @@ import { success } from "./helper.mjs";
 import { Livre } from "../db/sequelize.mjs";
 // op = opérateur
 import { Op } from "sequelize";
-
+import { auth } from "../auth/auth.mjs";
 const getLivres = express();
 
-getLivres.get("/", (req, res) => {
+getLivres.get("/", auth,(req, res) => {
   // s'il y une recherche pas titre
   if (req.query.titre) {
     if (req.query.titre.length < 2) {

@@ -1,10 +1,11 @@
 import express from "express";
 import { success } from "./helper.mjs";
 import { Livre } from "../db/sequelize.mjs";
+import { auth } from "../auth/auth.mjs";
 
 const getAllLivresCategorie = express();
 
-getAllLivresCategorie.get("/:id/livres", (req, res) => {
+getAllLivresCategorie.get("/:id/livres", auth, (req, res) => {
     const idCategorie = req.params.id;
     Livre.findAll({where: {fk_categorie: idCategorie}})
     .then((livres) => {

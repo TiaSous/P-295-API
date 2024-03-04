@@ -1,11 +1,12 @@
 import express from "express";
 import { success } from "./helper.mjs";
 import { Commentaire } from "../db/sequelize.mjs";
+import { auth } from "../auth/auth.mjs";
 
 const addCommentaire = express();
 
 // si le livre existe déjà (même titre) alors impossible de post
-addCommentaire.post("/", (req, res) => {
+addCommentaire.post("/",auth, (req, res) => {
     const infoCommentaire = {...req.body};
     Commentaire.create(infoCommentaire).then((commentaires) => {
         const message = `Lcommentaire a bien été créé !`;

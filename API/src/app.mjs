@@ -1,5 +1,5 @@
 import express from "express";
-import { sequelize } from "./db/sequelize.mjs";
+import { initDB, sequelize } from "./db/sequelize.mjs";
 import { getLivres } from "./routes/getLivres.mjs";
 import { addLivre } from "./routes/addLivre.mjs";
 import { deleteLivre } from "./routes/deleteLivre.mjs";
@@ -10,6 +10,7 @@ import { getCommentaires } from "./routes/getCommentaires.mjs";
 import { addCommentaire } from "./routes/addCommentaires.mjs";
 import { getCategories } from "./routes/getCategories.mjs";
 import {addCategorie} from "./routes/addCategorie.mjs"
+import { loginRouter } from "./routes/login.mjs";
 
 const app = express();
 
@@ -20,6 +21,7 @@ const port = 3000;
 // à mettre en commentaire si db non allumée
 sequelize.authenticate().then((_) =>
     console.log("La connexion à la base de données a bien été établie"),
+    //initDB()
 ).catch((error) => console.error("Impossible de se connecter à la DB"));
 
 // message de bienvenu
@@ -41,6 +43,7 @@ app.use("/api/commentaires", getCommentaires);
 app.use("/api/categories", getCategories);
 app.use("/api/categories", addCategorie);
 app.use("/api/categories", getAllLivresCategorie);
+app.use("/api/login", loginRouter);
 
 
 // va écouter sur le port
@@ -48,5 +51,8 @@ app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
 });
 
-
+app.use(({res}) => {
+  const message = "Impossible de trouver la ressource demmander ! Vous pouvez essayer une autre URL"
+  res.status(404).json(message)
+});
     

@@ -1,10 +1,11 @@
 import express from "express";
 import { success } from "./helper.mjs";
 import { Categorie } from "../db/sequelize.mjs";
+import { auth } from "../auth/auth.mjs";
 
 const addCategorie = express();
 
-addCategorie.post("/", (req, res) => {
+addCategorie.post("/",auth, (req, res) => {
     const infoCategorie = {...req.body};
     Categorie.create(infoCategorie).then((categorie) => {
         const message = `La catégorie avec l'ID ${categorie.id_categorie} a bien été créée !`;

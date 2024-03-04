@@ -1,10 +1,11 @@
 import express from "express";
 import { success } from "./helper.mjs";
 import { Commentaire } from "../db/sequelize.mjs";
+import { auth } from "../auth/auth.mjs";
 
 const getCommentaires = express();
 
-getCommentaires.get("/", (req, res) => {
+getCommentaires.get("/", auth, (req, res) => {
   // va afficher tout les catégories
   Commentaire.findAll()
     .then((commentaires) => {

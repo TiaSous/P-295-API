@@ -21,9 +21,9 @@ const CommentaireModel = (sequelize, DataTypes) => {
       },
     },
     {
-        freezeTableName: true,
+      freezeTableName: true,
     }
   );
 };
 
-export {CommentaireModel};
+export { CommentaireModel };
