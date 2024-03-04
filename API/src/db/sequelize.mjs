@@ -1,5 +1,4 @@
 import { DataTypes, Sequelize } from "sequelize";
-import { livres } from "./mocks-livre.mjs";
 import { LivreModel } from "../models/t_ouvrage.mjs";
 import { CategorieModel } from "../models/t_categorie.mjs";
 import { CommentaireModel } from "../models/t_commentaire.mjs";

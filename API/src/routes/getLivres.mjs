@@ -20,7 +20,7 @@ getLivres.get("/", (req, res) => {
     }
     // va trier par les paramètres mis
     return Livre.findAndCountAll({
-      where: { name: { [Op.like]: `%${req.query.titre}%` } },
+      where: { ouvTitre: { [Op.like]: `%${req.query.titre}%` } },
       limit: limit,
     }).then((livres) => {
       const message = `Il y a ${livres.count} livres qui correspondent au terme de la recherche`;

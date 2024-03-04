@@ -13,7 +13,7 @@ getLivreId.get("/:id", (req, res) => {
           "Le livre demandé n'existe pas. Merci de réessayer avec un autre identifiant.";
         return res.status(404).json({ message });
       }
-      const message = `Le livre dont l'id vau ${livre.id} a bien été récupéré.`;
+      const message = `Le livre dont l'id vau ${livre.id_ouvrage} a bien été récupéré.`;
       res.json(success(message, livre));
     })
     .catch((error) => {
