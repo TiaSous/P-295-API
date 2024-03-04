@@ -24,7 +24,7 @@ const sequelize = new Sequelize(
 );
 
 const Livre = LivreModel(sequelize, DataTypes);
-const Categorie = CategorieModel(sequelize, DatbaTypes);
+const Categorie = CategorieModel(sequelize, DataTypes);
 const Commentaire = CommentaireModel(sequelize, DataTypes);
 const Ecrivain = EcrivainModel(sequelize, DataTypes);
 const Editeur = EditeurModel(sequelize, DataTypes);
