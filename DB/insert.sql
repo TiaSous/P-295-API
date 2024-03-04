@@ -1,12 +1,12 @@
 -- Insérer des utilisateurs
-INSERT INTO t_utilisateur (id_utilisateur, utiPseudo, utiMotDePasse, utiDateEntree, utiNbOuvrageProposer, utiNbCommentaire)
+INSERT INTO t_utilisateur (id_utilisateur, utiPseudo, utiMotDePasse, utiDateEntree, utiNbOuvrageProposer, utiNbCommentaire, utiRole)
 VALUES 
-(1, 'JohnDoe', 'motdepasse123', '2022-01-01', 5, 10),
-(2, 'AliceSmith', 'password456', '2022-02-01', 3, 7),
-(3, 'BobJohnson', 'securepass', '2022-03-15', 8, 12);
+(1, 'Tiago', '$2b$10$dvqCnsw22gy8xiGVgJKzIOqjf4GCM1vmoA3iooUdSKYbJ3r056DCu', '2022-01-01', 5, 10, 'admin'),
+(2, 'Evin', '$2b$10$dvqCnsw22gy8xiGVgJKzIOqjf4GCM1vmoA3iooUdSKYbJ3r056DCu', '2022-02-01', 3, 7, 'admin'),
+(3, 'Alice', '$2b$10$dvqCnsw22gy8xiGVgJKzIOqjf4GCM1vmoA3iooUdSKYbJ3r056DCu', '2022-03-15', 8, 12, 'user');
 
 -- Insérer des catégories
-INSERT INTO t_categorie (id_categorie, catType)
+INSERT INTO t_categorie (id_categorie, catNom)
 VALUES 
 (1, 'Science-Fiction'),
 (2, 'Romance'),
@@ -38,7 +38,7 @@ VALUES
 (4, 'Le Vieil Homme et la Mer', 127, 'Un pêcheur cubain lutte contre un énorme poisson dans le golfe du Mexique.', '1952-09-01', 'vieil_homme_mer.jpg', 'extrait_vieil_homme_mer.txt', 5, 3,1, 4, 4);
 
 -- Insérer des commentaires
-INSERT INTO t_commantaire (id_commentaire, comAppreciation, comCommentaire, fk_ouvrage, fk_utilisateur)
+INSERT INTO t_commentaire (id_commentaire, comAppreciation, comCommentaire, fk_ouvrage, fk_utilisateur)
 VALUES 
 (1, 4, 'Une intrigue captivante!', 1, 1),
 (2, 5, 'Magique du début à la fin.', 2, 2),
