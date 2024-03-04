@@ -4,9 +4,9 @@ import { Categorie } from "../db/sequelize.mjs";
 import { Op } from "sequelize";
 import { auth } from "../auth/auth.mjs";
 
-const getCategories = express();
+const getCategorie = express();
 
-getCategories.get("/", auth, (req, res) => {
+getCategorie.get("/", auth, (req, res) => {
   // Ajout de la recherche par nom de catégorie
   if (req.query.nom) {
     if (req.query.nom.length < 2) {
@@ -38,4 +38,4 @@ getCategories.get("/", auth, (req, res) => {
     });
 });
 
-export { getCategories };
+export { getCategorie };

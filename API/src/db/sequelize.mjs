@@ -33,7 +33,7 @@ const Utilisateur = UtilisateurModel(sequelize, DataTypes);
 //va syncroniser la db et le mock
 let initDB = () => {
   return sequelize.sync({ force: false }).then((_) => {
-    importUtilisateurs();
+    //importUtilisateurs();
     console.log("La base de données db_products a bien été synchronisé");
   });
 };
@@ -52,12 +52,13 @@ let initDB = () => {
 
 const importUtilisateurs = () => {
   bcrypt
-    .hash("etml", 10) // temps pour hasher = du sel
+    .hash("1234", 10) // temps pour hasher = du sel
     .then((hash) =>
       Utilisateur.create({
-        id_utilisateur: 4,
+        id_utilisateur: 5,
         utiPseudo: "etml",
         utiMotDePasse: hash,
+        utiRole: "admin"
       }, console.log(hash))
     )
     .then((user) => console.log(user.toJSON()));

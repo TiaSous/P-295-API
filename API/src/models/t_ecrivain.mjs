@@ -1,5 +1,5 @@
 const EcrivainModel = (sequelize, DataTypes) => {
-  return sequelize.define("t_commentaire", {
+  return sequelize.define("t_ecrivain", {
     id_ecrivain: {
       type: DataTypes.INTEGER,
       primaryKey: true,

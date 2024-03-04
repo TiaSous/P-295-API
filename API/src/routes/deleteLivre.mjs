@@ -17,10 +17,10 @@ deleteLivre.delete("/:id", auth, (req, res) => {
         return res.status(404).json({ message });
       }
       // détruit les commentaires
-      Commentaire.destroy({
-        where: {fk_ouvrage: deletedLivre.id_ouvrage}
-      }).then((_) => {
-      });
+      // Commentaire.destroy({
+      //   where: {fk_ouvrage: deletedLivre.id_ouvrage}
+      // }).then((_) => {
+      // });
       // détruit le livre
       Livre.destroy({
         where: { id_ouvrage: deletedLivre.id_ouvrage },

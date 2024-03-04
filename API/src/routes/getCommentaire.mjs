@@ -3,9 +3,9 @@ import { success } from "./helper.mjs";
 import { Commentaire } from "../db/sequelize.mjs";
 import { auth } from "../auth/auth.mjs";
 
-const getCommentaires = express();
+const getCommentaire = express();
 
-getCommentaires.get("/", auth, (req, res) => {
+getCommentaire.get("/", auth, (req, res) => {
   // va afficher tout les catégories
   Commentaire.findAll()
     .then((commentaires) => {
@@ -19,4 +19,4 @@ getCommentaires.get("/", auth, (req, res) => {
     });
 });
 
-export { getCommentaires };
+export { getCommentaire };

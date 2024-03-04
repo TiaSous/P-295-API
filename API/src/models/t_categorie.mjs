@@ -7,7 +7,7 @@ const CategorieModel = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      catType: {
+      catNom: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },

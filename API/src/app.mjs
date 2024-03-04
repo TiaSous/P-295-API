@@ -1,14 +1,14 @@
 import express from "express";
 import { initDB, sequelize } from "./db/sequelize.mjs";
-import { getLivres } from "./routes/getLivres.mjs";
+import { getLivre } from "./routes/getLivre.mjs";
 import { addLivre } from "./routes/addLivre.mjs";
 import { deleteLivre } from "./routes/deleteLivre.mjs";
 import { updateLivre } from "./routes/updateLivre.mjs";
 import { getLivreId } from "./routes/getLivreId.mjs";
 import { getAllLivresCategorie } from "./routes/getAllLivresCategorie.mjs";
-import { getCommentaires } from "./routes/getCommentaires.mjs";
+import { getCommentaire } from "./routes/getCommentaire.mjs";
 import { addCommentaire } from "./routes/addCommentaires.mjs";
-import { getCategories } from "./routes/getCategories.mjs";
+import { getCategorie } from "./routes/getCategorie.mjs";
 import {addCategorie} from "./routes/addCategorie.mjs"
 import { loginRouter } from "./routes/login.mjs";
 
@@ -33,14 +33,14 @@ app.get("/api/", (req, res) => {
     res.redirect(`http://localhost:${port}/`);
 });
 
-app.use("/api/livres", getLivres);
+app.use("/api/livres", getLivre);
 app.use("/api/livres", getLivreId);
 app.use("/api/livres", addLivre);
 app.use("/api/livres", deleteLivre);
 app.use("/api/livres", updateLivre);
 app.use("/api/commentaires", addCommentaire);
-app.use("/api/commentaires", getCommentaires);
-app.use("/api/categories", getCategories);
+app.use("/api/commentaires", getCommentaire);
+app.use("/api/categories", getCategorie);
 app.use("/api/categories", addCategorie);
 app.use("/api/categories", getAllLivresCategorie);
 app.use("/api/login", loginRouter);

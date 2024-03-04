@@ -21,6 +21,10 @@ const UtilisateurModel = (sequelize, DataTypes) => {
     },
     utiNbCommentaire: {
         type: DataTypes.INTEGER,
+    },
+    utiRole: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   },
   {

@@ -4,9 +4,9 @@ import { Livre } from "../db/sequelize.mjs";
 // op = opérateur
 import { Op } from "sequelize";
 import { auth } from "../auth/auth.mjs";
-const getLivres = express();
+const getLivre = express();
 
-getLivres.get("/", auth,(req, res) => {
+getLivre.get("/", auth,(req, res) => {
   // s'il y une recherche pas titre
   if (req.query.titre) {
     if (req.query.titre.length < 2) {
@@ -40,4 +40,4 @@ getLivres.get("/", auth,(req, res) => {
     });
 });
 
-export { getLivres };
+export { getLivre };
