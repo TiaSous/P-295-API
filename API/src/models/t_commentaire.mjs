@@ -19,6 +19,9 @@ const CommentaireModel = (sequelize, DataTypes) => {
       fk_utilisateur: {
         type: DataTypes.INTEGER,
       },
+    },
+    {
+        freezeTableName: true,
     }
   );
 };

@@ -17,11 +17,14 @@ const sequelize = new Sequelize(
     port: 6033,
     dialect: "mysql",
     logging: false,
+    define: {
+      timestamps: false // Désactiver la création automatique des champs createdAt et updatedAt
+    }
   }
 );
 
 const Livre = LivreModel(sequelize, DataTypes);
-const Categorie = CategorieModel(sequelize, DataTypes);
+const Categorie = CategorieModel(sequelize, DatbaTypes);
 const Commentaire = CommentaireModel(sequelize, DataTypes);
 const Ecrivain = EcrivainModel(sequelize, DataTypes);
 const Editeur = EditeurModel(sequelize, DataTypes);

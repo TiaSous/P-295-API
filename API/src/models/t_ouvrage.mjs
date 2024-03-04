@@ -51,6 +51,9 @@ const LivreModel = (sequelize, DataTypes) => {
       type : DataTypes.INTEGER,
       allowNull: false
     }
+  },
+  {
+      freezeTableName: true,
   });
 };
 

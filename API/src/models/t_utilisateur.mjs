@@ -22,6 +22,9 @@ const UtilisateurModel = (sequelize, DataTypes) => {
     utiNbCommentaire: {
         type: DataTypes.INTEGER,
     }
+  },
+  {
+      freezeTableName: true,
   });
 };
 

@@ -28,9 +28,8 @@ getLivres.get("/", (req, res) => {
     });
   }
   // va afficher tout les livres
-  Livre.findAll( {attributes: { exclude: ['updatedAt','createdAt'] }})
+  Livre.findAll()
     .then((livres) => {
-      const lbresbycategorie=f
       const message = "La liste des livres a bien été récupérée.";
       res.json(success(message, livres));
     })

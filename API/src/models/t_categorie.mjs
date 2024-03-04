@@ -11,6 +11,9 @@ const CategorieModel = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+    },
+    {
+        freezeTableName: true,
     }
   );
 };

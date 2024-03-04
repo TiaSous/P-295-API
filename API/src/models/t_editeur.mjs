@@ -9,6 +9,9 @@ const EditeurModel = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
     }
+  },
+  {
+      freezeTableName: true,
   });
 };
 
