@@ -5,8 +5,9 @@ import { auth } from "../auth/auth.mjs";
 
 const addLivre = express();
 
-// si le livre existe déjà (même titre) alors impossible de post
+// Ajouter un livre
 addLivre.post("/",auth, (req, res) => {
+    // récupère les informations dans les
     const infoLivre = {...req.body};
     Livre.create(infoLivre).then((livre) => {
         const message = `Le livre ${livre.ouvTitre} a bien été créé !`;
@@ -18,3 +19,12 @@ addLivre.post("/",auth, (req, res) => {
 });
 
 export {addLivre};
+
+/*
+exemple json (info minimum)
+{
+	"id_ouvrage": 8,
+	"ouvTitre": "Alabama 1963",
+	"fk_utilisateur": 1
+}
+*/
