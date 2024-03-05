@@ -48,9 +48,9 @@ CREATE TABLE t_ouvrage(
    fk_editeur INT,
    PRIMARY KEY(id_ouvrage),
    FOREIGN KEY(fk_utilisateur) REFERENCES t_utilisateur(id_utilisateur) ON DELETE CASCADE ON UPDATE CASCADE,
-   FOREIGN KEY(fk_categorie) REFERENCES t_categorie(id_categorie) ON DELETE SET NULL ON UPDATE CASCADE,
-   FOREIGN KEY(fk_ecrivain) REFERENCES t_ecrivain(id_ecrivain) ON DELETE SET NULL ON UPDATE CASCADE,
-   FOREIGN KEY(fk_editeur) REFERENCES t_editeur(id_editeur) ON DELETE SET NULL ON UPDATE CASCADE
+   FOREIGN KEY(fk_categorie) REFERENCES t_categorie(id_categorie) ON DELETE CASCADE ON UPDATE CASCADE,
+   FOREIGN KEY(fk_ecrivain) REFERENCES t_ecrivain(id_ecrivain) ON DELETE CASCADE ON UPDATE CASCADE,
+   FOREIGN KEY(fk_editeur) REFERENCES t_editeur(id_editeur) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE t_commentaire(
