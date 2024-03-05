@@ -25,10 +25,12 @@ addCommentaire.post("/",auth, (req, res) => {
 export {addCommentaire};
 
 /*
+exemple de uri: http://localhost:3000/api/commentaires
+
 exemple json (info minimum)
 {
-	"id_commentaire":5,
 	"comCommentaire": "Incroyable !",
+	"comAppreciation": 5,
 	"fk_ouvrage": 1,
 	"fk_utilisateur": 1
 }

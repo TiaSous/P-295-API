@@ -24,6 +24,8 @@ addCategorie.post("/",auth, (req, res) => {
 export { addCategorie };                        
 
 /*
+exemple de uri: http://localhost:3000/api/categories
+
 exemple json (info minimum)
 {	
 	"id_categorie": 7,

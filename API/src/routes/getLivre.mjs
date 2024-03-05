@@ -6,8 +6,9 @@ import { Op } from "sequelize";
 import { auth } from "../auth/auth.mjs";
 const getLivre = express();
 
+// Récupère les livres
 getLivre.get("/", auth,(req, res) => {
-  // s'il y une recherche pas titre
+  // s'il y un titre
   if (req.query.titre) {
     if (req.query.titre.length < 2) {
       const message = `Le terme de la recherche doit contenir au moins 2 caractères`;
@@ -30,10 +31,12 @@ getLivre.get("/", auth,(req, res) => {
   // va afficher tout les livres
   Livre.findAll()
     .then((livres) => {
+      // si réussie
       const message = "La liste des livres a bien été récupérée.";
       res.json(success(message, livres));
     })
     .catch((error) => {
+      // si échoue
       const message =
         "La liste des livres n'a pas pu être récupérée. Merci de réessayer dans quelques instants.";
       res.status(500).json({ message, data: error });
@@ -41,3 +44,8 @@ getLivre.get("/", auth,(req, res) => {
 });
 
 export { getLivre };
+/*
+exemple de uri: http://localhost:3000/api/livres
+
+exemple de uri avec recherche: http://localhost:3000/api/livres?titre=ha&limit=1
+*/

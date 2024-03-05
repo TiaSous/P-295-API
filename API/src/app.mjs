@@ -1,5 +1,5 @@
 import express from "express";
-import { initDB, sequelize } from "./db/sequelize.mjs";
+import { sequelize } from "./db/sequelize.mjs";
 import { getLivre } from "./routes/getLivre.mjs";
 import { addLivre } from "./routes/addLivre.mjs";
 import { deleteLivre } from "./routes/deleteLivre.mjs";
@@ -33,6 +33,7 @@ app.get("/api/", (req, res) => {
     res.redirect(`http://localhost:${port}/`);
 });
 
+// toutes les routes
 app.use("/api/livres", getLivre);
 app.use("/api/livres", getLivreId);
 app.use("/api/livres", addLivre);
@@ -51,6 +52,7 @@ app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
 });
 
+// routes introuvables
 app.use(({res}) => {
   const message = "Impossible de trouver la ressource demmander ! Vous pouvez essayer une autre URL"
   res.status(404).json(message)
