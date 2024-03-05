@@ -3,14 +3,28 @@ const CommentaireModel = (sequelize, DataTypes) => {
     "t_commentaire",
     {
       id_commentaire: {
+        allowNull: false,
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
       comAppreciation: {
+        allowNull: false,
         type: DataTypes.INTEGER,
+        // il peut no
+        validate: {
+          min: {
+            args: [1],
+            msg: 'La valeur minimale autorisée est 1.'
+          },
+          max: {
+            args: [5],
+            msg: 'La valeur maximale autorisée est 5.'
+          }
+        }
       },
       comCommentaire: {
+        allowNull: false,
         type: DataTypes.STRING,
       },
       fk_ouvrage: {

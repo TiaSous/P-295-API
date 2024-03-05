@@ -5,7 +5,6 @@ import { CommentaireModel } from "../models/t_commentaire.mjs";
 import { EcrivainModel } from "../models/t_ecrivain.mjs";
 import { EditeurModel } from "../models/t_editeur.mjs";
 import { UtilisateurModel } from "../models/t_utilisateur.mjs";
-import * as bcrypt from "bcrypt";
 
 // connexion à la base de données
 const sequelize = new Sequelize(
@@ -23,46 +22,13 @@ const sequelize = new Sequelize(
   }
 );
 
+// association des tables à des variables
 const Livre = LivreModel(sequelize, DataTypes);
 const Categorie = CategorieModel(sequelize, DataTypes);
 const Commentaire = CommentaireModel(sequelize, DataTypes);
 const Ecrivain = EcrivainModel(sequelize, DataTypes);
 const Editeur = EditeurModel(sequelize, DataTypes);
 const Utilisateur = UtilisateurModel(sequelize, DataTypes);
-
-//va syncroniser la db et le mock
-let initDB = () => {
-  return sequelize.sync({ force: false }).then((_) => {
-    //importUtilisateurs();
-    console.log("La base de données db_products a bien été synchronisé");
-  });
-};
-
-// pour importer le mock livre
-// const importLivres = () => {
-//   livres.map((livre) => {
-//     Livre.create({
-//       titre: livre.titre,
-//       categorie: livre.categorie,
-//       nbPages: livre.nbPages,
-//       resume: livre.resume
-//     }).then((livre) => console.log(livre.toJSON()));
-//   });
-// };
-
-const importUtilisateurs = () => {
-  bcrypt
-    .hash("1234", 10) // temps pour hasher = du sel
-    .then((hash) =>
-      Utilisateur.create({
-        id_utilisateur: 5,
-        utiPseudo: "etml",
-        utiMotDePasse: hash,
-        utiRole: "admin"
-      }, console.log(hash))
-    )
-    .then((user) => console.log(user.toJSON()));
-};
 
 export {
   sequelize,
@@ -72,5 +38,4 @@ export {
   Ecrivain,
   Editeur,
   Utilisateur,
-  initDB,
 };

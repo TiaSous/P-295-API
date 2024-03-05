@@ -3,6 +3,7 @@ const CategorieModel = (sequelize, DataTypes) => {
     "t_categorie",
     {
       id_categorie: {
+        allowNull: false,
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,

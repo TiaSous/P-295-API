@@ -2,6 +2,7 @@
 const LivreModel = (sequelize, DataTypes) => {
   return sequelize.define("t_ouvrage", {
     id_ouvrage: {
+      allowNull: false,
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -52,7 +53,7 @@ const LivreModel = (sequelize, DataTypes) => {
           key: 'id_categorie'
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onDelete: 'CASCADE'
     },
     fk_ecrivain: {
       type : DataTypes.INTEGER,
@@ -61,7 +62,7 @@ const LivreModel = (sequelize, DataTypes) => {
           key: 'id_ecrivain'
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onDelete: 'CASCADE'
     },
     fk_editeur: {
       type : DataTypes.INTEGER,
@@ -70,7 +71,7 @@ const LivreModel = (sequelize, DataTypes) => {
           key: 'id_editeur'
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onDelete: 'CASCADE'
     }
   },
   {
