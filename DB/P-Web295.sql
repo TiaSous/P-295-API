@@ -4,7 +4,7 @@ USE db_librairie;
 
 
 CREATE TABLE t_utilisateur(
-   id_utilisateur INT,
+   id_utilisateur INT NOT NULL AUTO_INCREMENT,
    utiPseudo VARCHAR(50) NOT NULL,
    utiMotDePasse VARCHAR(255)  NOT NULL,
    utiDateEntree DATE,
@@ -15,26 +15,26 @@ CREATE TABLE t_utilisateur(
 );
 
 CREATE TABLE t_categorie(
-   id_categorie INT,
+   id_categorie INT NOT NULL AUTO_INCREMENT,
    catNom VARCHAR(50) NOT NULL,
    PRIMARY KEY(id_categorie)
 );
 
 CREATE TABLE t_ecrivain(
-   id_ecrivain INT,
+   id_ecrivain INT NOT NULL AUTO_INCREMENT,
    ecrNom VARCHAR(50) NOT NULL,
    ecrPrenom VARCHAR(50) NOT NULL,
    PRIMARY KEY(id_ecrivain)
 );
 
 CREATE TABLE t_editeur(
-   id_editeur INT,
+   id_editeur INT NOT NULL AUTO_INCREMENT,
    ediNom VARCHAR(50) NOT NULL,
    PRIMARY KEY(id_editeur)
 );
 
 CREATE TABLE t_ouvrage(
-   id_ouvrage INT,
+   id_ouvrage INT NOT NULL AUTO_INCREMENT,
    ouvTitre VARCHAR(50) NOT NULL,
    ouvNbPage INT,
    ouvResume VARCHAR(255),
@@ -54,7 +54,7 @@ CREATE TABLE t_ouvrage(
 );
 
 CREATE TABLE t_commentaire(
-   id_commentaire INT,
+   id_commentaire INT NOT NULL AUTO_INCREMENT,
    comAppreciation INT NOT NULL,
    comCommentaire VARCHAR(255) NOT NULL,
    fk_ouvrage INT NOT NULL,
