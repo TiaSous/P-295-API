@@ -30,4 +30,4 @@ getLivreId.get("/:id", auth, (req, res) => {
 
 export { getLivreId };
 
-// exemple de uri: http://localhost:3000/api/livres
+// exemple de uri: http://localhost:3000/api/livres/1
