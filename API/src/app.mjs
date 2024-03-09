@@ -1,5 +1,5 @@
 import express from "express";
-import { initDB, sequelize } from "./db/sequelize.mjs";
+import { sequelize } from "./db/sequelize.mjs";
 import { getLivre } from "./routes/getLivre.mjs";
 import { addLivre } from "./routes/addLivre.mjs";
 import { deleteLivre } from "./routes/deleteLivre.mjs";
@@ -11,6 +11,7 @@ import { addCommentaire } from "./routes/addCommentaires.mjs";
 import { getCategorie } from "./routes/getCategorie.mjs";
 import {addCategorie} from "./routes/addCategorie.mjs"
 import { loginRouter } from "./routes/login.mjs";
+import { getCategorieId } from "./routes/getCategorieId.mjs";
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.get("/api/", (req, res) => {
     res.redirect(`http://localhost:${port}/`);
 });
 
+// toutes les routes
 app.use("/api/livres", getLivre);
 app.use("/api/livres", getLivreId);
 app.use("/api/livres", addLivre);
@@ -41,6 +43,7 @@ app.use("/api/livres", updateLivre);
 app.use("/api/commentaires", addCommentaire);
 app.use("/api/commentaires", getCommentaire);
 app.use("/api/categories", getCategorie);
+app.use("/api/categories", getCategorieId);
 app.use("/api/categories", addCategorie);
 app.use("/api/categories", getAllLivresCategorie);
 app.use("/api/login", loginRouter);
@@ -51,6 +54,7 @@ app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
 });
 
+// routes introuvables
 app.use(({res}) => {
   const message = "Impossible de trouver la ressource demmander ! Vous pouvez essayer une autre URL"
   res.status(404).json(message)

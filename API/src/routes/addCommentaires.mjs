@@ -5,16 +5,33 @@ import { auth } from "../auth/auth.mjs";
 
 const addCommentaire = express();
 
-// si le livre existe déjà (même titre) alors impossible de post
+// ajouter un commentaire
 addCommentaire.post("/",auth, (req, res) => {
+    // récupère les informations json mis par l'utilisateur (exemple en bas)
     const infoCommentaire = {...req.body};
+
+    // Créer le commentaire
     Commentaire.create(infoCommentaire).then((commentaires) => {
-        const message = `Lcommentaire a bien été créé !`;
+        // si réussie
+        const message = `Le commentaire a bien été créé !`;
         res.json(success(message, commentaires));
     }).catch((error) => {
+        // si échoue
         const message = "La commentaire n'a pas pu être ajouté. Merci de réessayer dans quelques instants.";
         res.status(500).json({ message, data: error });
     });
 });
 
 export {addCommentaire};
+
+/*
+exemple de uri: http://localhost:3000/api/commentaires
+
+exemple json (info minimum)
+{
+	"comCommentaire": "Incroyable !",
+	"comAppreciation": 5,
+	"fk_ouvrage": 1,
+	"fk_utilisateur": 1
+}
+*/
