@@ -11,6 +11,7 @@ import { addCommentaire } from "./routes/addCommentaires.mjs";
 import { getCategorie } from "./routes/getCategorie.mjs";
 import {addCategorie} from "./routes/addCategorie.mjs"
 import { loginRouter } from "./routes/login.mjs";
+import { getCategorieId } from "./routes/getCategorieId.mjs";
 
 const app = express();
 
@@ -42,6 +43,7 @@ app.use("/api/livres", updateLivre);
 app.use("/api/commentaires", addCommentaire);
 app.use("/api/commentaires", getCommentaire);
 app.use("/api/categories", getCategorie);
+app.use("/api/categories", getCategorieId);
 app.use("/api/categories", addCategorie);
 app.use("/api/categories", getAllLivresCategorie);
 app.use("/api/login", loginRouter);
