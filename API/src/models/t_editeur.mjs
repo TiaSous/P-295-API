@@ -8,7 +8,12 @@ const EditeurModel = (sequelize, DataTypes) => {
     },
     ediNom: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Le nom ne peut pas être vide.",
+          },
+        },
     }
   },
   {

@@ -9,7 +9,6 @@ const LivreModel = (sequelize, DataTypes) => {
     },
     ouvTitre: {
       type: DataTypes.STRING,
-      // allowNull = pas obligatiore
       allowNull: false,
       validate:
       {

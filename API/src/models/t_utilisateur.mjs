@@ -8,7 +8,12 @@ const UtilisateurModel = (sequelize, DataTypes) => {
     },
     utiPseudo: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Le pseudo ne peut pas être vide.",
+          },
+        },
     },
     utiMotDePasse: {
         type: DataTypes.STRING,

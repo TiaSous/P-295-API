@@ -11,10 +11,15 @@ const CategorieModel = (sequelize, DataTypes) => {
       catNom: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Le nom ne peut pas être vide.",
+          },
+        },
       },
     },
     {
-        freezeTableName: true,
+      freezeTableName: true,
     }
   );
 };
