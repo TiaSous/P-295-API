@@ -4,8 +4,45 @@ import jwt from "jsonwebtoken";
 import { Utilisateur } from "../db/sequelize.mjs";
 import { privateKey } from "../auth/private_key.mjs";
 
-// route pour se loger et générer un token
 const loginRouter = express();
+
+/**
+ * @swagger
+ * /api/login:
+ *   post:
+ *     tags: [Authentification]
+ *     summary: Génère un token d'authentification.
+ *     description: Permet à un utilisateur de s'authentifier et de générer un token d'accès.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 description: Le nom d'utilisateur de l'utilisateur.
+ *                 example: "john_doe"
+ *               password:
+ *                 type: string
+ *                 description: Le mot de passe de l'utilisateur.
+ *                 example: "motdepasse123"
+ *     responses:
+ *       200:
+ *         description: Token généré avec succès.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                   description: Token d'accès généré.
+ *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+ */
+
+// route pour se loger et générer un token
 loginRouter.post("/", (req, res) => {
   // va chercher l'utilisateur
   Utilisateur.findOne({ where: { utiPseudo: req.body.username } })

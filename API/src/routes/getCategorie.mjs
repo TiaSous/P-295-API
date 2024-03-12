@@ -6,6 +6,33 @@ import { auth } from "../auth/auth.mjs";
 
 const getCategorie = express();
 
+/**
+ * @swagger
+ * /api/categories:
+ *   get:
+ *     tags: [Categories]
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Récupère les catégories.
+ *     description: Récupère les catégories. Peut être utilisé pour afficher les catégories.
+ *     responses:
+ *       200:
+ *         description: La catégorie demandée.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id_categorie:
+ *                   type: integer
+ *                   description: L'identifiant unique de la catégorie.
+ *                   example: 1
+ *                 catNom:
+ *                   type: string
+ *                   description: Le nom de la catégorie.
+ *                   example: "Fiction"
+ */
+
 // Récupère une catégorie
 getCategorie.get("/", auth, (req, res) => {
   // Ajout de la recherche par nom de catégorie

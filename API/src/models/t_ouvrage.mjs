@@ -11,12 +11,12 @@ const LivreModel = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       // allowNull = pas obligatiore
       allowNull: false,
-      notEmpty: {
-        msg: "Le nom ne peut pas être vide.",
-      },
-      notNull: {
-        msg: "Le nom est une propriété obligatoire.",
-      },
+      validate:
+      {
+        notEmpty: {
+          msg: "Le nom ne peut pas être vide.",
+        },
+      }
     },
     ouvNbPage: {
         type: DataTypes.INTEGER

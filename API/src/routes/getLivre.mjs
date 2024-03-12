@@ -4,7 +4,79 @@ import { Livre } from "../db/sequelize.mjs";
 // op = opérateur
 import { Op } from "sequelize";
 import { auth } from "../auth/auth.mjs";
+
 const getLivre = express();
+
+/**
+ * @swagger
+ * /api/livres/:
+ *   get:
+ *     tags: [Livres]
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Récupère tous les livres.
+ *     description: Récupère tous les livres. Peut être utilisé pour remplir un select HTML.
+ *     responses:
+ *       200:
+ *         description: Tous les livres.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     id_ouvrage:
+ *                       type: integer
+ *                       description: L'identifiant unique du livre.
+ *                       example: 1
+ *                     ouvTitre:
+ *                       type: string
+ *                       description: Le titre du livre.
+ *                       example: "L'ordre du Jour"
+ *                     ouvNbPage:
+ *                       type: integer
+ *                       description: Le nombre de pages du livre.
+ *                       example: 328
+ *                     ouvResume:
+ *                       type: string
+ *                       description: Le résumé du livre.
+ *                       example: "L'ordre du jour est un livre parlant de la 2nd guerre mondial."
+ *                     ouvAnneeEdition:
+ *                       type: string
+ *                       format: date
+ *                       description: L'année d'édition du livre.
+ *                       example: "2016-06-08"
+ *                     ouvCouverture:
+ *                       type: string
+ *                       description: Le lien vers la couverture du livre.
+ *                       example: "https://example.com/couverture.jpg"
+ *                     ouvExtrait:
+ *                       type: string
+ *                       description: Un extrait du livre.
+ *                       example: "Ce n'était pas l'ordre du jour"
+ *                     ouvMoyenneAppreciation:
+ *                       type: integer
+ *                       description: La moyenne d'appréciation du livre.
+ *                       example: 4
+ *                     fk_utilisateur:
+ *                       type: integer
+ *                       description: L'identifiant de l'utilisateur qui a ajouté le livre.
+ *                       example: 1
+ *                     fk_categorie:
+ *                       type: integer
+ *                       description: L'identifiant de la catégorie du livre.
+ *                       example: 4
+ *                     fk_ecrivain:
+ *                       type: integer
+ *                       description: L'identifiant de l'écrivain du livre.
+ *                       example: 7
+ *                     fk_editeur:
+ *                       type: integer
+ *                       description: L'identifiant de l'éditeur du livre.
+ *                       example: 1
+ */
 
 // Récupère les livres
 getLivre.get("/", auth,(req, res) => {
