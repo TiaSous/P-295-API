@@ -48,6 +48,7 @@ const LivreModel = (sequelize, DataTypes) => {
     },
     fk_categorie: {
       type: DataTypes.INTEGER,
+      allowNull: false,
         references: {
           model: 't_categorie',
           key: 'id_categorie'
@@ -57,6 +58,7 @@ const LivreModel = (sequelize, DataTypes) => {
     },
     fk_ecrivain: {
       type : DataTypes.INTEGER,
+      allowNull: false,
         references: {
           model: 't_ecrivain',
           key: 'id_ecrivain'
@@ -66,6 +68,7 @@ const LivreModel = (sequelize, DataTypes) => {
     },
     fk_editeur: {
       type : DataTypes.INTEGER,
+      allowNull: false,
         references: {
           model: 't_editeur',
           key: 'id_editeur'
