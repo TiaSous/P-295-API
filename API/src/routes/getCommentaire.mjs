@@ -4,6 +4,48 @@ import { Commentaire } from "../db/sequelize.mjs";
 import { auth } from "../auth/auth.mjs";
 
 const getCommentaire = express();
+
+/**
+ * @swagger
+ * /api/commentaires:
+ *   get:
+ *     tags: [Commentaires]
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Récupère tous les commentaires.
+ *     description: Récupère tous les commentaires. Peut être utilisé pour afficher les avis sur les livres.
+ *     responses:
+ *       200:
+ *         description: Tous les commentaires.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id_commentaire:
+ *                   type: integer
+ *                   description: L'identifiant unique du commentaire.
+ *                   example: 1
+ *                 comAppreciation:
+ *                   type: integer
+ *                   description: L'appréciation associée au commentaire.
+ *                   minimum: 1
+ *                   maximum: 5
+ *                   example: 4
+ *                 comCommentaire:
+ *                   type: string
+ *                   description: Le commentaire.
+ *                   example: "Très bon livre, je le recommande !"
+ *                 fk_ouvrage:
+ *                   type: integer
+ *                   description: L'identifiant de l'ouvrage associé.
+ *                   example: 1
+ *                 fk_utilisateur:
+ *                   type: integer
+ *                   description: L'identifiant de l'utilisateur associé.
+ *                   example: 4
+ */
+
 // Récupère toutes les commentaires
 getCommentaire.get("/", auth, (req, res) => {
   Commentaire.findAll()

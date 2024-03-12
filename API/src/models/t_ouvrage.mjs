@@ -9,14 +9,13 @@ const LivreModel = (sequelize, DataTypes) => {
     },
     ouvTitre: {
       type: DataTypes.STRING,
-      // allowNull = pas obligatiore
       allowNull: false,
-      notEmpty: {
-        msg: "Le nom ne peut pas être vide.",
-      },
-      notNull: {
-        msg: "Le nom est une propriété obligatoire.",
-      },
+      validate:
+      {
+        notEmpty: {
+          msg: "Le nom ne peut pas être vide.",
+        },
+      }
     },
     ouvNbPage: {
         type: DataTypes.INTEGER
@@ -48,6 +47,7 @@ const LivreModel = (sequelize, DataTypes) => {
     },
     fk_categorie: {
       type: DataTypes.INTEGER,
+      allowNull: false,
         references: {
           model: 't_categorie',
           key: 'id_categorie'
@@ -57,6 +57,7 @@ const LivreModel = (sequelize, DataTypes) => {
     },
     fk_ecrivain: {
       type : DataTypes.INTEGER,
+      allowNull: false,
         references: {
           model: 't_ecrivain',
           key: 'id_ecrivain'
@@ -66,6 +67,7 @@ const LivreModel = (sequelize, DataTypes) => {
     },
     fk_editeur: {
       type : DataTypes.INTEGER,
+      allowNull: false,
         references: {
           model: 't_editeur',
           key: 'id_editeur'

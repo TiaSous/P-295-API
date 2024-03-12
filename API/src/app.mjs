@@ -9,21 +9,26 @@ import { getAllLivresCategorie } from "./routes/getAllLivresCategorie.mjs";
 import { getCommentaire } from "./routes/getCommentaire.mjs";
 import { addCommentaire } from "./routes/addCommentaires.mjs";
 import { getCategorie } from "./routes/getCategorie.mjs";
-import {addCategorie} from "./routes/addCategorie.mjs"
+import { addCategorie } from "./routes/addCategorie.mjs";
 import { loginRouter } from "./routes/login.mjs";
 import { getCategorieId } from "./routes/getCategorieId.mjs";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./swagger.mjs";
 
 const app = express();
 
 app.use(express.json());
-    
+
 const port = 3000;
 
 // à mettre en commentaire si db non allumée
-sequelize.authenticate().then((_) =>
-    console.log("La connexion à la base de données a bien été établie"),
+sequelize
+  .authenticate()
+  .then(
+    (_) => console.log("La connexion à la base de données a bien été établie")
     //initDB()
-).catch((error) => console.error("Impossible de se connecter à la DB"));
+  )
+  .catch((error) => console.error("Impossible de se connecter à la DB"));
 
 // message de bienvenu
 app.get("/", (req, res) => {
@@ -31,8 +36,14 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/", (req, res) => {
-    res.redirect(`http://localhost:${port}/`);
+  res.redirect(`http://localhost:${port}/`);
 });
+
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, { explorer: true })
+);
 
 // toutes les routes
 app.use("/api/livres", getLivre);
@@ -48,15 +59,14 @@ app.use("/api/categories", addCategorie);
 app.use("/api/categories", getAllLivresCategorie);
 app.use("/api/login", loginRouter);
 
-
 // va écouter sur le port
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
 });
 
 // routes introuvables
-app.use(({res}) => {
-  const message = "Impossible de trouver la ressource demmander ! Vous pouvez essayer une autre URL"
-  res.status(404).json(message)
+app.use(({ res }) => {
+  const message =
+    "Impossible de trouver la ressource demmander ! Vous pouvez essayer une autre URL";
+  res.status(404).json(message);
 });
-    

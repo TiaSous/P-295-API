@@ -5,6 +5,40 @@ import { auth } from "../auth/auth.mjs";
 
 const getCategorieId = express();
 
+/**
+ * @swagger
+ * /api/categories/{id}:
+ *   get:
+ *     tags: [Categories]
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Récupère une catégorie par son ID.
+ *     description: Récupère une catégorie spécifique en fonction de son ID. Peut être utilisé pour afficher les détails d'une catégorie.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID de la catégorie à récupérer.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: La catégorie demandée.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id_categorie:
+ *                   type: integer
+ *                   description: L'identifiant unique de la catégorie.
+ *                   example: 1
+ *                 catNom:
+ *                   type: string
+ *                   description: Le nom de la catégorie.
+ *                   example: "Fiction"
+ */
+
 // Récupère un livre
 getCategorieId.get("/:id", auth, (req, res) => {
   // cherche une catégorie selon l'id mis
@@ -30,4 +64,4 @@ getCategorieId.get("/:id", auth, (req, res) => {
 
 export { getCategorieId };
 
-// exemple de uri: http://localhost:3000/api/categorie/1
+// exemple de uri: http://localhost:3000/api/categories/1

@@ -8,11 +8,21 @@ const EcrivainModel = (sequelize, DataTypes) => {
     },
     ecrNom: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Le nom ne peut pas être vide.",
+          },
+        },
     },
     ecrPrenom: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Le prénom ne peut pas être vide.",
+          },
+        },
     },
   },
   {

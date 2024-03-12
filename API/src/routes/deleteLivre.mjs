@@ -5,6 +5,37 @@ import { auth } from "../auth/auth.mjs";
 
 const deleteLivre = express();
 
+/**
+ * @swagger
+ * /api/livres/{id}:
+ *   delete:
+ *     tags: [Livres]
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Supprime un livre.
+ *     description: Supprime un livre de la base de données en fonction de son identifiant.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: L'identifiant du livre à supprimer.
+ *         schema:
+ *           type: integer
+ *           example: 1
+ *     responses:
+ *       200:
+ *         description: Livre supprimé avec succès.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Message de confirmation.
+ *                   example: "Le livre et tout ses commentaires a bien été supprimé !"
+ */
+
 // Détruit le livre indiqué par l'id
 deleteLivre.delete("/:id", auth, (req, res) => {
   // recherche dans les livres pour trouver le livre
