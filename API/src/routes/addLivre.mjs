@@ -2,6 +2,7 @@ import express from "express";
 import { success } from "./helper.mjs";
 import { Livre } from "../db/sequelize.mjs";
 import { auth } from "../auth/auth.mjs";
+import { ValidationError } from "sequelize";
 
 const addLivre = express();
 
@@ -92,6 +93,9 @@ addLivre.post("/", auth, (req, res) => {
       res.json(success(message, livre));
     })
     .catch((error) => {
+      if (error instanceof ValidationError) {
+        return res.status(400).json({ message: error.message, data: error });
+      }
       // si échoue
       const message =
         "Le livre n'a pas pu être ajouté. Merci de réessayer dans quelques instants.";

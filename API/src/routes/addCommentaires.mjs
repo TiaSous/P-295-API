@@ -2,6 +2,7 @@ import express from "express";
 import { success } from "./helper.mjs";
 import { Commentaire } from "../db/sequelize.mjs";
 import { auth } from "../auth/auth.mjs";
+import { ValidationError } from "sequelize";
 
 const addCommentaire = express();
 
@@ -64,6 +65,9 @@ addCommentaire.post("/",auth, (req, res) => {
         const message = `Le commentaire a bien été créé !`;
         res.json(success(message, commentaires));
     }).catch((error) => {
+        if (error instanceof ValidationError) {
+            return res.status(400).json({ message: error.message, data: error });
+          }
         // si échoue
         const message = "La commentaire n'a pas pu être ajouté. Merci de réessayer dans quelques instants.";
         res.status(500).json({ message, data: error });
