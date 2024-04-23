@@ -1,3 +1,11 @@
+<script setup>
+const props = defineProps({
+    id: {
+        required: true
+    }
+})
+</script>
+
 <template>
-    <p>test</p>
+    <p>{{id}}</p>
 </template>

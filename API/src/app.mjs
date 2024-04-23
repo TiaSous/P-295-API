@@ -14,11 +14,12 @@ import { loginRouter } from "./routes/login.mjs";
 import { getCategorieId } from "./routes/getCategorieId.mjs";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./swagger.mjs";
+import cors from 'cors';
 
 const app = express();
 
 app.use(express.json());
-
+app.use(cors())
 const port = 3000;
 
 // à mettre en commentaire si db non allumée

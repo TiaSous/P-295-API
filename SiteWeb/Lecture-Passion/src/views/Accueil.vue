@@ -1,6 +1,23 @@
 <script setup>
-import ListeCategorie from '@/components/ListeCategorie.vue';
-const listeLivres = [{id:1,titre: "Harry", note: 4.5, couv: "/Harry-potter-a-l-ecole-des-sorciers 1.png"}, {id:2,titre: "Harry", note: 4.5, couv: "/Harry-potter-a-l-ecole-des-sorciers 1.png"}]
+import ListeCategorie from '@/components/ListeCategorie.vue'
+import {getLivres} from '@/services/BookService.mjs'
+import {ref, onMounted} from 'vue'
+
+const books = ref(null)
+const listeLivres = ref([]) // Initialisez listeLivres avec un tableau vide
+
+// Connexion à l'API au moment du montage du composant
+onMounted(() => {
+  getLivres(5)
+    .then((reponse) => {
+      books.value = reponse.data
+      console.log(books.value.data.rows)
+      listeLivres.value = books.value.data.rows
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+})
 
 </script>
 

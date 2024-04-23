@@ -9,11 +9,11 @@ const props = defineProps({
     <h2>{{ name }}</h2>
     <div class="liste-livres">
         <div v-for="livre in props.livres" class="livre">
-            <RouterLink :to="{name: 'livre-details', params: {id: livre.id}}">
-                <img :src="livre.couv" alt="">
+            <RouterLink :to="{name: 'livre-details', params: {id: livre.id_ouvrage}}">
+                <img :src="livre.ouvCouverture" alt="">
             </RouterLink>
-            <p>{{ livre.titre }}</p>
-            <p>{{ livre.note }}</p>
+            <p>{{ livre.ouvTitre }}</p>
+            <p>{{ livre.ouvNote }}</p>
         </div>
     </div>
 </template>

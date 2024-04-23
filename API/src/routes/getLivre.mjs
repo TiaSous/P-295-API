@@ -3,10 +3,10 @@ import { success } from "./helper.mjs";
 import { Livre } from "../db/sequelize.mjs";
 // op = opérateur
 import { Op } from "sequelize";
-import { auth } from "../auth/auth.mjs";
 
 const getLivre = express();
 
+getLivre.use(express.json());
 /**
  * @swagger
  * /api/livres/:
@@ -79,7 +79,7 @@ const getLivre = express();
  */
 
 // Récupère les livres
-getLivre.get("/", auth,(req, res) => {
+getLivre.get("/",(req, res) => {
   // s'il y un titre
   if (req.query.titre) {
     if (req.query.titre.length < 2) {
@@ -100,12 +100,41 @@ getLivre.get("/", auth,(req, res) => {
       res.json(success(message, livres));
     });
   }
+  // order par la date
+  else if (req.query.order) {
+    let limit = 3;
+    // s'il y a une limite
+    if (req.query.limit) {
+      limit = parseInt(req.query.limit);
+    }
+    // va trier par les paramètres mis
+    return Livre.findAndCountAll({
+      limit: limit,
+      order: [['ouvAnneeEdition', 'DESC']]
+    }).then((livres) => {
+      const message = `La liste de livres qui correspondent au terme de la recherche a été récupérer`;
+      res.json(success(message, livres));
+    });
+  }
+  // pour si il y a une limite
+  else if(req.query.limit)
+  {
+    let limit = 3;
+    limit = parseInt(req.query.limit);
+    // va trier par les paramètres mis
+    return Livre.findAndCountAll({
+      limit: limit,
+    }).then((livres) => {
+      const message = `La liste de livres qui correspondent au terme de la recherche a été récupérer`;
+      res.json(success(message, livres));
+    });
+  }
   // va afficher tout les livres
   Livre.findAll()
     .then((livres) => {
       // si réussie
       const message = "La liste des livres a bien été récupérée.";
-      res.json(success(message, livres));
+      res.status(200).json(success(message, livres));
     })
     .catch((error) => {
       // si échoue
