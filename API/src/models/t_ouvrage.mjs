@@ -38,42 +38,42 @@ const LivreModel = (sequelize, DataTypes) => {
     fk_utilisateur: {
       type: DataTypes.INTEGER,
       allowNull: false,
-        references: {
-          model: 't_utilisateur',
-          key: 'id_utilisateur'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        // references: {
+        //   model: 't_utilisateur',
+        //   key: 'id_utilisateur'
+        // },
+        // onUpdate: 'CASCADE',
+        // onDelete: 'CASCADE'
     },
     fk_categorie: {
       type: DataTypes.INTEGER,
       allowNull: false,
-        references: {
-          model: 't_categorie',
-          key: 'id_categorie'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        // references: {
+        //   model: 't_categorie',
+        //   key: 'id_categorie'
+        // },
+        // onUpdate: 'CASCADE',
+        // onDelete: 'CASCADE'
     },
     fk_ecrivain: {
       type : DataTypes.INTEGER,
       allowNull: false,
-        references: {
-          model: 't_ecrivain',
-          key: 'id_ecrivain'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        // references: {
+        //   model: 't_ecrivain',
+        //   key: 'id_ecrivain'
+        // },
+        // onUpdate: 'CASCADE',
+        // onDelete: 'CASCADE'
     },
     fk_editeur: {
       type : DataTypes.INTEGER,
       allowNull: false,
-        references: {
-          model: 't_editeur',
-          key: 'id_editeur'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        // references: {
+        //   model: 't_editeur',
+        //   key: 'id_editeur'
+        // },
+        // onUpdate: 'CASCADE',
+        // onDelete: 'CASCADE'
     }
   },
   {

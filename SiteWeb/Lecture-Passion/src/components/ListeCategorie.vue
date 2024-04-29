@@ -7,22 +7,29 @@ const props = defineProps({
 
 <template>
     <h2>{{ name }}</h2>
-    <div class="liste-livres">
-        <div v-for="livre in props.livres" class="livre">
-            <RouterLink :to="{name: 'livre-details', params: {id: livre.id_ouvrage}}">
-                <img :src="livre.ouvCouverture" alt="">
-            </RouterLink>
-            <p>{{ livre.ouvTitre }}</p>
-            <p>{{ livre.ouvNote }}</p>
+    <div v-if="livres.length <= 0">
+        <p>Chargement</p>
+    </div>
+    <div v-else>
+        <div class="liste-livres">
+            <div v-for="livre in props.livres" class="livre">
+                <RouterLink :to="{ name: 'livre-details', params: { id: livre.id_ouvrage } }">
+                    <img :src="livre.ouvCouverture" alt="">
+                </RouterLink>
+                <p>{{ livre.ouvTitre }}</p>
+                <p>{{ livre.t_ecrivain.ecrNom }}</p>
+                <p>{{ livre.t_utilisateur.utiPseudo }}</p>
+            </div>
         </div>
     </div>
 </template>
 
 <style scoped>
-.liste-livres{
+.liste-livres {
     display: flex;
 }
-.livre{
+
+.livre {
     display: flex;
     flex-direction: column;
     align-items: center;

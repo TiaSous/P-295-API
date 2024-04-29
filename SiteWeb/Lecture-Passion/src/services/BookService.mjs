@@ -19,3 +19,8 @@ export function getAllLivre() {
         }
     })
 }
+
+export function getLivreUser(id){
+    const endpoint = `${urlApi}/user/${id}/livres`;
+    return axios.get(endpoint)
+}

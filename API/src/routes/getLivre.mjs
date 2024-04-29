@@ -1,6 +1,6 @@
 import express from "express";
 import { success } from "./helper.mjs";
-import { Livre } from "../db/sequelize.mjs";
+import { Ecrivain, Livre, Utilisateur } from "../db/sequelize.mjs";
 // op = opérateur
 import { Op } from "sequelize";
 
@@ -95,6 +95,17 @@ getLivre.get("/",(req, res) => {
     return Livre.findAndCountAll({
       where: { ouvTitre: { [Op.like]: `%${req.query.titre}%` } },
       limit: limit,
+      include: [{
+        model: Ecrivain,
+        require: true,
+        attributes: ["id_ecrivain", "ecrNom"]
+      },
+      {
+        model: Utilisateur,
+        require: true,
+        attributes: ["id_utilisateur", "utiPseudo"]
+      },
+    ],
     }).then((livres) => {
       const message = `Il y a ${livres.count} livres qui correspondent au terme de la recherche`;
       res.json(success(message, livres));
@@ -110,7 +121,18 @@ getLivre.get("/",(req, res) => {
     // va trier par les paramètres mis
     return Livre.findAndCountAll({
       limit: limit,
-      order: [['ouvAnneeEdition', 'DESC']]
+      order: [['ouvAnneeEdition', 'DESC']],
+      include: [{
+        model: Ecrivain,
+        require: true,
+        attributes: ["id_ecrivain", "ecrNom"]
+      },
+      {
+        model: Utilisateur,
+        require: true,
+        attributes: ["id_utilisateur", "utiPseudo"]
+      },
+    ],
     }).then((livres) => {
       const message = `La liste de livres qui correspondent au terme de la recherche a été récupérer`;
       res.json(success(message, livres));
@@ -124,13 +146,36 @@ getLivre.get("/",(req, res) => {
     // va trier par les paramètres mis
     return Livre.findAndCountAll({
       limit: limit,
+      include: [{
+        model: Ecrivain,
+        require: true,
+        attributes: ["id_ecrivain", "ecrNom"]
+      },
+      {
+        model: Utilisateur,
+        require: true,
+        attributes: ["id_utilisateur", "utiPseudo"]
+      },
+    ],
     }).then((livres) => {
       const message = `La liste de livres qui correspondent au terme de la recherche a été récupérer`;
       res.json(success(message, livres));
     });
   }
   // va afficher tout les livres
-  Livre.findAll()
+  Livre.findAll({
+    include: [{
+      model: Ecrivain,
+      require: true,
+      attributes: ["id_ecrivain", "ecrNom"]
+    },
+    {
+      model: Utilisateur,
+      require: true,
+      attributes: ["id_utilisateur", "utiPseudo"]
+    },
+  ],
+  })
     .then((livres) => {
       // si réussie
       const message = "La liste des livres a bien été récupérée.";

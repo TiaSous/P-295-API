@@ -4,6 +4,7 @@ import Liste from '@/views/Liste.vue'
 import Connection from '@/views/Connection.vue'
 import DetailsLivre from '@/views/DetailsLivre.vue'
 import Inscription from '@/views/Inscription.vue'
+import UserPage from '@/views/UserPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +34,12 @@ const router = createRouter({
       path:'/inscription',
       name:'inscription',
       component: Inscription
+    },
+    {
+      path:'/user/:id',
+      name:'user',
+      component: UserPage,
+      props: true
     }
   ]
 })

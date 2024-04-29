@@ -69,7 +69,8 @@ INSERT INTO t_utilisateur (id_utilisateur, utiPseudo, utiMotDePasse, utiDateEntr
 VALUES 
 (1, 'Tiago', '$2b$10$dvqCnsw22gy8xiGVgJKzIOqjf4GCM1vmoA3iooUdSKYbJ3r056DCu', '2022-01-01', 5, 10, 'admin'),
 (2, 'Evin', '$2b$10$dvqCnsw22gy8xiGVgJKzIOqjf4GCM1vmoA3iooUdSKYbJ3r056DCu', '2022-02-01', 3, 7, 'admin'),
-(3, 'Alice', '$2b$10$dvqCnsw22gy8xiGVgJKzIOqjf4GCM1vmoA3iooUdSKYbJ3r056DCu', '2022-03-15', 8, 12, 'user');
+(3, 'Alice', '$2b$10$dvqCnsw22gy8xiGVgJKzIOqjf4GCM1vmoA3iooUdSKYbJ3r056DCu', '2022-03-15', 8, 12, 'user')
+(4, 'Tiago', '$2b$10$dvqCnsw22gy8xiGVgJKzIOqjf4GCM1vmoA3iooUdSKYbJ3r056DCu', '2022-01-01', 5, 10, 'admin');
 
 -- Insérer des catégories
 INSERT INTO t_categorie (id_categorie, catNom)

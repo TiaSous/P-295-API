@@ -30,6 +30,23 @@ const Ecrivain = EcrivainModel(sequelize, DataTypes);
 const Editeur = EditeurModel(sequelize, DataTypes);
 const Utilisateur = UtilisateurModel(sequelize, DataTypes);
 
+Livre.hasOne(Ecrivain, {
+  foreignKey: 'id_ecrivain'
+})
+Ecrivain.belongsTo(Livre, {
+  foreignKey: 'id_ecrivain'
+});
+
+Livre.hasOne(Utilisateur, {
+  foreignKey: 'id_utilisateur'
+})
+Utilisateur.belongsTo(Livre,
+  {
+    foreignKey: 'id_utilisateur'
+  }
+);
+
+
 export {
   sequelize,
   Livre,

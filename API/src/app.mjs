@@ -15,10 +15,10 @@ import { getCategorieId } from "./routes/getCategorieId.mjs";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./swagger.mjs";
 import cors from 'cors';
+import { getAllLivreUser } from "./routes/getLivreUser.mjs";
 
 const app = express();
-
-app.use(express.json());
+app.use(express.json())
 app.use(cors())
 const port = 3000;
 
@@ -54,11 +54,12 @@ app.use("/api/livres", deleteLivre);
 app.use("/api/livres", updateLivre);
 app.use("/api/commentaires", addCommentaire);
 app.use("/api/commentaires", getCommentaire);
-app.use("/api/categories", getCategorie);
+app.use("/api/categories", getCategorie); 
 app.use("/api/categories", getCategorieId);
 app.use("/api/categories", addCategorie);
 app.use("/api/categories", getAllLivresCategorie);
 app.use("/api/login", loginRouter);
+app.use("/api/user", getAllLivreUser)
 
 // va écouter sur le port
 app.listen(port, () => {
