@@ -4,7 +4,6 @@ const nom = ref()
 const mdp = ref()
 
 function OnSubmit(){
-    // TODO
     console.log(nom.value + mdp.value)
 } 
 </script>

@@ -1,7 +1,22 @@
 <script setup>
 import ListeCategorie from '../components/ListeCategorie.vue'
+import { getAllLivre } from '@/services/BookService.mjs';
+import {ref, onMounted} from 'vue'
 
-const listeLivres = [{id:13,titre: "Harry", note: 4.5, couv: "/Harry-potter-a-l-ecole-des-sorciers 1.png"}, {id:13,titre: "Harry", note: 4.5, couv: "/Harry-potter-a-l-ecole-des-sorciers 1.png"}]
+const books = ref(null)
+const listeLivres = ref([])
+
+onMounted(() => {
+  getAllLivre()
+    .then((reponse) => {
+      books.value = reponse.data
+      listeLivres.value = books.value.data.rows
+      console.log(listeLivres.value)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+})
 </script>
 <template>
     <main>

@@ -11,3 +11,11 @@ export function getLivres(limit = 3) {
         }
     })
 }
+
+export function getAllLivre() {
+    return axios.get(urlApi + '/livres', {
+        params: {
+            order: true
+        }
+    })
+}

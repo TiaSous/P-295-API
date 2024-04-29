@@ -11,7 +11,6 @@ onMounted(() => {
   getLivres(5)
     .then((reponse) => {
       books.value = reponse.data
-      console.log(books.value.data.rows)
       listeLivres.value = books.value.data.rows
     })
     .catch((error) => {
