@@ -98,7 +98,7 @@ getLivre.get("/",(req, res) => {
       include: [{
         model: Ecrivain,
         require: true,
-        attributes: ["id_ecrivain", "ecrNom"]
+        attributes: ["id_ecrivain", "ecrNom", "ecrPrenom"]
       },
       {
         model: Utilisateur,
@@ -125,7 +125,7 @@ getLivre.get("/",(req, res) => {
       include: [{
         model: Ecrivain,
         require: true,
-        attributes: ["id_ecrivain", "ecrNom"]
+        attributes: ["id_ecrivain", "ecrNom", "ecrPrenom"]
       },
       {
         model: Utilisateur,
@@ -149,7 +149,7 @@ getLivre.get("/",(req, res) => {
       include: [{
         model: Ecrivain,
         require: true,
-        attributes: ["id_ecrivain", "ecrNom"]
+        attributes: ["id_ecrivain", "ecrNom", "ecrPrenom"]
       },
       {
         model: Utilisateur,
@@ -167,7 +167,7 @@ getLivre.get("/",(req, res) => {
     include: [{
       model: Ecrivain,
       require: true,
-      attributes: ["id_ecrivain", "ecrNom"]
+      attributes: ["id_ecrivain", "ecrNom", "ecrPrenom"]
     },
     {
       model: Utilisateur,

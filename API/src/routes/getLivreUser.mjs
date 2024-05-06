@@ -2,6 +2,7 @@ import express from "express";
 import { success } from "./helper.mjs";
 import { Livre } from "../db/sequelize.mjs";
 import { Utilisateur, Ecrivain } from "../db/sequelize.mjs";
+import { Op } from "sequelize";
 
 const getAllLivreUser = express();
 
@@ -20,12 +21,13 @@ getAllLivreUser.get("/:id/livres", (req, res) => {
         include: [{
             model: Ecrivain,
             require: true,
-            attributes: ["id_ecrivain", "ecrNom"]
+            attributes: ["id_ecrivain", "ecrNom", "ecrPrenom"]
           },
           {
             model: Utilisateur,
             require: true,
-            attributes: ["id_utilisateur", "utiPseudo"]
+            attributes: ["id_utilisateur", "utiPseudo"],
+            
           }]
     })
       .then((livres) => {

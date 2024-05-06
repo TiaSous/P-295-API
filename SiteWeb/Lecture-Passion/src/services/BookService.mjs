@@ -13,14 +13,17 @@ export function getLivres(limit = 3) {
 }
 
 export function getAllLivre() {
-    return axios.get(urlApi + '/livres', {
-        params: {
-            order: true
-        }
+    return axios.get('http://localhost:3000/api/livres', {
+        params:{order: true}
     })
 }
 
 export function getLivreUser(id){
     const endpoint = `${urlApi}/user/${id}/livres`;
+    return axios.get(endpoint)
+}
+
+export function getLivreId(id) {
+    const endpoint = `${urlApi}/livres/${id}`;
     return axios.get(endpoint)
 }

@@ -11,7 +11,6 @@ function OnSubmit(){
 </script>
 
 <template>
-    <main>
         <h1>Inscription</h1>
         <form @submit.prevent="OnSubmit" class="review-form">
             <label for="pseudo">Pseudo: </label>
@@ -27,7 +26,6 @@ function OnSubmit(){
         <RouterLink to="/connection">   
           Connectez-vous
         </RouterLink>   
-    </main>
 </template>
 
 <style scoped>

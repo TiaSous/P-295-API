@@ -15,6 +15,7 @@ onMounted(() => {
     .then((reponse) => {
       books.value = reponse.data
       listeLivres.value = books.value.data.rows
+      console.log(listeLivres.value)
     })
     .catch((error) => {
       console.log(error)

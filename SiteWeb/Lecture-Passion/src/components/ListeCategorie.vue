@@ -17,8 +17,11 @@ const props = defineProps({
                     <img :src="livre.ouvCouverture" alt="">
                 </RouterLink>
                 <p>{{ livre.ouvTitre }}</p>
-                <p>{{ livre.t_ecrivain.ecrNom }}</p>
-                <p>{{ livre.t_utilisateur.utiPseudo }}</p>
+                <p>{{ livre.t_ecrivain.ecrPrenom }} {{ livre.t_ecrivain.ecrNom }}</p>
+                <RouterLink :to="{name: 'user', params: {id: livre.t_utilisateur.id_utilisateur}}">
+                    <p>{{ livre.t_utilisateur.utiPseudo }}</p>
+                </RouterLink>
+                
             </div>
         </div>
     </div>

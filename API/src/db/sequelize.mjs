@@ -31,21 +31,23 @@ const Editeur = EditeurModel(sequelize, DataTypes);
 const Utilisateur = UtilisateurModel(sequelize, DataTypes);
 
 Livre.hasOne(Ecrivain, {
-  foreignKey: 'id_ecrivain'
-})
-Ecrivain.belongsTo(Livre, {
-  foreignKey: 'id_ecrivain'
+  foreignKey: 'id_ecrivain',
+  sourceKey: 'fk_ecrivain'
+})  
+Livre.hasOne(Utilisateur, {
+  foreignKey: 'id_utilisateur', 
+  sourceKey: 'fk_utilisateur'
 });
 
-Livre.hasOne(Utilisateur, {
-  foreignKey: 'id_utilisateur'
+Livre.hasOne(Categorie, {
+  foreignKey: 'id_categorie', 
+  sourceKey: 'fk_categorie'
 })
-Utilisateur.belongsTo(Livre,
-  {
-    foreignKey: 'id_utilisateur'
-  }
-);
 
+Livre.hasOne(Editeur, {
+  foreignKey: 'id_editeur', 
+  sourceKey: 'fk_editeur'
+})
 
 export {
   sequelize,

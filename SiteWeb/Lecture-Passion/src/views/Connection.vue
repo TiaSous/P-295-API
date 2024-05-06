@@ -9,7 +9,6 @@ function OnSubmit(){
 </script>
 
 <template>
-    <main>
         <h1>Connexion</h1>
         <form @submit.prevent="OnSubmit" class="review-form">
             <label for="nom">Nom: </label>
@@ -22,7 +21,6 @@ function OnSubmit(){
         <RouterLink to="/inscription">   
           Créer un compte
         </RouterLink>   
-    </main>
 </template>
 
 <style scoped>

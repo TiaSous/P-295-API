@@ -21,15 +21,27 @@ onMounted(() => {
 </script>
 
 <template>
-  <main>
-    <h1>Bienvenu !</h1>
-    <h2>Description</h2>
-    <p>
+    <h1>Bienvenue !</h1>
+    <div>
+      <h2>Description</h2>
+      <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+      Eaque aspernatur possimus odio quo omnis mollitia atque non aliquam fugiat alias, 
+      autem est quia nam voluptatem provident quaerat. Ipsam, fugit. Cupiditate.
       Lorem ipsum dolor sit amet consectetur adipisicing elit. 
       Eaque aspernatur possimus odio quo omnis mollitia atque non aliquam fugiat alias, 
       autem est quia nam voluptatem provident quaerat. Ipsam, fugit. Cupiditate.
     </p>
-    <ListeCategorie :name="'Dernière Sortie'" :livres="listeLivres"></ListeCategorie>
+    </div>
     
-  </main>
+    
+    <ListeCategorie :name="'Dernière Sortie'" :livres="listeLivres"></ListeCategorie>
 </template>
+
+<style scoped>
+h1{
+  text-align: center;
+  margin-top: 10px;
+}
+
+</style>

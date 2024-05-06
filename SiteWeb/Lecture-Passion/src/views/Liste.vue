@@ -19,11 +19,9 @@ onMounted(() => {
 })
 </script>
 <template>
-    <main>
         <h1>Liste</h1>
         <ListeCategorie :name="'Roman'" :livres="listeLivres"></ListeCategorie>
         <ListeCategorie :name="'Aventure'" :livres="listeLivres"></ListeCategorie>
-    </main>
 </template>
 
 <style>
