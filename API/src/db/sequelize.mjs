@@ -49,6 +49,16 @@ Livre.hasOne(Editeur, {
   sourceKey: 'fk_editeur'
 })
 
+Commentaire.hasOne(Utilisateur, {
+  foreignKey: 'id_utilisateur', 
+  sourceKey: 'fk_utilisateur'
+})
+
+Commentaire.hasOne(Livre, {
+  foreignKey: 'id_ouvrage', 
+  sourceKey: 'fk_ouvrage'
+})
+
 export {
   sequelize,
   Livre,

@@ -22,7 +22,7 @@ onMounted(() => {
 
 <template>
     <h1>Bienvenue !</h1>
-    <div>
+    <div class="site-description">
       <h2>Description</h2>
       <p>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. 
@@ -32,16 +32,18 @@ onMounted(() => {
       Eaque aspernatur possimus odio quo omnis mollitia atque non aliquam fugiat alias, 
       autem est quia nam voluptatem provident quaerat. Ipsam, fugit. Cupiditate.
     </p>
-    </div>
-    
-    
+    </div>  
     <ListeCategorie :name="'Dernière Sortie'" :livres="listeLivres"></ListeCategorie>
 </template>
 
 <style scoped>
 h1{
   text-align: center;
-  margin-top: 10px;
+  margin-top: 50px;
+  margin-bottom: 40px;
 }
 
+.site-description{
+  margin-bottom: 40px;
+}
 </style>
