@@ -1,10 +1,13 @@
 <script setup>
 import { ref } from 'vue'
+import { login } from '@/services/BookService.mjs';
 const nom = ref()
 const mdp = ref()
 
 function OnSubmit(){
-    console.log(nom.value + mdp.value)
+    login(nom, mdp).then((response) => {
+        localStorage.setItem("token", response.data.token)
+    })
 } 
 </script>
 

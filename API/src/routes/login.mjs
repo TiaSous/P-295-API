@@ -45,7 +45,7 @@ const loginRouter = express();
 // route pour se loger et générer un token
 loginRouter.post("/", (req, res) => {
   // va chercher l'utilisateur
-  Utilisateur.findOne({ where: { utiPseudo: req.body.username } })
+  Utilisateur.findOne({ where: { utiPseudo: req.body.params.username._value } })
     .then((user) => {
       // si l'utilisateur n'existe pas
       if (!user) {
@@ -54,7 +54,7 @@ loginRouter.post("/", (req, res) => {
       }
       // va cripter le mdp pour voir si c'est le même qui est stocké
       bcrypt
-        .compare(req.body.password, user.utiMotDePasse)
+        .compare(req.body.params.password._value, user.utiMotDePasse)
         .then((isPasswordValid) => {
           // si mdp invalide
           if (!isPasswordValid) {
@@ -74,7 +74,7 @@ loginRouter.post("/", (req, res) => {
     .catch((error) => {
       // si échoue
       const message = `L'utilisateur n'a pas pu être connecté. Réessayez dans quelques instants`;
-      return res.json({ message, data: error });
+      return res.status(500).json({ message, data: error });
     });
 });
 

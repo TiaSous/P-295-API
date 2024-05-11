@@ -27,3 +27,13 @@ export function getLivreId(id) {
     const endpoint = `${urlApi}/livres/${id}`;
     return axios.get(endpoint)
 }
+
+export function login(name, mdp) {
+    const endpoint = `${urlApi}/login`;
+    return axios.post(endpoint, {
+        params:{
+            username: name,
+            password: mdp
+        }
+    })
+}
