@@ -55,10 +55,9 @@ const addCommentaire = express();
  */
 
 // ajouter un commentaire
-addCommentaire.post("/",auth, (req, res) => {
+addCommentaire.post("/", (req, res) => {
     // récupère les informations json mis par l'utilisateur (exemple en bas)
     const infoCommentaire = {...req.body};
-
     // Créer le commentaire
     Commentaire.create(infoCommentaire).then((commentaires) => {
         // si réussie

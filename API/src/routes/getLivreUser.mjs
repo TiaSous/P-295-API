@@ -2,14 +2,13 @@ import express from "express";
 import { success } from "./helper.mjs";
 import { Livre } from "../db/sequelize.mjs";
 import { Utilisateur, Ecrivain } from "../db/sequelize.mjs";
-import { Op } from "sequelize";
+import { auth } from "../auth/auth.mjs";
 
 const getAllLivreUser = express();
 
 // Récupère tous les livres d'une catégorie
-getAllLivreUser.get("/:id/livres", (req, res) => {
+getAllLivreUser.get("/:id/livres", auth,(req, res) => {
   // cheche la catégorie via l'id
-  
   Utilisateur.findByPk(req.params.id).then((user) => {
     if (user === null) {
       const message =

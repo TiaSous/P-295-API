@@ -9,12 +9,14 @@ const props = defineProps({
     id: {
         required: true
     }
-})
+});
+
 onMounted(() => {
     getLivreUser(props.id)
     .then((reponse) => {
       books.value = reponse.data
       listeLivres.value = books.value.data.rows
+      console.log(reponse)
     })
     .catch((error) => {
       console.log(error)
@@ -24,5 +26,8 @@ onMounted(() => {
 </script>
 
 <template>
+    <RouterLink to="/livre/add">
+      <p>add book</p>
+    </RouterLink>
     <ListeCategorie :name="'Ouvrage proposé'" :livres="listeLivres"></ListeCategorie>
 </template>

@@ -81,7 +81,7 @@ const getLivreId = express();
  */
 
 // Récupère un livre
-getLivreId.get("/:id", (req, res) => {
+getLivreId.get("/:id", auth, (req, res) => {
   // cherche un livre selon l'id mis
   Livre.findByPk(req.params.id, {
     include: [{

@@ -1,6 +1,6 @@
 import express from "express";
 import { success } from "./helper.mjs";
-import { Ecrivain, Livre, Utilisateur } from "../db/sequelize.mjs";
+import { Commentaire, Ecrivain, Livre, Utilisateur } from "../db/sequelize.mjs";
 // op = opérateur
 import { Op } from "sequelize";
 
@@ -189,6 +189,42 @@ getLivre.get("/",(req, res) => {
     });
 });
 
+getLivre.get("/:id/commentaire", (req, res) => {
+  // cheche la catégorie via l'id
+  Livre.findByPk(req.params.id).then((livre) => {
+    if (livre === null) {
+      const message =
+        "La categorie demandée n'existe pas. Merci de réessayer avec un autre identifiant.";
+      return res.status(404).json({ message });
+    }
+    
+    // retourne les livres
+    return Commentaire.findAndCountAll({ where: { fk_ouvrage: req.params.id }, include: [
+    {
+      model: Utilisateur,
+      require: true,
+      attributes: ["id_utilisateur", "utiPseudo"]
+    }
+  ], })
+      .then((commentaire) => {
+        // si aucun livre
+        if (commentaire.count == 0) {
+          const message =
+            "Aucun commentaire.";
+          return res.status(200).json({ message });
+        }
+        // si réussie
+        const message = "La liste des commentaires a bien été récupérée.";
+        res.json(success(message, commentaire));
+      })
+      .catch((error) => {
+        // si échoue
+        const message =
+          "La liste des livres n'a pas pu être récupérée. Merci de réessayer dans quelques instants.";
+        res.status(500).json({ message, data: error });
+      });
+  });
+});
 export { getLivre };
 /*
 exemple de uri: http://localhost:3000/api/livres

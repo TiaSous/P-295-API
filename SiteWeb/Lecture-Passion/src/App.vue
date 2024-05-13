@@ -5,17 +5,22 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <header>
     <nav>
+      <section class="search-container">
+        <input type="text" class="search-input" placeholder="Que recherchez-vous ?">
+        <button class="search-button">Search</button>
+      </section>
+
       <RouterLink to="/">
-        <img src="./assets/image/logo.png" alt="">
+        <h1 class="logo">BOOK STORY</h1>
       </RouterLink>
-      <div>
-        <input type="search" id="site-search" name="q" />
-        <button>Search</button>
-      </div>
-      <RouterLink to="/" class="navigation"><button class="button-3" role="button">Accueil</button></RouterLink>
-      <RouterLink class="navigation" to="/liste"><button class="button-3" role="button">Liste</button></RouterLink>
+      <RouterLink to="/" class="navigation">
+        <p class="button-3" role="button">Accueil</p>
+      </RouterLink>
+      <RouterLink class="navigation" to="/liste">
+        <p class="button-3" role="button">Liste</p>
+      </RouterLink>
       <RouterLink to="/connection">
-        <img src="./assets/image/connection.png" alt="" width="100px">
+        <img class="user" src="./assets/image/connection.png" alt="" >
       </RouterLink>
     </nav>
   </header>
@@ -23,8 +28,13 @@ import { RouterLink, RouterView } from 'vue-router'
     <RouterView />
   </main>
   <footer>
-    <p>Auteur</p>
-    <p>Contact</p>
+    <div>
+      <p>Auteur</p>
+      <p>Contact</p>
+    </div>
+    <div>
+      <p>© 2024 Book Story. All rights reserved.</p>
+    </div>
   </footer>
 </template>
 
@@ -33,6 +43,7 @@ import { RouterLink, RouterView } from 'vue-router'
   font-family: Inter-light;
   src: url('./assets/font/Inter-Light.ttf');
 }
+
 @font-face {
   font-family: Inter-Medium;
   src: url('./assets/font/Inter-Medium.ttf');
@@ -45,16 +56,57 @@ import { RouterLink, RouterView } from 'vue-router'
   font-family: Inter-light;
 }
 
+.logo {
+  color: rgb(76, 175, 80);
+
+}
+
 header,
 footer {
-  background-color: #063033;
+  background-color: #ffffff;
   width: 100%;
 }
 
-#barre-recherche {
-  background-color: white;
-  height: 50px;
-  width: 20%;
+header {
+  border-bottom: 3px solid rgb(76, 175, 80);
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  background-color: #fff;
+  
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 10px 15px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border-right: none;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+.search-button {
+  padding: 5px 15px;
+  background-color: #4CAF50;
+  color: white;
+  text-transform: uppercase;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 0 5px 5px 0;
+}
+
+.search-button:hover {
+  background-color: #45A049;
+}
+
+.user{
+  width: 50px;
+  margin-top: 9px;
 }
 
 nav {
@@ -65,67 +117,29 @@ nav {
 }
 
 main {
-  background-color: #14484B;
-  color: white;
-  padding-left: 15%;
+  background-color: #ffffff;
+  color: rgb(76, 175, 80);
+
   padding-right: 15%;
 }
 
 a {
-  color: white;
+  color: rgb(76, 175, 80);
 }
 
 footer {
   height: 40px;
+  border-top: 3px solid rgb(76, 175, 80);
+  display: flex;
+  flex-grow: 2;
+
 }
 
 body {
-  background-color: #14484B;
+  background-color: #ffffff;
 }
 
 p {
-  color: white;
-}
-
-/* button */
-.button-3 {
-  appearance: none;
-  background-color: #1A888F;
-  ;
-  border: 1px solid rgba(27, 31, 35, .15);
-  border-radius: 10px;
-  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  font-size: 25px;
-  font-weight: 600;
-  line-height: 40px;
-  width: 160px;
-  padding: 6px 16px;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: middle;
-  white-space: nowrap;
-}
-
-.button-3:focus:not(:focus-visible):not(.focus-visible) {
-  box-shadow: none;
-  outline: none;
-}
-
-.button-3:hover {
-  background-color: #125d63;
-}
-
-.button-3:focus {
-  box-shadow: rgba(46, 156, 164, 0.4) 0 0 0 3px;
-  outline: none;
+  color: rgb(7, 150, 15);
 }
 </style>

@@ -62,7 +62,7 @@ loginRouter.post("/", (req, res) => {
             return res.status(401).json({ message });
           } else {
             // génére un token (expire 1)
-            const token = jwt.sign({ userId: user.id_utilisateur }, privateKey, {
+            const token = jwt.sign({ userId: user.id_utilisateur, userRole: user.utiRole }, privateKey, {
               expiresIn: "1y",
             });
             // si réussie

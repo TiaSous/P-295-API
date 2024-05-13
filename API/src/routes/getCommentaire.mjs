@@ -47,7 +47,7 @@ const getCommentaire = express();
  */
 
 // Récupère toutes les commentaires
-getCommentaire.get("/", auth, (req, res) => {
+getCommentaire.get("/", (req, res) => {
   Commentaire.findAll()
     .then((commentaires) => {
       // si réussie
@@ -61,6 +61,7 @@ getCommentaire.get("/", auth, (req, res) => {
       res.status(500).json({ message, data: error });
     });
 });
+
 
 export { getCommentaire };
 
