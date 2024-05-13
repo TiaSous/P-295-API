@@ -34,7 +34,7 @@ const getCategorie = express();
  */
 
 // Récupère une catégorie
-getCategorie.get("/", auth, (req, res) => {
+getCategorie.get("/", (req, res) => {
   // Ajout de la recherche par nom de catégorie
   if (req.query.nom) {
     if (req.query.nom.length < 2) {

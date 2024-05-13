@@ -1,28 +1,25 @@
 <script setup>
-import ListeCategorie from '../components/ListeCategorie.vue'
-import { getAllLivre } from '@/services/BookService.mjs';
-import {ref, onMounted} from 'vue'
+import { getCategories } from '@/services/BookService.mjs';
+import { ref, onMounted } from 'vue'
 
-const books = ref(null)
-const listeLivres = ref([])
+const categories = ref()
 
 onMounted(() => {
-  getAllLivre()
-    .then((reponse) => {
-      books.value = reponse.data
-      listeLivres.value = books.value.data.rows
-      console.log(listeLivres.value)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  getCategories().then((reponse) => {
+    categories.value = reponse.data.data
+  }).catch((error) => {
+    console.log(error)
+  })
 })
 </script>
 <template>
-        <h1>Liste</h1>
-        <ListeCategorie :name="'Roman'" :livres="listeLivres"></ListeCategorie>
-        <ListeCategorie :name="'Aventure'" :livres="listeLivres"></ListeCategorie>
+  <h1>Liste des catégories</h1>
+  <div v-for="categorie in categories">
+    <RouterLink :to="{ name: 'livre-categorie', params: { id: categorie.id_categorie } }">
+      <p>{{ categorie.catNom }}</p>
+    </RouterLink>
+  </div>
+  
 </template>
 
-<style>
-</style>
+<style></style>

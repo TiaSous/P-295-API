@@ -69,3 +69,13 @@ export function addLivre (idBook, idUser, text, note)
         fk_utilisateur: idUser
     })
 }
+
+export function getCategories() {
+    const endpoint = `${urlApi}/categories`;
+    return axios.get(endpoint)
+}
+
+export function getAllLivresCategorie(id) {
+    const endpoint = `${urlApi}/categories/${id}/livres`;
+    return axios.get(endpoint)
+}

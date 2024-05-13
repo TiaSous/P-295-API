@@ -6,6 +6,7 @@ import DetailsLivre from '@/views/DetailsLivre.vue'
 import Inscription from '@/views/Inscription.vue'
 import UserPage from '@/views/UserPage.vue'
 import AddLivre from '@/views/AddLivre.vue'
+import ListeLivreCategorie from '@/views/ListeLivreCategorie.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -46,6 +47,12 @@ const router = createRouter({
       path:'/livre/add',
       name:'add-livre',
       component: AddLivre
+    },
+    {
+      path:'/categorie/:id/livre',
+      name:'livre-categorie',
+      component: ListeLivreCategorie,
+      props: true
     }
   ]
 })
