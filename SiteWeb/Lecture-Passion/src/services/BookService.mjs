@@ -79,3 +79,10 @@ export function getAllLivresCategorie(id) {
     const endpoint = `${urlApi}/categories/${id}/livres`;
     return axios.get(endpoint)
 }
+
+export function getCommentairesUser(id) {
+    const endpoint = `${urlApi}/user/${id}/commentaires`;
+    return axios.get(endpoint, {headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+    }})
+}

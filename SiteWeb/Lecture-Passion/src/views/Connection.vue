@@ -21,9 +21,6 @@ function OnSubmit(){
 
             <input class="button" type="submit" value="Submit">
         </form>
-        <RouterLink to="/inscription">   
-          Créer un compte
-        </RouterLink>   
 </template>
 
 <style scoped>

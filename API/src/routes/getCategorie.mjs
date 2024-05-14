@@ -57,6 +57,13 @@ getCategorie.get("/", (req, res) => {
       res.json(success(message, categories));
     });
   }
+  else if (req.query.nomprecis) {
+    return Categorie.findAll({
+      where: { catNom:  req.query.nomprecis},
+    }).then((categories) => {
+      res.json(success(categories));
+    });
+  }
   // Affiche toutes les catégories si aucune recherche spécifique n'est effectuée
   Categorie.findAll()
     .then((categories) => {

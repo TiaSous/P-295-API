@@ -103,6 +103,11 @@ getAllLivresCategorie.get("/:id/livres", (req, res) => {
       require: true,
       attributes: ["id_utilisateur", "utiPseudo"]
     },
+    {
+      model: Categorie,
+      require: true,
+      attributes: ["id_categorie", "catNom"]
+    }
   ] })
       .then((livres) => {
         // si aucun livre

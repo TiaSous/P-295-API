@@ -17,6 +17,7 @@ onMounted(() => {
     .then((reponse) => {
       books.value = reponse.data
       listeLivres.value = books.value.data.rows
+      
     })
     .catch((error) => {
       console.log(error)
@@ -25,5 +26,6 @@ onMounted(() => {
 </script>
 
 <template>
-    <ListeCategorie v-if="listeLivres.length > 0" :name="props.name" :livres="listeLivres"></ListeCategorie>
+    <ListeCategorie v-if="listeLivres.length > 0" :name="listeLivres[0].t_categorie.catNom" :livres="listeLivres"></ListeCategorie>
+    <div v-else>Aucun livre dans cette catégorie</div>
 </template>

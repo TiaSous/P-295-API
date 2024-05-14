@@ -3,11 +3,11 @@ import Accueil from '@/views/Accueil.vue'
 import Liste from '@/views/Liste.vue'
 import Connection from '@/views/Connection.vue'
 import DetailsLivre from '@/views/DetailsLivre.vue'
-import Inscription from '@/views/Inscription.vue'
 import UserPage from '@/views/UserPage.vue'
 import AddLivre from '@/views/AddLivre.vue'
 import ListeLivreCategorie from '@/views/ListeLivreCategorie.vue'
 
+// todo lazy loading
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -31,11 +31,6 @@ const router = createRouter({
       name:'livre-details',
       component: DetailsLivre,
       props: true
-    },
-    {
-      path:'/inscription',
-      name:'inscription',
-      component: Inscription
     },
     {
       path:'/user/:id',

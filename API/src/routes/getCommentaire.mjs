@@ -62,7 +62,6 @@ getCommentaire.get("/", (req, res) => {
     });
 });
 
-
 export { getCommentaire };
 
 // exemple de uri: http://localhost:3000/api/categories
