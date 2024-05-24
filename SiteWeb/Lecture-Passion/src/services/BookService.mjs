@@ -59,15 +59,12 @@ export function addCommentaire (idBook, idUser, text, note)
 }
 
 
-export function addLivre (idBook, idUser, text, note)
+export function addLivre (body)
 {
-    const endpoint = `${urlApi}/commentaires`;
-    return axios.post(endpoint, {
-        comAppreciation: note,
-        comCommentaire: text,
-        fk_ouvrage: idBook,
-        fk_utilisateur: idUser
-    })
+    const endpoint = `${urlApi}/livres`;
+    return axios.post(endpoint, body, {headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+    }})
 }
 
 export function getCategories() {
@@ -85,4 +82,14 @@ export function getCommentairesUser(id) {
     return axios.get(endpoint, {headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
     }})
+}
+
+export function getEditeurs() {
+    const endpoint = `${urlApi}/editeurs`;
+    return axios.get(endpoint)
+}
+
+export function getEcrivains(){
+    const endpoint = `${urlApi}/ecrivains`;
+    return axios.get(endpoint)
 }

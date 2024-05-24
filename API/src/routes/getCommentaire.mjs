@@ -1,7 +1,6 @@
 import express from "express";
 import { success } from "./helper.mjs";
 import { Commentaire } from "../db/sequelize.mjs";
-import { auth } from "../auth/auth.mjs";
 
 const getCommentaire = express();
 

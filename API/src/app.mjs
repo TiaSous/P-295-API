@@ -17,6 +17,8 @@ import { swaggerSpec } from "./swagger.mjs";
 import cors from 'cors';
 import { getAllLivreUser } from "./routes/getLivreUser.mjs";
 import { getAllComentaireUser } from "./routes/getCommentairesUser.mjs";
+import { getEditeur } from "./routes/getEditeur.mjs";
+import { getEcrivain } from "./routes/getEcrivain.mjs";
 
 const app = express();
 app.use(express.json())
@@ -60,8 +62,10 @@ app.use("/api/categories", getCategorieId);
 app.use("/api/categories", addCategorie);
 app.use("/api/categories", getAllLivresCategorie);
 app.use("/api/login", loginRouter);
-app.use("/api/user", getAllLivreUser) 
+app.use("/api/user", getAllLivreUser);
 app.use("/api/user", getAllComentaireUser);
+app.use("/api/editeurs", getEditeur);
+app.use("/api/ecrivains", getEcrivain);
 
 // va écouter sur le port
 app.listen(port, () => {
