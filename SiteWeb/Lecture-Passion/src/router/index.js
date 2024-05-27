@@ -1,11 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Accueil from '@/views/Accueil.vue'
-import Liste from '@/views/Liste.vue'
-import Connection from '@/views/Connection.vue'
-import DetailsLivre from '@/views/DetailsLivre.vue'
-import UserPage from '@/views/UserPage.vue'
-import AddLivre from '@/views/AddLivre.vue'
-import ListeLivreCategorie from '@/views/ListeLivreCategorie.vue'
+
 
 // todo lazy loading
 const router = createRouter({
@@ -19,34 +14,34 @@ const router = createRouter({
     {
       path: '/liste',
       name: 'liste',
-      component: Liste
+      component: () => import('@/views/Liste.vue')
     },
     {
       path:'/connection',
       name:'connection',
-      component: Connection
+      component: () => import('@/views/Connection.vue')
     },
     {
       path:'/livre/:id',
       name:'livre-details',
-      component: DetailsLivre,
+      component: () => import('@/views/DetailsLivre.vue'),
       props: true
     },
     {
       path:'/user/:id',
       name:'user',
-      component: UserPage,
+      component: () => import('@/views/UserPage.vue'),
       props: true
     },
     {
       path:'/livre/add',
       name:'add-livre',
-      component: AddLivre
+      component: () => import('@/views/AddLivre.vue'),
     },
     {
       path:'/categorie/:id/livre',
       name:'livre-categorie',
-      component: ListeLivreCategorie,
+      component: () => import('@/views/ListeLivreCategorie.vue'),
       props: true
     }
   ]

@@ -49,8 +49,8 @@ loginRouter.post("/", (req, res) => {
     .then((user) => {
       // si l'utilisateur n'existe pas
       if (!user) {
-        const message = `L'utilisateur demandé n'existe pas`;
-        return res.status(404).json({ message });
+        const message = `mauvaise entrer`;
+        return res.status(401).json({ message });
       }
       // va cripter le mdp pour voir si c'est le même qui est stocké
       bcrypt
@@ -58,7 +58,7 @@ loginRouter.post("/", (req, res) => {
         .then((isPasswordValid) => {
           // si mdp invalide
           if (!isPasswordValid) {
-            const message = `Le mot de passe est incorrecte.`;
+            const message = `mauvaise entrer`;
             return res.status(401).json({ message });
           } else {
             // génére un token (expire 1)

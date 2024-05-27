@@ -1,20 +1,35 @@
 <script setup>
+import { onMounted, ref } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
+import { decodeToken } from './tools/decodeToken.mjs';
+
+const token = ref()
+const userId = ref(0)
+onMounted(() => {
+  try
+  {
+    getToken();
+  }catch{
+    userId.value = 0
+  }
+})
+
+function getToken() {
+  const test = localStorage.getItem('token')
+  token.value = decodeToken(test)
+  userId.value = token.value.userId
+}
 </script>
 
 <template>
   <header>
     <nav>
-      <section class="search-container">
-        <input type="text" class="search-input" placeholder="Que recherchez-vous ?">
-        <button class="search-button">Search</button>
-      </section>
 
       <RouterLink to="/">
         <h1 class="logo">BOOK STORY</h1>
       </RouterLink>
-      <RouterLink to="/" class="navigation">
-        <p class="button-3" role="button">Accueil</p>
+      <RouterLink :to="{name: 'user', params: {id: userId}}" class="navigation">
+        <p class="button-3" role="button">Mes ouvrages</p>
       </RouterLink>
       <RouterLink class="navigation" to="/liste">
         <p class="button-3" role="button">Liste</p>
@@ -69,39 +84,6 @@ footer {
 
 header {
   border-bottom: 3px solid rgb(76, 175, 80);
-}
-
-.search-container {
-  display: flex;
-  justify-content: center;
-  padding: 10px;
-  background-color: #fff;
-  
-}
-
-.search-input {
-  flex-grow: 1;
-  padding: 10px 15px;
-  font-size: 12px;
-  border: 1px solid #ccc;
-  border-right: none;
-  border-radius: 5px 0 0 5px;
-  outline: none;
-}
-
-.search-button {
-  padding: 5px 15px;
-  background-color: #4CAF50;
-  color: white;
-  text-transform: uppercase;
-  font-size: 12px;
-  border: none;
-  cursor: pointer;
-  border-radius: 0 5px 5px 0;
-}
-
-.search-button:hover {
-  background-color: #45A049;
 }
 
 .user{

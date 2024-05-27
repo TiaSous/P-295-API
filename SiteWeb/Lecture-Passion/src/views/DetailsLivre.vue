@@ -1,5 +1,5 @@
 <script setup>
-import { addCommentaire, getCommentaire, getLivreId } from "@/services/BookService.mjs";
+import { addCommentaire, getCommentaire, getLivreId, updateLivre } from "@/services/BookService.mjs";
 import { decodeToken } from "@/tools/decodeToken.mjs";
 import { computed, onMounted, ref } from "vue";
 
@@ -15,8 +15,19 @@ const text = ref()
 
 const token = ref()
 
+const moyenneNote = ref();
+
 function OnSubmit() {
     addCommentaire(id.value, token.value.userId, text.value, note.value)
+    if(commentaires.value){
+        moyenneNote.value = (commentaires.value.reduce((sum, note) => sum + note.comAppreciation, 0) + note.value) / (commentaires.value.length + 1)
+    }
+    else
+    {
+        moyenneNote.value = note.value
+    }
+    updateLivre(id.value,{ ouvMoyenneAppreciation: Math.round(moyenneNote.value) })
+
 }
 onMounted(async () => {
     await getLivreId(id.value)
@@ -29,10 +40,9 @@ onMounted(async () => {
                 IsError401.value = true
             }
         });
-        
+
     if (IsError401.value == false) {
         getCommentaire(id.value).then((response) => {
-            console.log(response.data.data.rows)
             commentaires.value = response.data.data.rows;
         }).catch((error) => {
             console.log(error)
@@ -77,8 +87,15 @@ onMounted(async () => {
             </form>
         </div>
         <div>
-            <div v-for="comentaire in commentaires">
-                {{ comentaire.comCommentaire }}
+            <br>
+            <div v-for="commentaire in commentaires">
+                note : {{ commentaire.comAppreciation }} <br>
+                Commentaire : {{ commentaire.comCommentaire }}
+                <br>
+                <RouterLink :to="{ name: 'user', params: { id: commentaire.fk_utilisateur } }">
+                    <p class="user-text">Publié par : {{ commentaire.t_utilisateur.utiPseudo }}</p>
+                </RouterLink>
+                <br>
             </div>
         </div>
     </div>

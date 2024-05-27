@@ -93,3 +93,11 @@ export function getEcrivains(){
     const endpoint = `${urlApi}/ecrivains`;
     return axios.get(endpoint)
 }
+
+export function updateLivre (id, body)
+{
+    const endpoint = `${urlApi}/livres/${id}`;
+    return axios.put(endpoint, body, {headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+    }})
+}
