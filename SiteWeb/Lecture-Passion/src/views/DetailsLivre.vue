@@ -3,11 +3,12 @@ import { addCommentaire, getCommentaire, getLivreId, updateLivre } from "@/servi
 import { decodeToken } from "@/tools/decodeToken.mjs";
 import { computed, onMounted, ref } from "vue";
 
-const props = defineProps(["id"]);
-const IsError401 = ref()
+
+const props = defineProps(["id"]) // id du livre
+const IsError401 = ref() // si pas de token
 
 const livre = ref("");
-const id = computed(() => props.id);
+const id = computed(() => props.id)
 const commentaires = ref()
 
 const note = ref()
@@ -17,6 +18,7 @@ const token = ref()
 
 const moyenneNote = ref();
 
+// losrqu'il ajoute un commentaire
 function OnSubmit() {
     addCommentaire(id.value, token.value.userId, text.value, note.value)
     if(commentaires.value){
@@ -29,6 +31,8 @@ function OnSubmit() {
     updateLivre(id.value,{ ouvMoyenneAppreciation: Math.round(moyenneNote.value) })
 
 }
+
+// va récupérer le selon l'id et les commentaires liées
 onMounted(async () => {
     await getLivreId(id.value)
         .then((response) => {
@@ -64,7 +68,6 @@ onMounted(async () => {
                     <p class="user-text">Publié par : {{ livre.t_utilisateur.utiPseudo }}</p>
                 </RouterLink>
             </div>
-
             <div class="detail-livre-text">
                 <p>Titre : {{ livre.ouvTitre }}</p>
                 <p>Auteur : {{ livre.t_ecrivain.ecrPrenom }} {{ livre.t_ecrivain.ecrNom }}</p>

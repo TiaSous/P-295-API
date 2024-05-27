@@ -14,6 +14,7 @@ onMounted(() => {
   }
 })
 
+// récupère le token pour le user id
 function getToken() {
   const test = localStorage.getItem('token')
   token.value = decodeToken(test)
@@ -24,7 +25,6 @@ function getToken() {
 <template>
   <header>
     <nav>
-
       <RouterLink to="/">
         <h1 class="logo">BOOK STORY</h1>
       </RouterLink>

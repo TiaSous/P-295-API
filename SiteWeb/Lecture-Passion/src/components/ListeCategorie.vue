@@ -1,5 +1,7 @@
 <script setup>
 import AffichageLivre from '@/components/AffichageLivre.vue'
+
+// liste des livres
 const props = defineProps({
     name: String,
     livres: Array

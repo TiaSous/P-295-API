@@ -1,4 +1,5 @@
 <script setup>
+// livre à afficher
 const props = defineProps({
     livre: Object
 })

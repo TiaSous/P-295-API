@@ -1,10 +1,11 @@
 <script setup>
 import { ref } from 'vue'
 import { login } from '@/services/BookService.mjs';
-import router from '@/router';
+
 const nom = ref()
 const mdp = ref()
 
+// lorsqu'il tente de se connecter
 function OnSubmit() {
     login(nom, mdp).then((response) => {
         localStorage.setItem("token", response.data.token)

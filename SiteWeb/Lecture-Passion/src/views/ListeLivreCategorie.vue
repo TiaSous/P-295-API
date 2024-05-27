@@ -6,6 +6,7 @@ import ListeCategorie from '../components/ListeCategorie.vue'
 const books = ref(null)
 const listeLivres = ref([])
 
+// id de la catégorie
 const props = defineProps({
     id: {
         required: true

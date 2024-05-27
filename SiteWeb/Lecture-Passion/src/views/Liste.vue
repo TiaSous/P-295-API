@@ -4,6 +4,7 @@ import { ref, onMounted } from 'vue'
 
 const categories = ref()
 
+// récupère et affiche la liste des catégorie
 onMounted(() => {
   getCategories().then((reponse) => {
     categories.value = reponse.data.data

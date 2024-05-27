@@ -6,6 +6,7 @@ import { onMounted, ref } from 'vue';
 
 const IsError401 = ref()
 
+// tous les champs du livres
 const titre = ref()
 const nbPage = ref()
 const resume = ref()
@@ -25,8 +26,8 @@ const allEcrivains = ref()
 
 const exist = ref(false)
 
+// va récupérer la liste des catégories, des éditeurs et écrivains
 onMounted(() => {
-
     getCategories().then((response) => {
         IsError401.value = false
         allCategories.value = response.data.data
@@ -53,7 +54,7 @@ onMounted(() => {
     })
 })
 
-
+// lorsqu'il ajoute un livre
 async function Submit() {
     const body = {
         ouvTitre: titre.value,
