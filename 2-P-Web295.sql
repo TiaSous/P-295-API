@@ -37,7 +37,7 @@ VALUES
 (1, 'Le Trône de Fer', 800, 'Une épopée fantastique dans un monde imaginaire.', '1996-08-06', 'trone_de_fer.jpg', 'extrait_trone_de_fer.txt', 4, 1, 1, 1, 1),
 (2, 'Test Potter à l\école des sorciers', 320, 'L\histoire de Harry Potter et ses amis à Poudlard.', '1997-06-26', 'harry_potter.jpg', 'extrait_harry_potter.txt', 5, 2, 2, 2, 2),
 (3, 'Le Crime de l\Orient-Express', 250, 'Un meurtre mystérieux à bord du célèbre train.', '1934-01-01', 'crime_orient_express.jpg', 'extrait_crime_orient_express.txt', 4, 3,3, 3, 3),
-(4, 'Le Vieil Homme et la Mer', 127, 'Un pêcheur cubain lutte contre un énorme poisson dans le golfe du Mexique.', '1952-09-01', 'vieil_homme_mer.jpg', 'extrait_vieil_homme_mer.txt', 5, 3,1, 4, 4);
+(4, 'Le Vieil Homme et la Mer', 127, 'Un pêcheur cubain lutte contre un énorme poisson dans le golfe du Mexique.', '1952-09-01', 'vieil_homme_mer.jpg', 'extrait_vieil_homme_mer.txt', 4, 3,1, 4, 4);
 
 -- Insérer des commentaires
 INSERT INTO t_commentaire (id_commentaire, comAppreciation, comCommentaire, fk_ouvrage, fk_utilisateur)
