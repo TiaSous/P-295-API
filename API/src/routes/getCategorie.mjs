@@ -2,7 +2,6 @@ import express from "express";
 import { success } from "./helper.mjs";
 import { Categorie } from "../db/sequelize.mjs";
 import { Op } from "sequelize";
-import { auth } from "../auth/auth.mjs";
 
 const getCategorie = express();
 

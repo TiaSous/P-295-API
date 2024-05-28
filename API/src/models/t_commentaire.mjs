@@ -14,7 +14,7 @@ const CommentaireModel = (sequelize, DataTypes) => {
         // il peut no
         validate: {
           min: {
-            args: [1],
+            args: [0],
             msg: 'La valeur minimale autorisée est 1.'
           },
           max: {

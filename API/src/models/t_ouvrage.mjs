@@ -24,7 +24,15 @@ const LivreModel = (sequelize, DataTypes) => {
         type: DataTypes.STRING
     },
     ouvAnneeEdition: {
-        type: DataTypes.DATE
+      type: DataTypes.DATE,
+      get() {
+        const rawValue = this.getDataValue('ouvAnneeEdition');
+        if (rawValue) {
+          const date = new Date(rawValue);
+          return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
+        }
+        return null;
+      }
     },
     ouvCouverture: {
       type: DataTypes.STRING

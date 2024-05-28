@@ -107,6 +107,7 @@ main {
 
 a {
   color: rgb(76, 175, 80);
+  text-decoration: underline;
 }
 
 footer {
@@ -124,4 +125,6 @@ body {
 p {
   color: rgb(7, 150, 15);
 }
+
+
 </style>

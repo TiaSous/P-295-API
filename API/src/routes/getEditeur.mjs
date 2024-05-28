@@ -1,10 +1,11 @@
 import express from "express";
 import { success } from "./helper.mjs";
 import { Editeur } from "../db/sequelize.mjs";
+import { auth } from "../auth/auth.mjs";
 
 const getEditeur = express();
 
-getEditeur.get("/", (req, res) => {
+getEditeur.get("/", auth,(req, res) => {
     Editeur.findAll()
       .then((editeurs) => {
         // si réussie
