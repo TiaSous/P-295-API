@@ -82,7 +82,7 @@ onMounted(async () => {
         <div>
             <form @submit="OnSubmit" class="review-form">
                 <label for="note">Note: </label>
-                <input required type="number" class="note" min="0" max="5" v-model="note" />
+                <input required type="number" class="note" min="0" max="255" v-model="note" />
                 <label for="text">Commentaire: </label>
                 <input required class="text" type="text" v-model="text"  maxlength="10"  >
 

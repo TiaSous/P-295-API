@@ -85,13 +85,12 @@ async function Submit() {
         fk_ecrivain: ecrivain.value,
         fk_editeur: editeur.value
     }
-    addLivre(body).then(() => {
+    await addLivre(body).then(() => {
         alert("Le livre a été ajouté")
     }).catch(() => {
         alert("Le livre n'a pas pu être ajouté")
     });
-
-    
+    window.location.reload()
 }
 
 </script>

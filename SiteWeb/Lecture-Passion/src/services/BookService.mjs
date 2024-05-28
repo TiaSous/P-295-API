@@ -86,12 +86,16 @@ export function getCommentairesUser(id) {
 
 export function getEditeurs() {
     const endpoint = `${urlApi}/editeurs`;
-    return axios.get(endpoint)
+    return axios.get(endpoint, {headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+    }})
 }
 
 export function getEcrivains(){
     const endpoint = `${urlApi}/ecrivains`;
-    return axios.get(endpoint)
+    return axios.get(endpoint, {headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+    }})
 }
 
 export function updateLivre (id, body)
