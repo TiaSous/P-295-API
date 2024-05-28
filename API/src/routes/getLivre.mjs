@@ -121,7 +121,7 @@ getLivre.get("/",(req, res) => {
     // va trier par les paramètres mis
     return Livre.findAndCountAll({
       limit: limit,
-      order: [['ouvAnneeEdition', 'DESC']],
+      order: [['id_ouvrage', 'DESC']],
       include: [{
         model: Ecrivain,
         require: true,
