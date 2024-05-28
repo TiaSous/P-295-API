@@ -2,7 +2,6 @@ import express from "express";
 import { success } from "./helper.mjs";
 import { Categorie } from "../db/sequelize.mjs";
 import { Op } from "sequelize";
-import { auth } from "../auth/auth.mjs";
 
 const getCategorie = express();
 
@@ -34,7 +33,7 @@ const getCategorie = express();
  */
 
 // Récupère une catégorie
-getCategorie.get("/", auth, (req, res) => {
+getCategorie.get("/", (req, res) => {
   // Ajout de la recherche par nom de catégorie
   if (req.query.nom) {
     if (req.query.nom.length < 2) {
@@ -55,6 +54,13 @@ getCategorie.get("/", auth, (req, res) => {
     }).then((categories) => {
       const message = `Il y a ${categories.count} catégories qui correspondent au terme de la recherche`;
       res.json(success(message, categories));
+    });
+  }
+  else if (req.query.nomprecis) {
+    return Categorie.findAll({
+      where: { catNom:  req.query.nomprecis},
+    }).then((categories) => {
+      res.json(success(categories));
     });
   }
   // Affiche toutes les catégories si aucune recherche spécifique n'est effectuée

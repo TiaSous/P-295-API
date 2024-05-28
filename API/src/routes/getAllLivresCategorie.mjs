@@ -1,6 +1,6 @@
 import express from "express";
 import { success } from "./helper.mjs";
-import { Livre } from "../db/sequelize.mjs";
+import { Livre, Utilisateur, Ecrivain } from "../db/sequelize.mjs";
 import { auth } from "../auth/auth.mjs";
 import { Categorie } from "../db/sequelize.mjs";
 
@@ -84,7 +84,7 @@ const getAllLivresCategorie = express();
  */
 
 // Récupère tous les livres d'une catégorie
-getAllLivresCategorie.get("/:id/livres", auth, (req, res) => {
+getAllLivresCategorie.get("/:id/livres", (req, res) => {
   // cheche la catégorie via l'id
   Categorie.findByPk(req.params.id).then((category) => {
     if (category === null) {
@@ -93,7 +93,22 @@ getAllLivresCategorie.get("/:id/livres", auth, (req, res) => {
       return res.status(404).json({ message });
     }
     // retourne les livres
-    return Livre.findAndCountAll({ where: { fk_categorie: req.params.id } })
+    return Livre.findAndCountAll({ where: { fk_categorie: req.params.id }, include: [{
+      model: Ecrivain,
+      require: true,
+      attributes: ["id_ecrivain", "ecrNom", "ecrPrenom"]
+    },
+    {
+      model: Utilisateur,
+      require: true,
+      attributes: ["id_utilisateur", "utiPseudo"]
+    },
+    {
+      model: Categorie,
+      require: true,
+      attributes: ["id_categorie", "catNom"]
+    }
+  ] })
       .then((livres) => {
         // si aucun livre
         if (livres.count == 0) {

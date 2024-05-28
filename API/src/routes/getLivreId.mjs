@@ -1,6 +1,6 @@
 import express from "express";
 import { success } from "./helper.mjs";
-import { Livre } from "../db/sequelize.mjs";
+import { Livre, Ecrivain, Utilisateur, Editeur, Categorie } from "../db/sequelize.mjs";
 import { auth } from "../auth/auth.mjs";
 
 const getLivreId = express();
@@ -83,7 +83,29 @@ const getLivreId = express();
 // Récupère un livre
 getLivreId.get("/:id", auth, (req, res) => {
   // cherche un livre selon l'id mis
-  Livre.findByPk(req.params.id)
+  Livre.findByPk(req.params.id, {
+    include: [{
+      model: Ecrivain,
+      require: true,
+      attributes: ["id_ecrivain", "ecrNom", "ecrPrenom"]
+    },
+    {
+      model: Utilisateur,
+      require: true,
+      attributes: ["id_utilisateur", "utiPseudo"]
+    },
+    {
+      model: Editeur,
+      require: true,
+      attributes: ["id_editeur", "ediNom"]
+    },
+    {
+      model: Categorie,
+      require: true,
+      attributes: ["id_categorie", "catNom"]
+    }
+  ],
+  })
     .then((livre) => {
       // si le livre n'existe pas
       if (livre === null) {

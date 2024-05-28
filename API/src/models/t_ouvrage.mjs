@@ -24,7 +24,15 @@ const LivreModel = (sequelize, DataTypes) => {
         type: DataTypes.STRING
     },
     ouvAnneeEdition: {
-        type: DataTypes.DATE
+      type: DataTypes.DATE,
+      get() {
+        const rawValue = this.getDataValue('ouvAnneeEdition');
+        if (rawValue) {
+          const date = new Date(rawValue);
+          return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
+        }
+        return null;
+      }
     },
     ouvCouverture: {
       type: DataTypes.STRING
@@ -38,42 +46,42 @@ const LivreModel = (sequelize, DataTypes) => {
     fk_utilisateur: {
       type: DataTypes.INTEGER,
       allowNull: false,
-        references: {
-          model: 't_utilisateur',
-          key: 'id_utilisateur'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        // references: {
+        //   model: 't_utilisateur',
+        //   key: 'id_utilisateur'
+        // },
+        // onUpdate: 'CASCADE',
+        // onDelete: 'CASCADE'
     },
     fk_categorie: {
       type: DataTypes.INTEGER,
       allowNull: false,
-        references: {
-          model: 't_categorie',
-          key: 'id_categorie'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        // references: {
+        //   model: 't_categorie',
+        //   key: 'id_categorie'
+        // },
+        // onUpdate: 'CASCADE',
+        // onDelete: 'CASCADE'
     },
     fk_ecrivain: {
       type : DataTypes.INTEGER,
       allowNull: false,
-        references: {
-          model: 't_ecrivain',
-          key: 'id_ecrivain'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        // references: {
+        //   model: 't_ecrivain',
+        //   key: 'id_ecrivain'
+        // },
+        // onUpdate: 'CASCADE',
+        // onDelete: 'CASCADE'
     },
     fk_editeur: {
       type : DataTypes.INTEGER,
       allowNull: false,
-        references: {
-          model: 't_editeur',
-          key: 'id_editeur'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        // references: {
+        //   model: 't_editeur',
+        //   key: 'id_editeur'
+        // },
+        // onUpdate: 'CASCADE',
+        // onDelete: 'CASCADE'
     }
   },
   {

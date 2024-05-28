@@ -1,36 +1,39 @@
-version: '3.1'
+# Creation date : 18.03.2024
+# Created by : CSR
+# Description : This compose file creates a stack of two containers (nodejs + mysql)
+# 
+version: '2'
 
-services: 
-  mysql:
-    image: mysql
-    container_name: mysql
-    restart: always
-    networks:
-      - api
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - ./DB:/docker-entrypoint-initdb.d # va crée un db et une table
-    healthcheck: # c'est pour savoir quand la db est accessible
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p${MYSQL_ROOT_PASSWORD}"]
-      interval: 10s
-      timeout: 5s
+services:
+    db:
+        image: mysql:8.0.30
+        hostname: db
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: db_user
+            MYSQL_PASSWORD: db_user_pass
+        restart: always
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./db:/docker-entrypoint-initdb.d
+            - dbdata:/var/lib/mysql
       
-      retries: 50
+    phpmyadmin:
+        image: phpmyadmin:5.2.0
+        links:
+            - db
+        environment:
+            PMA_HOST: db
+            PMA_PORT: 3306
+            PMA_ARBITRARY: 1
+        restart: always
+        ports:
+            - 8084:80
 
-  app:
-    build:
-      context: .\
-      dockerfile: dockerfile
-    restart: always
-    networks:
-      - api
-    depends_on: 
-      mysql:
-        condition: service_healthy # Attendre que le service dbmysql soit accessible
-    ports:
-      - "3000:3000"
+# The database will be persistent among containers restarts.
+volumes:
+    dbdata:
 
-networks:
-  api:
-    driver: bridge
+
+  

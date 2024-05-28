@@ -14,7 +14,7 @@ const CommentaireModel = (sequelize, DataTypes) => {
         // il peut no
         validate: {
           min: {
-            args: [1],
+            args: [0],
             msg: 'La valeur minimale autorisée est 1.'
           },
           max: {
@@ -30,22 +30,22 @@ const CommentaireModel = (sequelize, DataTypes) => {
       fk_ouvrage: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-          model: 't_ouvrage',
-          key: 'id_ouvrage'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        // references: {
+        //   model: 't_ouvrage',
+        //   key: 'id_ouvrage'
+        // },
+        // onUpdate: 'CASCADE',
+        // onDelete: 'CASCADE'
       },
       fk_utilisateur: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-          model: 't_utilisateur',
-          key: 'id_utilisateur'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        // references: {
+        //   model: 't_utilisateur',
+        //   key: 'id_utilisateur'
+        // },
+        // onUpdate: 'CASCADE',
+        // onDelete: 'CASCADE'
       },
     },
     {

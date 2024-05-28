@@ -12,7 +12,8 @@ const sequelize = new Sequelize(
   "root", // Nom de l'utilisateur
   "root", // Mot de passe de l'utilisateur
   {
-    host: "mysql",
+    host: "localhost",
+    port:"3306",
     dialect: "mysql",
     logging: false,
     define: {
@@ -28,6 +29,35 @@ const Commentaire = CommentaireModel(sequelize, DataTypes);
 const Ecrivain = EcrivainModel(sequelize, DataTypes);
 const Editeur = EditeurModel(sequelize, DataTypes);
 const Utilisateur = UtilisateurModel(sequelize, DataTypes);
+
+Livre.hasOne(Ecrivain, {
+  foreignKey: 'id_ecrivain',
+  sourceKey: 'fk_ecrivain'
+})  
+Livre.hasOne(Utilisateur, {
+  foreignKey: 'id_utilisateur', 
+  sourceKey: 'fk_utilisateur'
+});
+
+Livre.hasOne(Categorie, {
+  foreignKey: 'id_categorie', 
+  sourceKey: 'fk_categorie'
+})
+
+Livre.hasOne(Editeur, {
+  foreignKey: 'id_editeur', 
+  sourceKey: 'fk_editeur'
+})
+
+Commentaire.hasOne(Utilisateur, {
+  foreignKey: 'id_utilisateur', 
+  sourceKey: 'fk_utilisateur'
+})
+
+Commentaire.hasOne(Livre, {
+  foreignKey: 'id_ouvrage', 
+  sourceKey: 'fk_ouvrage'
+})
 
 export {
   sequelize,

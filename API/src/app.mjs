@@ -14,11 +14,15 @@ import { loginRouter } from "./routes/login.mjs";
 import { getCategorieId } from "./routes/getCategorieId.mjs";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./swagger.mjs";
+import cors from 'cors';
+import { getAllLivreUser } from "./routes/getLivreUser.mjs";
+import { getAllComentaireUser } from "./routes/getCommentairesUser.mjs";
+import { getEditeur } from "./routes/getEditeur.mjs";
+import { getEcrivain } from "./routes/getEcrivain.mjs";
 
 const app = express();
-
-app.use(express.json());
-
+app.use(express.json())
+app.use(cors())
 const port = 3000;
 
 // à mettre en commentaire si db non allumée
@@ -53,11 +57,15 @@ app.use("/api/livres", deleteLivre);
 app.use("/api/livres", updateLivre);
 app.use("/api/commentaires", addCommentaire);
 app.use("/api/commentaires", getCommentaire);
-app.use("/api/categories", getCategorie);
+app.use("/api/categories", getCategorie); 
 app.use("/api/categories", getCategorieId);
 app.use("/api/categories", addCategorie);
 app.use("/api/categories", getAllLivresCategorie);
 app.use("/api/login", loginRouter);
+app.use("/api/user", getAllLivreUser);
+app.use("/api/user", getAllComentaireUser);
+app.use("/api/editeurs", getEditeur);
+app.use("/api/ecrivains", getEcrivain);
 
 // va écouter sur le port
 app.listen(port, () => {
