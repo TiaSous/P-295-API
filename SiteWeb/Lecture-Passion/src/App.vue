@@ -44,8 +44,11 @@ function getToken() {
   </main>
   <footer>
     <div>
-      <p>Auteur</p>
-      <p>Contact</p>
+      <p>Tiago Rodrigues Sousa</p>
+        <a href="mailto:tiago.rodrigues2@eduvaud.ch">tiago.rodrigues2@eduvaud.ch</a> 
+        <br>
+        <p>Evin Paramanathan</p>
+        <a href="mailto:evin.paramanathan@eduvaud.ch">evin.paramanathan@eduvaud.ch</a> 
     </div>
     <div>
       <p>© 2024 Book Story. All rights reserved.</p>
@@ -85,6 +88,7 @@ footer {
 header {
   border-bottom: 3px solid rgb(76, 175, 80);
 }
+
 
 .user{
   width: 50px;
