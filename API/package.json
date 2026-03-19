@@ -4,21 +4,31 @@
   "description": "api REST for search book",
   "main": "src/app.mjs",
   "scripts": {
-    "start": "nodemon src/app.mjs"
+    "dev": "tsx watch src/app.ts",
+    "build": "tsc",
+    "start": "nodemon dist/app.js"
   },
   "author": "Tiago Rodrigues Sousa & Evin Paramanathan",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.9.1",
     "sequelize": "^6.37.1",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.0"
+    "swagger-ui-express": "^5.0.0",
+    "yaml": "^2.8.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.5.0",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   }
 }

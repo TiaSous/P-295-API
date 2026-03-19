@@ -1,0 +1,1337 @@
+openapi: 3.0.0
+info:
+  title: API Librairie
+  version: 1.0.0
+  description: |
+    API REST permettant de gérer une librairie avec les livres, catégories, commentaires, écrivains, éditeurs et utilisateurs.
+  contact:
+    name: API Support
+    url: http://localhost:3000
+
+servers:
+  - url: http://localhost:3000
+    description: Serveur de développement
+
+security:
+  - bearerAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token pour l'authentification (expire après 24h)
+
+  schemas:
+    Utilisateur:
+      type: object
+      required:
+        - utiPseudo
+        - utiMotDePasse
+      properties:
+        id_utilisateur:
+          type: integer
+          description: L'identifiant unique de l'utilisateur
+          example: 1
+        utiPseudo:
+          type: string
+          description: Le pseudo de l'utilisateur
+          example: john_doe
+        utiMotDePasse:
+          type: string
+          description: Le mot de passe de l'utilisateur
+          example: password123
+        utiDateEntree:
+          type: string
+          format: date-time
+          description: La date d'entrée de l'utilisateur
+          example: 2024-01-15T10:30:00Z
+        utiNbOuvrageProposer:
+          type: integer
+          description: Le nombre d'ouvrages proposés par l'utilisateur
+          example: 5
+        utiNbCommentaire:
+          type: integer
+          description: Le nombre de commentaires postés par l'utilisateur
+          example: 12
+        utiRole:
+          type: string
+          description: Le rôle de l'utilisateur
+          example: utilisateur
+
+    Categorie:
+      type: object
+      required:
+        - catNom
+      properties:
+        id_categorie:
+          type: integer
+          description: L'identifiant unique de la catégorie
+          example: 1
+        catNom:
+          type: string
+          description: Le nom de la catégorie
+          example: Fiction
+
+    Ecrivain:
+      type: object
+      required:
+        - ecrNom
+        - ecrPrenom
+      properties:
+        id_ecrivain:
+          type: integer
+          description: L'identifiant unique de l'écrivain
+          example: 1
+        ecrNom:
+          type: string
+          description: Le nom de l'écrivain
+          example: Vuillard
+        ecrPrenom:
+          type: string
+          description: Le prénom de l'écrivain
+          example: Éric
+
+    Editeur:
+      type: object
+      required:
+        - ediNom
+      properties:
+        id_editeur:
+          type: integer
+          description: L'identifiant unique de l'éditeur
+          example: 1
+        ediNom:
+          type: string
+          description: Le nom de l'éditeur
+          example: Michel Lafon
+
+    Livre:
+      type: object
+      required:
+        - ouvTitre
+        - fk_utilisateur
+        - fk_categorie
+        - fk_ecrivain
+        - fk_editeur
+      properties:
+        id_ouvrage:
+          type: integer
+          description: L'identifiant unique du livre
+          example: 1
+        ouvTitre:
+          type: string
+          description: Le titre du livre
+          example: L'ordre du Jour
+        ouvNbPage:
+          type: integer
+          description: Le nombre de pages du livre
+          example: 328
+        ouvResume:
+          type: string
+          description: Le résumé du livre
+          example: L'ordre du jour est un livre parlant de la 2nd guerre mondiale
+        ouvAnneeEdition:
+          type: string
+          format: date
+          description: L'année d'édition du livre
+          example: 2016-06-08
+        ouvCouverture:
+          type: string
+          description: Le lien vers la couverture du livre
+          example: https://example.com/couverture.jpg
+        ouvExtrait:
+          type: string
+          description: Un extrait du livre
+          example: Ce n'était pas l'ordre du jour
+        ouvMoyenneAppreciation:
+          type: number
+          description: La moyenne d'appréciation du livre
+          example: 4.5
+        fk_utilisateur:
+          type: integer
+          description: L'identifiant de l'utilisateur qui a ajouté le livre
+          example: 1
+        fk_categorie:
+          type: integer
+          description: L'identifiant de la catégorie du livre
+          example: 4
+        fk_ecrivain:
+          type: integer
+          description: L'identifiant de l'écrivain du livre
+          example: 7
+        fk_editeur:
+          type: integer
+          description: L'identifiant de l'éditeur du livre
+          example: 1
+        Utilisateur:
+          $ref: "#/components/schemas/Utilisateur"
+        Categorie:
+          $ref: "#/components/schemas/Categorie"
+        Ecrivain:
+          $ref: "#/components/schemas/Ecrivain"
+        Editeur:
+          $ref: "#/components/schemas/Editeur"
+        Commentaires:
+          type: array
+          items:
+            $ref: "#/components/schemas/Commentaire"
+
+    Commentaire:
+      type: object
+      required:
+        - comAppreciation
+        - comCommentaire
+        - fk_ouvrage
+        - fk_utilisateur
+      properties:
+        id_commentaire:
+          type: integer
+          description: L'identifiant unique du commentaire
+          example: 1
+        comAppreciation:
+          type: integer
+          description: L'appréciation associée au commentaire (1-5)
+          minimum: 1
+          maximum: 5
+          example: 4
+        comCommentaire:
+          type: string
+          description: Le contenu du commentaire
+          example: Très bon livre, je le recommande !
+        fk_ouvrage:
+          type: integer
+          description: L'identifiant de l'ouvrage associé
+          example: 1
+        fk_utilisateur:
+          type: integer
+          description: L'identifiant de l'utilisateur associé
+          example: 4
+        Livre:
+          $ref: "#/components/schemas/Livre"
+        Utilisateur:
+          $ref: "#/components/schemas/Utilisateur"
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Message d'erreur
+          example: Erreur lors de la récupération des livres
+
+    # DTOs pour la création et mise à jour
+    CreateLivreDto:
+      type: object
+      required:
+        - ouvTitre
+        - fk_categorie
+        - fk_ecrivain
+        - fk_editeur
+      properties:
+        ouvTitre:
+          type: string
+          description: Le titre du livre
+          example: L'ordre du Jour
+        ouvNbPage:
+          type: integer
+          description: Le nombre de pages du livre
+          example: 328
+        ouvResume:
+          type: string
+          description: Le résumé du livre
+          example: L'ordre du jour est un livre parlant de la 2nd guerre mondiale
+        ouvAnneeEdition:
+          type: string
+          format: date
+          description: L'année d'édition du livre
+          example: 2016-06-08
+        ouvCouverture:
+          type: string
+          description: Le lien vers la couverture du livre
+          example: https://example.com/couverture.jpg
+        ouvExtrait:
+          type: string
+          description: Un extrait du livre
+          example: Ce n'était pas l'ordre du jour
+        fk_categorie:
+          type: integer
+          description: L'identifiant de la catégorie du livre
+          example: 4
+        fk_ecrivain:
+          type: integer
+          description: L'identifiant de l'écrivain du livre
+          example: 7
+        fk_editeur:
+          type: integer
+          description: L'identifiant de l'éditeur du livre
+          example: 1
+
+    UpdateLivreDto:
+      type: object
+      properties:
+        ouvTitre:
+          type: string
+          description: Le titre du livre
+          example: L'ordre du Jour
+        ouvNbPage:
+          type: integer
+          description: Le nombre de pages du livre
+          example: 328
+        ouvResume:
+          type: string
+          description: Le résumé du livre
+          example: L'ordre du jour est un livre parlant de la 2nd guerre mondiale
+        ouvAnneeEdition:
+          type: string
+          format: date
+          description: L'année d'édition du livre
+          example: 2016-06-08
+        ouvCouverture:
+          type: string
+          description: Le lien vers la couverture du livre
+          example: https://example.com/couverture.jpg
+        ouvExtrait:
+          type: string
+          description: Un extrait du livre
+          example: Ce n'était pas l'ordre du jour
+        fk_categorie:
+          type: integer
+          description: L'identifiant de la catégorie du livre
+          example: 4
+        fk_ecrivain:
+          type: integer
+          description: L'identifiant de l'écrivain du livre
+          example: 7
+        fk_editeur:
+          type: integer
+          description: L'identifiant de l'éditeur du livre
+          example: 1
+
+    CreateCommentaireDto:
+      type: object
+      required:
+        - comAppreciation
+        - comCommentaire
+        - fk_ouvrage
+      properties:
+        comAppreciation:
+          type: integer
+          description: L'appréciation associée au commentaire (1-5)
+          minimum: 1
+          maximum: 5
+          example: 4
+        comCommentaire:
+          type: string
+          description: Le contenu du commentaire
+          example: Très bon livre, je le recommande !
+        fk_ouvrage:
+          type: integer
+          description: L'identifiant de l'ouvrage associé
+          example: 1
+
+    UpdateCommentaireDto:
+      type: object
+      properties:
+        comAppreciation:
+          type: integer
+          description: L'appréciation associée au commentaire (1-5)
+          minimum: 1
+          maximum: 5
+          example: 4
+        comCommentaire:
+          type: string
+          description: Le contenu du commentaire
+          example: Très bon livre, je le recommande !
+        fk_ouvrage:
+          type: integer
+          description: L'identifiant de l'ouvrage associé
+          example: 1
+
+    CreateEcrivainDto:
+      type: object
+      required:
+        - ecrNom
+        - ecrPrenom
+      properties:
+        ecrNom:
+          type: string
+          description: Le nom de l'écrivain
+          example: Vuillard
+        ecrPrenom:
+          type: string
+          description: Le prénom de l'écrivain
+          example: Éric
+
+    CreateCategorieDto:
+      type: object
+      required:
+        - catNom
+      properties:
+        catNom:
+          type: string
+          description: Le nom de la catégorie
+          example: Fiction
+
+    UpdateEcrivainDto:
+      type: object
+      properties:
+        ecrNom:
+          type: string
+          description: Le nom de l'écrivain
+          example: Vuillard
+        ecrPrenom:
+          type: string
+          description: Le prénom de l'écrivain
+          example: Éric
+
+    CreateEditeurDto:
+      type: object
+      required:
+        - ediNom
+      properties:
+        ediNom:
+          type: string
+          description: Le nom de l'éditeur
+          example: Éditions Actes Sud
+
+    UpdateEditeurDto:
+      type: object
+      properties:
+        ediNom:
+          type: string
+          description: Le nom de l'éditeur
+          example: Éditions Actes Sud
+
+  responses:
+    UnauthorizedError:
+      description: Non authentifié - Token JWT manquant ou invalide
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    NotFoundError:
+      description: Ressource non trouvée
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    BadRequestError:
+      description: Requête invalide
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    ServerError:
+      description: Erreur serveur interne
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+  parameters:
+    id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: L'identifiant de la ressource
+      example: 1
+
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+      description: Numéro de page pour la pagination
+      example: 1
+
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+      description: Nombre d'éléments par page
+      example: 10
+
+    offset:
+      name: offset
+      in: query
+      schema:
+        type: integer
+        default: 0
+      description: Décalage pour la pagination
+      example: 0
+
+    titre:
+      name: titre
+      in: query
+      schema:
+        type: string
+      description: Recherche par titre du livre
+      example: L'ordre du jour
+
+    order:
+      name: order
+      in: query
+      schema:
+        type: string
+        enum: [ASC, DESC]
+      description: Ordre de tri des résultats
+      example: DESC
+
+    nom:
+      name: nom
+      in: query
+      schema:
+        type: string
+      description: Recherche partielle par nom de catégorie
+      example: Fict
+
+    nomprecis:
+      name: nomprecis
+      in: query
+      schema:
+        type: string
+      description: Recherche exacte par nom de catégorie
+      example: Fiction
+
+paths:
+  /api/login:
+    post:
+      tags:
+        - Authentification
+      summary: Connexion utilisateur
+      description: Authentifie un utilisateur et retourne un token JWT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  description: Le pseudo de l'utilisateur
+                  example: john_doe
+                password:
+                  type: string
+                  description: Le mot de passe de l'utilisateur
+                  example: password123
+      responses:
+        "200":
+          description: Connexion réussie
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Authentification réussie"
+                  token:
+                    type: string
+                    description: Token JWT pour l'authentification
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+                  user:
+                    $ref: "#/components/schemas/Utilisateur"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/register:
+    post:
+      tags:
+        - Authentification
+      summary: Créer un nouvel utilisateur
+      description: Enregistre un nouvel utilisateur et retourne un token JWT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  description: Le pseudo de l'utilisateur
+                  example: new_user
+                password:
+                  type: string
+                  description: Le mot de passe de l'utilisateur (sera hashé)
+                  example: securepassword123
+      responses:
+        "201":
+          description: Inscription réussie
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Inscription réussie"
+                  token:
+                    type: string
+                    description: Token JWT pour l'authentification
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+                  user:
+                    $ref: "#/components/schemas/Utilisateur"
+        "409":
+          description: Le pseudo est déjà utilisé
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Ce pseudo est déjà utilisé"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/livres:
+    get:
+      tags:
+        - Livres
+      summary: Récupérer tous les livres
+      description: Retourne une liste paginée de tous les livres avec filtrage optionnel
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/titre"
+        - $ref: "#/components/parameters/order"
+      responses:
+        "200":
+          description: Liste des livres récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Livre"
+                  pagination:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        example: 50
+                      page:
+                        type: integer
+                        example: 1
+                      limit:
+                        type: integer
+                        example: 10
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+    post:
+      tags:
+        - Livres
+      summary: Créer un nouveau livre
+      description: Crée un nouveau livre dans la base de données
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateLivreDto"
+      responses:
+        "201":
+          description: Livre créé avec succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Livre"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/livres/{id}:
+    parameters:
+      - $ref: "#/components/parameters/id"
+
+    get:
+      tags:
+        - Livres
+      summary: Récupérer un livre par ID
+      description: Retourne les détails d'un livre spécifique avec toutes ses associations
+      responses:
+        "200":
+          description: Livre trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Livre"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+    put:
+      tags:
+        - Livres
+      summary: Modifier un livre
+      description: Met à jour les informations d'un livre existant
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateLivreDto"
+      responses:
+        "200":
+          description: Livre modifié avec succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Livre"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+    delete:
+      tags:
+        - Livres
+      summary: Supprimer un livre
+      description: Supprime un livre de la base de données
+      security:
+        - bearerAuth: []
+      responses:
+        "204":
+          description: Livre supprimé avec succès
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/livres/{id}/commentaires:
+    parameters:
+      - $ref: "#/components/parameters/id"
+
+    get:
+      tags:
+        - Livres
+      summary: Récupérer les commentaires d'un livre
+      description: Retourne tous les commentaires associés à un livre spécifique
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/limit"
+      responses:
+        "200":
+          description: Commentaires du livre récupérés avec succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Commentaire"
+                  pagination:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        example: 5
+                      page:
+                        type: integer
+                        example: 1
+                      limit:
+                        type: integer
+                        example: 10
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/categories:
+    get:
+      tags:
+        - Catégories
+      summary: Récupérer toutes les catégories
+      description: Retourne une liste paginée de toutes les catégories avec filtrage optionnel
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+        - $ref: "#/components/parameters/nom"
+        - $ref: "#/components/parameters/nomprecis"
+      responses:
+        "200":
+          description: Liste des catégories récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Categorie"
+                  pagination:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        example: 10
+                      page:
+                        type: integer
+                        example: 1
+                      limit:
+                        type: integer
+                        example: 10
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+    post:
+      tags:
+        - Catégories
+      summary: Créer une nouvelle catégorie
+      description: Crée une nouvelle catégorie dans la base de données
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCategorieDto"
+      responses:
+        "201":
+          description: Catégorie créée avec succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categorie"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/categories/{id}:
+    parameters:
+      - $ref: "#/components/parameters/id"
+
+    get:
+      tags:
+        - Catégories
+      summary: Récupérer une catégorie par ID
+      description: Retourne les détails d'une catégorie spécifique
+      responses:
+        "200":
+          description: Catégorie trouvée
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Categorie"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/categories/{id}/livres:
+    parameters:
+      - $ref: "#/components/parameters/id"
+
+    get:
+      tags:
+        - Catégories
+      summary: Récupérer les livres d'une catégorie
+      description: Retourne tous les livres associés à une catégorie spécifique
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/limit"
+      responses:
+        "200":
+          description: Livres de la catégorie récupérés avec succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Livre"
+                  pagination:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        example: 15
+                      page:
+                        type: integer
+                        example: 1
+                      limit:
+                        type: integer
+                        example: 10
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/commentaires:
+    get:
+      tags:
+        - Commentaires
+      summary: Récupérer tous les commentaires
+      description: Retourne une liste paginée de tous les commentaires
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+      responses:
+        "200":
+          description: Liste des commentaires récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Commentaire"
+                  pagination:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        example: 50
+                      page:
+                        type: integer
+                        example: 1
+                      limit:
+                        type: integer
+                        example: 10
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+    post:
+      tags:
+        - Commentaires
+      summary: Créer un nouveau commentaire
+      description: Crée un nouveau commentaire sur un livre
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCommentaireDto"
+      responses:
+        "201":
+          description: Commentaire créé avec succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Commentaire"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/ecrivains:
+    get:
+      tags:
+        - Écrivains
+      summary: Récupérer tous les écrivains
+      description: Retourne une liste paginée de tous les écrivains
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+      responses:
+        "200":
+          description: Liste des écrivains récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Ecrivain"
+                  pagination:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        example: 20
+                      page:
+                        type: integer
+                        example: 1
+                      limit:
+                        type: integer
+                        example: 10
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+    post:
+      tags:
+        - Écrivains
+      summary: Créer un nouvel écrivain
+      description: Crée un nouvel écrivain dans la base de données
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateEcrivainDto"
+      responses:
+        "201":
+          description: Écrivain créé avec succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ecrivain"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/ecrivains/{id}:
+    parameters:
+      - $ref: "#/components/parameters/id"
+
+    get:
+      tags:
+        - Écrivains
+      summary: Récupérer un écrivain par ID
+      description: Retourne les détails d'un écrivain spécifique
+      responses:
+        "200":
+          description: Écrivain trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ecrivain"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+    put:
+      tags:
+        - Écrivains
+      summary: Modifier un écrivain
+      description: Met à jour les informations d'un écrivain existant
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateEcrivainDto"
+      responses:
+        "200":
+          description: Écrivain modifié avec succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ecrivain"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+    delete:
+      tags:
+        - Écrivains
+      summary: Supprimer un écrivain
+      description: Supprime un écrivain de la base de données
+      security:
+        - bearerAuth: []
+      responses:
+        "204":
+          description: Écrivain supprimé avec succès
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/editeurs:
+    get:
+      tags:
+        - Éditeurs
+      summary: Récupérer tous les éditeurs
+      description: Retourne une liste paginée de tous les éditeurs
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/limit"
+        - $ref: "#/components/parameters/offset"
+      responses:
+        "200":
+          description: Liste des éditeurs récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Editeur"
+                  pagination:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        example: 15
+                      page:
+                        type: integer
+                        example: 1
+                      limit:
+                        type: integer
+                        example: 10
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+    post:
+      tags:
+        - Éditeurs
+      summary: Créer un nouvel éditeur
+      description: Crée un nouvel éditeur dans la base de données
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateEditeurDto"
+      responses:
+        "201":
+          description: Éditeur créé avec succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Editeur"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/editeurs/{id}:
+    parameters:
+      - $ref: "#/components/parameters/id"
+
+    get:
+      tags:
+        - Éditeurs
+      summary: Récupérer un éditeur par ID
+      description: Retourne les détails d'un éditeur spécifique
+      responses:
+        "200":
+          description: Éditeur trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Editeur"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+    put:
+      tags:
+        - Éditeurs
+      summary: Modifier un éditeur
+      description: Met à jour les informations d'un éditeur existant
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateEditeurDto"
+      responses:
+        "200":
+          description: Éditeur modifié avec succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Editeur"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+    delete:
+      tags:
+        - Éditeurs
+      summary: Supprimer un éditeur
+      description: Supprime un éditeur de la base de données
+      security:
+        - bearerAuth: []
+      responses:
+        "204":
+          description: Éditeur supprimé avec succès
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/user/{id}/livres:
+    parameters:
+      - $ref: "#/components/parameters/id"
+
+    get:
+      tags:
+        - Utilisateurs
+      summary: Récupérer les livres d'un utilisateur
+      description: Retourne tous les livres proposés par un utilisateur spécifique
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/limit"
+      responses:
+        "200":
+          description: Livres de l'utilisateur récupérés avec succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Livre"
+                  pagination:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        example: 8
+                      page:
+                        type: integer
+                        example: 1
+                      limit:
+                        type: integer
+                        example: 10
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /api/user/{id}/commentaires:
+    parameters:
+      - $ref: "#/components/parameters/id"
+
+    get:
+      tags:
+        - Utilisateurs
+      summary: Récupérer les commentaires d'un utilisateur
+      description: Retourne tous les commentaires postés par un utilisateur spécifique
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/limit"
+      responses:
+        "200":
+          description: Commentaires de l'utilisateur récupérés avec succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Commentaire"
+                  pagination:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        example: 12
+                      page:
+                        type: integer
+                        example: 1
+                      limit:
+                        type: integer
+                        example: 10
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+tags:
+  - name: Authentification
+  - name: Livres
+  - name: Catégories
+  - name: Commentaires
+  - name: Écrivains
+  - name: Éditeurs
+  - name: Utilisateurs
