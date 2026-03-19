@@ -1,17 +1,19 @@
 <script setup>
 import { getCategories } from '@/services/BookService.mjs';
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue';
 
-const categories = ref()
+const categories = ref();
 
 // récupère et affiche la liste des catégorie
 onMounted(() => {
-  getCategories().then((reponse) => {
-    categories.value = reponse.data.data
-  }).catch((error) => {
-    console.log(error)
-  })
-})
+  getCategories()
+    .then((reponse) => {
+      categories.value = reponse.data.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 </script>
 <template>
   <h1>Liste des catégories</h1>
@@ -20,7 +22,6 @@ onMounted(() => {
       <p>{{ categorie.catNom }}</p>
     </RouterLink>
   </div>
-  
 </template>
 
 <style></style>

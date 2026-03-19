@@ -1,24 +1,23 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router';
 import { decodeToken } from './tools/decodeToken.mjs';
 
-const token = ref()
-const userId = ref(0)
+const token = ref();
+const userId = ref(0);
 onMounted(() => {
-  try
-  {
+  try {
     getToken();
-  }catch{
-    userId.value = 0
+  } catch {
+    userId.value = 0;
   }
-})
+});
 
 // récupère le token pour le user id
 function getToken() {
-  const test = localStorage.getItem('token')
-  token.value = decodeToken(test)
-  userId.value = token.value.userId
+  const test = localStorage.getItem('token');
+  token.value = decodeToken(test);
+  userId.value = token.value.userId;
 }
 </script>
 
@@ -28,14 +27,14 @@ function getToken() {
       <RouterLink to="/">
         <h1 class="logo">BOOK STORY</h1>
       </RouterLink>
-      <RouterLink :to="{name: 'user', params: {id: userId}}" class="navigation">
+      <RouterLink :to="{ name: 'user', params: { id: userId } }" class="navigation">
         <p class="button-3" role="button">Mes ouvrages</p>
       </RouterLink>
       <RouterLink class="navigation" to="/liste">
         <p class="button-3" role="button">Liste</p>
       </RouterLink>
       <RouterLink to="/connection">
-        <img class="user" src="./assets/image/connection.png" alt="" >
+        <img class="user" src="./assets/image/connection.png" alt="" />
       </RouterLink>
     </nav>
   </header>
@@ -45,10 +44,10 @@ function getToken() {
   <footer>
     <div>
       <p>Tiago Rodrigues Sousa</p>
-        <a href="mailto:tiago.rodrigues2@eduvaud.ch">tiago.rodrigues2@eduvaud.ch</a> 
-        <br>
-        <p>Evin Paramanathan</p>
-        <a href="mailto:evin.paramanathan@eduvaud.ch">evin.paramanathan@eduvaud.ch</a> 
+      <a href="mailto:tiago.rodrigues2@eduvaud.ch">tiago.rodrigues2@eduvaud.ch</a>
+      <br />
+      <p>Evin Paramanathan</p>
+      <a href="mailto:evin.paramanathan@eduvaud.ch">evin.paramanathan@eduvaud.ch</a>
     </div>
     <div>
       <p>© 2024 Book Story. All rights reserved.</p>
@@ -76,7 +75,6 @@ function getToken() {
 
 .logo {
   color: rgb(76, 175, 80);
-
 }
 
 header,
@@ -89,8 +87,7 @@ header {
   border-bottom: 3px solid rgb(76, 175, 80);
 }
 
-
-.user{
+.user {
   width: 50px;
   margin-top: 9px;
 }
@@ -119,7 +116,6 @@ footer {
   border-top: 3px solid rgb(76, 175, 80);
   display: flex;
   flex-grow: 2;
-
 }
 
 body {
@@ -129,6 +125,4 @@ body {
 p {
   color: rgb(7, 150, 15);
 }
-
-
 </style>

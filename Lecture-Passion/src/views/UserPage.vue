@@ -1,48 +1,49 @@
 <script setup>
-import ListeCategorie from '../components/ListeCategorie.vue'
+import ListeCategorie from '../components/ListeCategorie.vue';
 import { getLivreUser } from '@/services/BookService.mjs';
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue';
 import { decodeToken } from '@/tools/decodeToken.mjs';
 import { getCommentaire } from '@/services/BookService.mjs';
 
-const IsError401 = ref() // si ne fournit pas de jeton ou est invalide
-const token = ref() // token
+const IsError401 = ref(); // si ne fournit pas de jeton ou est invalide
+const token = ref(); // token
 
-const books = ref(null) 
-const listeLivres = ref([])
-const nbCommentaires = ref(0) 
-const nbLivres = ref(0)
+const books = ref(null);
+const listeLivres = ref([]);
+const nbCommentaires = ref(0);
+const nbLivres = ref(0);
 
 // id de l'utilisateur
 const props = defineProps({
   id: {
-    required: true
-  }
+    required: true,
+  },
 });
 
 onMounted(async () => {
   // va récupérer les livres selon l'utilisateur
   await getLivreUser(props.id)
     .then((reponse) => {
-      books.value = reponse.data
-      listeLivres.value = books.value.data.rows
-      IsError401.value = false
-      const test = localStorage.getItem('token')
-      token.value = decodeToken(test)
-      nbLivres.value = listeLivres.value.length
+      books.value = reponse.data;
+      listeLivres.value = books.value.data.rows;
+      IsError401.value = false;
+      const test = localStorage.getItem('token');
+      token.value = decodeToken(test);
+      nbLivres.value = listeLivres.value.length;
     })
     .catch((error) => {
-      if (error.message == "Request failed with status code 401") {
-        IsError401.value = true
+      if (error.message == 'Request failed with status code 401') {
+        IsError401.value = true;
       }
+    });
+  getCommentaire(props.id)
+    .then((reponse) => {
+      nbCommentaires.value = reponse.data.data.count;
     })
-    getCommentaire(props.id).then((reponse) => {
-      nbCommentaires.value = reponse.data.data.count
-    }).catch((error) => {
-      console.log(error)
-    })
-})
-
+    .catch((error) => {
+      console.log(error);
+    });
+});
 </script>
 
 <template>
