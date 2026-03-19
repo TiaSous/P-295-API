@@ -1,5 +1,6 @@
 import { IsString, IsNumber, IsOptional, Min, Max } from "class-validator";
 
+// DTO for creating a comment - fk_utilisateur comes from req.user
 export class CreateCommentaireDto {
   @IsNumber()
   @Min(1)
@@ -13,6 +14,7 @@ export class CreateCommentaireDto {
   fk_ouvrage!: number;
 }
 
+// DTO for updating a comment
 export class UpdateCommentaireDto {
   @IsOptional()
   @IsNumber()

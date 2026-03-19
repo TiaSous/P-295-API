@@ -15,7 +15,7 @@ declare global {
   }
 }
 
-// Middleware d'authentification JWT
+// JWT authentication middleware
 export const authMiddleware = (
   req: Request,
   res: Response,

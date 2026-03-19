@@ -13,7 +13,7 @@ import {
 } from "../db/sequelize";
 import { CreateLivreDto, UpdateLivreDto } from "../models/dto/livre.dto";
 
-// GET /livres - Récupérer tous les livres avec filtrage par titre optionnel
+// GET /livres - Get all books with optional title filtering
 export const getAllLivres = async (
   req: Request,
   res: Response,
@@ -24,7 +24,7 @@ export const getAllLivres = async (
     let pagination = res.locals.pagination || {};
     let order: any = undefined;
 
-    // Support du query param "titre"
+    // Support for "titre" query param
     if (req.query.titre && typeof req.query.titre === "string") {
       if (req.query.titre.length < 2) {
         return res.status(400).json({
@@ -39,7 +39,7 @@ export const getAllLivres = async (
       );
       searchConditions = { ouvTitre: { [Op.like]: `%${req.query.titre}%` } };
     }
-    // Support du query param "order" pour tri DESC
+    // Support for "order" query param for DESC sorting
     else if (req.query.order === "true") {
       pagination.limit = Math.min(
         100,
@@ -47,7 +47,7 @@ export const getAllLivres = async (
       );
       order = [["id_ouvrage", "DESC"]];
     }
-    // Support du query param "limit" seul
+    // Support for "limit" query param alone
     else if (req.query.limit && typeof req.query.limit === "string") {
       pagination.limit = Math.min(100, parseInt(req.query.limit));
     }
@@ -100,7 +100,7 @@ export const getAllLivres = async (
   }
 };
 
-// GET /livres/:id - Récupérer un livre par ID
+// GET /livres/:id - Get a book by ID
 export const getLivreById = async (
   req: Request,
   res: Response,
@@ -142,7 +142,7 @@ export const getLivreById = async (
   }
 };
 
-// GET /livres/:id/commentaires - Récupérer les commentaires d'un livre
+// GET /livres/:id/commentaires - Get comments for a book
 export const getCommentairesByLivre = async (
   req: Request,
   res: Response,
@@ -151,7 +151,7 @@ export const getCommentairesByLivre = async (
   try {
     const id = parseInt(req.params.id as string);
 
-    // Vérifier que le livre existe
+    // Verify that the book exists
     const livre = await Livre.findByPk(id);
     if (!livre) {
       return res
@@ -176,28 +176,28 @@ export const getCommentairesByLivre = async (
   }
 };
 
-// POST /livres - Créer un nouveau livre
+// POST /livres - Create a new book
 export const createLivre = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    // Valider le DTO
+    // Validate the DTO
     const dto = plainToInstance(CreateLivreDto, req.body);
     const errors = await validate(dto);
     if (errors.length > 0) {
       return res.status(400).json({
         success: false,
         message: "Validation failed",
-        errors: errors.map(e => ({
+        errors: errors.map((e) => ({
           property: e.property,
           constraints: e.constraints,
         })),
       });
     }
 
-    // Récupérer l'ID utilisateur depuis req.user (posté par authMiddleware)
+    // Get user ID from req.user (set by authMiddleware)
     const fk_utilisateur = (req as any).user?.id_utilisateur;
     if (!fk_utilisateur) {
       return res.status(401).json({
@@ -210,7 +210,9 @@ export const createLivre = async (
       ouvTitre: dto.ouvTitre,
       ouvNbPage: dto.ouvNbPage,
       ouvResume: dto.ouvResume,
-      ouvAnneeEdition: dto.ouvAnneeEdition ? new Date(dto.ouvAnneeEdition) : undefined,
+      ouvAnneeEdition: dto.ouvAnneeEdition
+        ? new Date(dto.ouvAnneeEdition)
+        : undefined,
       ouvCouverture: dto.ouvCouverture,
       ouvExtrait: dto.ouvExtrait,
       fk_utilisateur,
@@ -247,7 +249,7 @@ export const createLivre = async (
   }
 };
 
-// PUT /livres/:id - Mettre à jour un livre
+// PUT /livres/:id - Update a book
 export const updateLivre = async (
   req: Request,
   res: Response,
@@ -255,15 +257,15 @@ export const updateLivre = async (
 ) => {
   try {
     const id = parseInt(req.params.id as string);
-    
-    // Valider le DTO
+
+    // Validate the DTO
     const dto = plainToInstance(UpdateLivreDto, req.body);
     const errors = await validate(dto);
     if (errors.length > 0) {
       return res.status(400).json({
         success: false,
         message: "Validation failed",
-        errors: errors.map(e => ({
+        errors: errors.map((e) => ({
           property: e.property,
           constraints: e.constraints,
         })),
@@ -281,8 +283,10 @@ export const updateLivre = async (
     if (dto.ouvTitre !== undefined) updates.ouvTitre = dto.ouvTitre;
     if (dto.ouvNbPage !== undefined) updates.ouvNbPage = dto.ouvNbPage;
     if (dto.ouvResume !== undefined) updates.ouvResume = dto.ouvResume;
-    if (dto.ouvAnneeEdition !== undefined) updates.ouvAnneeEdition = new Date(dto.ouvAnneeEdition);
-    if (dto.ouvCouverture !== undefined) updates.ouvCouverture = dto.ouvCouverture;
+    if (dto.ouvAnneeEdition !== undefined)
+      updates.ouvAnneeEdition = new Date(dto.ouvAnneeEdition);
+    if (dto.ouvCouverture !== undefined)
+      updates.ouvCouverture = dto.ouvCouverture;
     if (dto.ouvExtrait !== undefined) updates.ouvExtrait = dto.ouvExtrait;
     if (dto.fk_categorie !== undefined) updates.fk_categorie = dto.fk_categorie;
     if (dto.fk_ecrivain !== undefined) updates.fk_ecrivain = dto.fk_ecrivain;
@@ -317,7 +321,7 @@ export const updateLivre = async (
   }
 };
 
-// DELETE /livres/:id - Supprimer un livre
+// DELETE /livres/:id - Delete a book
 export const deleteLivre = async (
   req: Request,
   res: Response,

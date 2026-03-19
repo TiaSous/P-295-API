@@ -1,5 +1,6 @@
 import { IsString, IsOptional } from "class-validator";
 
+// DTO for creating an author
 export class CreateEcrivainDto {
   @IsString()
   ecrNom!: string;
@@ -8,6 +9,7 @@ export class CreateEcrivainDto {
   ecrPrenom!: string;
 }
 
+// DTO for updating an author
 export class UpdateEcrivainDto {
   @IsOptional()
   @IsString()
@@ -18,13 +20,13 @@ export class UpdateEcrivainDto {
   ecrPrenom?: string;
 }
 
-// DTO pour créer un éditeur
+// DTO for creating a publisher
 export class CreateEditeurDto {
   @IsString()
   ediNom!: string;
 }
 
-// DTO pour mettre à jour un éditeur
+// DTO for updating a publisher
 export class UpdateEditeurDto {
   @IsOptional()
   @IsString()

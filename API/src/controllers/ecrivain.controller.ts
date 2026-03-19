@@ -4,7 +4,7 @@ import { plainToInstance } from "class-transformer";
 import { Ecrivain } from "../db/sequelize";
 import { CreateEcrivainDto, UpdateEcrivainDto } from "../models/dto/author.dto";
 
-// GET /ecrivains - Récupérer tous les écrivains
+// GET /ecrivains - Get all authors
 export const getAllEcrivains = async (
   req: Request,
   res: Response,
@@ -37,7 +37,7 @@ export const getAllEcrivains = async (
   }
 };
 
-// GET /ecrivains/:id - Récupérer un écrivain par ID
+// GET /ecrivains/:id - Get an author by ID
 export const getEcrivainById = async (
   req: Request,
   res: Response,
@@ -60,14 +60,14 @@ export const getEcrivainById = async (
   }
 };
 
-// POST /ecrivains - Create a new ecrivain
+// POST /ecrivains - Create a new author
 export const createEcrivain = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    // Valider le DTO
+    // Validate the DTO
     const dto = plainToInstance(CreateEcrivainDto, req.body);
     const errors = await validate(dto);
     if (errors.length > 0) {
@@ -92,7 +92,7 @@ export const createEcrivain = async (
   }
 };
 
-// PUT /ecrivains/:id - Update an ecrivain
+// PUT /ecrivains/:id - Update an author
 export const updateEcrivain = async (
   req: Request,
   res: Response,
@@ -101,7 +101,7 @@ export const updateEcrivain = async (
   try {
     const id = parseInt(req.params.id as string);
 
-    // Valider le DTO
+    // Validate the DTO
     const dto = plainToInstance(UpdateEcrivainDto, req.body);
     const errors = await validate(dto);
     if (errors.length > 0) {
@@ -134,7 +134,7 @@ export const updateEcrivain = async (
   }
 };
 
-// DELETE /ecrivains/:id - Delete an ecrivain
+// DELETE /ecrivains/:id - Delete an author
 export const deleteEcrivain = async (
   req: Request,
   res: Response,

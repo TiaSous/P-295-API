@@ -4,7 +4,7 @@ import { plainToInstance } from "class-transformer";
 import { Editeur } from "../db/sequelize";
 import { CreateEditeurDto, UpdateEditeurDto } from "../models/dto/author.dto";
 
-// GET /editeurs - Récupérer tous les éditeurs
+// GET /editeurs - Get all publishers
 export const getAllEditeurs = async (
   req: Request,
   res: Response,
@@ -37,7 +37,7 @@ export const getAllEditeurs = async (
   }
 };
 
-// GET /editeurs/:id - Récupérer un éditeur par ID
+// GET /editeurs/:id - Get a publisher by ID
 export const getEditeurById = async (
   req: Request,
   res: Response,
@@ -60,14 +60,14 @@ export const getEditeurById = async (
   }
 };
 
-// POST /editeurs - Créer un nouvel éditeur
+// POST /editeurs - Create a new publisher
 export const createEditeur = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    // Valider le DTO
+    // Validate the DTO
     const dto = plainToInstance(CreateEditeurDto, req.body);
     const errors = await validate(dto);
     if (errors.length > 0) {
@@ -89,7 +89,7 @@ export const createEditeur = async (
   }
 };
 
-// PUT /editeurs/:id - Mettre à jour un éditeur
+// PUT /editeurs/:id - Update a publisher
 export const updateEditeur = async (
   req: Request,
   res: Response,
@@ -98,7 +98,7 @@ export const updateEditeur = async (
   try {
     const id = parseInt(req.params.id as string);
 
-    // Valider le DTO
+    // Validate the DTO
     const dto = plainToInstance(UpdateEditeurDto, req.body);
     const errors = await validate(dto);
     if (errors.length > 0) {
@@ -130,7 +130,7 @@ export const updateEditeur = async (
   }
 };
 
-// DELETE /editeurs/:id - Supprimer un éditeur
+// DELETE /editeurs/:id - Delete a publisher
 export const deleteEditeur = async (
   req: Request,
   res: Response,

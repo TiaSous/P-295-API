@@ -7,7 +7,7 @@ import {
   IsDateString,
 } from "class-validator";
 
-// DTO pour créer un livre - fk_utilisateur vient de req.user
+// DTO for creating a book - fk_utilisateur comes from req.user
 export class CreateLivreDto {
   @IsString()
   ouvTitre!: string;
@@ -40,10 +40,10 @@ export class CreateLivreDto {
 
   @IsNumber()
   fk_editeur!: number;
-  // fk_utilisateur vient de req.user - PAS dans le body
+  // fk_utilisateur comes from req.user - NOT in the body
 }
 
-// DTO pour mettre à jour un livre
+// DTO for updating a book
 export class UpdateLivreDto {
   @IsOptional()
   @IsString()

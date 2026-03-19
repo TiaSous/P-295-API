@@ -56,7 +56,7 @@ export const createCommentaire = async (
   next: NextFunction,
 ) => {
   try {
-    // Valider le DTO
+    // Validate the DTO
     const dto = plainToInstance(CreateCommentaireDto, req.body);
     const errors = await validate(dto);
     if (errors.length > 0) {
@@ -70,7 +70,7 @@ export const createCommentaire = async (
       });
     }
 
-    // Récupérer l'ID utilisateur depuis req.user
+    // Get user ID from req.user
     const fk_utilisateur = (req as any).user?.id_utilisateur;
     if (!fk_utilisateur) {
       return res.status(401).json({
