@@ -2,21 +2,27 @@ import { Request, Response, NextFunction } from "express";
 import { validate } from "class-validator";
 import { plainToInstance } from "class-transformer";
 import { Commentaire, Utilisateur, Livre } from "../db/sequelize";
-import {
-  CreateCommentaireDto,
-  UpdateCommentaireDto,
-} from "../models/dto/commentaire.dto";
+import { CreateCommentaireDto } from "../models/dto/commentaire.dto";
 
-// GET /commentaires - Get all comments
+// GET /commentaires/:id - Get all comments for a book by ID
 export const getAllCommentaires = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    const pagination = res.locals.pagination || {};
+    const bookId = parseInt(req.params.id as string);
 
-    const options: any = {
+    // Verify the book exists
+    const livre = await Livre.findByPk(bookId);
+    if (!livre) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Book not found" });
+    }
+
+    const commentaires = await Commentaire.findAll({
+      where: { fk_ouvrage: bookId },
       include: [
         {
           model: Utilisateur,
@@ -25,24 +31,11 @@ export const getAllCommentaires = async (
         },
         { model: Livre, attributes: ["id_ouvrage", "ouvTitre"], as: "Livre" },
       ],
-    };
-
-    if (pagination.limit) {
-      options.limit = pagination.limit;
-      options.offset = pagination.offset;
-    }
-
-    const { count, rows } = await Commentaire.findAndCountAll(options);
+    });
 
     res.status(200).json({
       success: true,
-      data: rows,
-      pagination: {
-        total: count,
-        page: pagination.page,
-        limit: pagination.limit,
-        pages: Math.ceil(count / pagination.limit),
-      },
+      data: commentaires,
     });
   } catch (error) {
     next(error);

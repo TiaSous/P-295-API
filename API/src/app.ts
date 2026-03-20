@@ -5,7 +5,7 @@ import { swaggerSpec } from "./swagger.js";
 import cors from "cors";
 import router from "./routes/router.js";
 import { Request, Response } from "express";
-import { errorMiddleware } from "./middleware/errorMiddleware.js";
+import { errorMiddleware } from "./middleware/error.middleware.js";
 
 const app = express();
 app.use(express.json());

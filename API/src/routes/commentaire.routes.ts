@@ -3,15 +3,18 @@ import {
   getAllCommentaires,
   createCommentaire,
 } from "../controllers/commentaire.controller";
-import { paginationMiddleware } from "../middleware/queryMiddleware";
-import { authMiddleware } from "../middleware/authMiddleware";
+import { authMiddleware } from "../middleware/auth.middleware";
+import { validateBodyMiddleware } from "../middleware/validate.middleware";
+import { CreateCommentaireDto } from "../models/dto/commentaire.dto";
 
 const commentaireRouter = Router();
 
-// Appliquer le middleware de pagination sur tous les GET
-commentaireRouter.use(paginationMiddleware);
-
-commentaireRouter.get("/", getAllCommentaires);
-commentaireRouter.post("/", authMiddleware, createCommentaire);
+commentaireRouter.get("/:id", getAllCommentaires);
+commentaireRouter.post(
+  "/",
+  authMiddleware,
+  validateBodyMiddleware(CreateCommentaireDto),
+  createCommentaire,
+);
 
 export default commentaireRouter;

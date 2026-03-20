@@ -919,43 +919,36 @@ paths:
         "500":
           $ref: "#/components/responses/ServerError"
 
-  /api/commentaires:
+  /api/commentaires/{id}:
+    parameters:
+      - $ref: "#/components/parameters/id"
+
     get:
       tags:
         - Commentaires
-      summary: Récupérer tous les commentaires
-      description: Retourne une liste paginée de tous les commentaires
-      parameters:
-        - $ref: "#/components/parameters/page"
-        - $ref: "#/components/parameters/limit"
-        - $ref: "#/components/parameters/offset"
+      summary: Get comments for a book
+      description: Returns all comments associated with a specific book by its ID
       responses:
         "200":
-          description: Liste des commentaires récupérée avec succès
+          description: Book comments retrieved successfully
           content:
             application/json:
               schema:
                 type: object
                 properties:
+                  success:
+                    type: boolean
+                    example: true
                   data:
                     type: array
                     items:
                       $ref: "#/components/schemas/Commentaire"
-                  pagination:
-                    type: object
-                    properties:
-                      total:
-                        type: integer
-                        example: 50
-                      page:
-                        type: integer
-                        example: 1
-                      limit:
-                        type: integer
-                        example: 10
+        "404":
+          $ref: "#/components/responses/NotFoundError"
         "500":
           $ref: "#/components/responses/ServerError"
 
+  /api/commentaires:
     post:
       tags:
         - Commentaires

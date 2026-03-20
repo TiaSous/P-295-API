@@ -10,8 +10,8 @@ import {
 import {
   paginationMiddleware,
   searchMiddleware,
-} from "../middleware/queryMiddleware";
-import { authMiddleware } from "../middleware/authMiddleware";
+} from "../middleware/query.middleware";
+import { authMiddleware } from "../middleware/auth.middleware";
 
 const livreRouter = Router();
 

@@ -6,8 +6,8 @@ import {
   updateEditeur,
   deleteEditeur,
 } from "../controllers/editeur.controller";
-import { paginationMiddleware } from "../middleware/queryMiddleware";
-import { authMiddleware } from "../middleware/authMiddleware";
+import { paginationMiddleware } from "../middleware/query.middleware";
+import { authMiddleware } from "../middleware/auth.middleware";
 
 const editeurRouter = Router();
 

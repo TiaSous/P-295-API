@@ -1,11 +1,4 @@
-import {
-  IsString,
-  IsOptional,
-  IsNumber,
-  Min,
-  Max,
-  IsDateString,
-} from "class-validator";
+import { IsString, IsOptional, IsNumber, IsDateString } from "class-validator";
 
 // DTO for creating a book - fk_utilisateur comes from req.user
 export class CreateLivreDto {

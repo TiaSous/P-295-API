@@ -5,9 +5,9 @@ import {
   getLivresByCategorie,
   createCategorie,
 } from "../controllers/categorie.controller";
-import { paginationMiddleware } from "../middleware/queryMiddleware";
-import { authMiddleware } from "../middleware/authMiddleware";
-import { validateBodyMiddleware } from "../middleware/validateMiddleware";
+import { paginationMiddleware } from "../middleware/query.middleware";
+import { authMiddleware } from "../middleware/auth.middleware";
+import { validateBodyMiddleware } from "../middleware/validate.middleware";
 import { CreateCategorieDto } from "../models/dto/categorie.dto";
 
 const categorieRouter = Router();
