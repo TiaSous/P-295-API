@@ -63,7 +63,7 @@ onMounted(() => {
 
   let dd = today.value.getDate();
   let mm = today.value.getMonth() + 1;
-  let yyyy = today.value.getFullYear();
+  const yyyy = today.value.getFullYear();
 
   if (dd < 10) {
     dd = '0' + dd;
@@ -102,33 +102,33 @@ async function Submit() {
 }
 </script>
 <template>
-  <form v-if="!IsError401" @submit.prevent="Submit" class="review-form">
+  <form v-if="!IsError401" class="review-form" @submit.prevent="Submit">
     <label for="titre">Titre: </label>
-    <input type="text" required v-model="titre" maxlength="50" />
+    <input v-model="titre" type="text" required maxlength="50" />
     <label for="nbPage">Nombre de page: </label>
-    <input type="number" min="1" v-model="nbPage" />
+    <input v-model="nbPage" type="number" min="1" />
     <label for="resume">Resume: </label>
-    <input type="text" v-model="resume" maxlength="255" />
+    <input v-model="resume" type="text" maxlength="255" />
     <label for="date">Date: </label>
-    <input required id="datefield" type="date" v-model="date" />
+    <input id="datefield" v-model="date" required type="date" />
     <label for="extrait">Extrait: </label>
-    <input type="text" v-model="extrait" maxlength="255" />
+    <input v-model="extrait" type="text" maxlength="255" />
     <label for="categorie">Categorie: </label>
-    <select required name="" id="" v-model="categorie">
+    <select id="" v-model="categorie" required name="">
       <option disabled selected>Choisissez un catégorie</option>
       <option v-for="categorie in allCategories" :value="categorie.id_categorie">
         {{ categorie.catNom }}
       </option>
     </select>
     <label for="ecrivain">Ecrivain: </label>
-    <select required name="" id="" v-model="ecrivain">
+    <select id="" v-model="ecrivain" required name="">
       <option disabled selected>Choisissez un écrivain</option>
       <option v-for="ecrivain in allEcrivains" :value="ecrivain.id_ecrivain">
         {{ ecrivain.ecrPrenom }} {{ ecrivain.ecrNom }}
       </option>
     </select>
     <label for="editeur">Editeur: </label>
-    <select required name="" id="" v-model="editeur">
+    <select id="" v-model="editeur" required name="">
       <option disabled selected>Choisissez un éditeur</option>
       <option v-for="editeur in allEditeurs" :value="editeur.id_editeur">
         {{ editeur.ediNom }}

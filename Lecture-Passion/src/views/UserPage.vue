@@ -5,20 +5,18 @@ import { ref, onMounted } from 'vue';
 import { decodeToken } from '@/tools/decodeToken.mjs';
 import { getCommentaire } from '@/services/BookService.mjs';
 
-const IsError401 = ref(); // si ne fournit pas de jeton ou est invalide
+// id de l'utilisateur
+const props = defineProps({
+  id: {
+    required: true,
+  },
+}); const IsError401 = ref(); // si ne fournit pas de jeton ou est invalide
 const token = ref(); // token
 
 const books = ref(null);
 const listeLivres = ref([]);
 const nbCommentaires = ref(0);
 const nbLivres = ref(0);
-
-// id de l'utilisateur
-const props = defineProps({
-  id: {
-    required: true,
-  },
-});
 
 onMounted(async () => {
   // va récupérer les livres selon l'utilisateur

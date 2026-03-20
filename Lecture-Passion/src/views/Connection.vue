@@ -22,11 +22,11 @@ function OnSubmit() {
 
 <template>
   <h1>Connexion</h1>
-  <form @submit.prevent="OnSubmit" class="review-form">
+  <form class="review-form" @submit.prevent="OnSubmit">
     <label for="nom">Nom: </label>
-    <input class="nom" type="text" v-model="nom" />
+    <input v-model="nom" class="nom" type="text" />
     <label for="motdepasse">Mot de passe: </label>
-    <input class="motdepasse" type="password" v-model="mdp" />
+    <input v-model="mdp" class="motdepasse" type="password" />
 
     <input class="button" type="submit" value="Submit" />
   </form>

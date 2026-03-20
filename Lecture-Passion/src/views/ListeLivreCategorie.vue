@@ -3,15 +3,14 @@ import { getAllLivresCategorie } from '@/services/BookService.mjs';
 import { ref, onMounted } from 'vue';
 import ListeCategorie from '../components/ListeCategorie.vue';
 
-const books = ref(null);
-const listeLivres = ref([]);
-
 // id de la catégorie
 const props = defineProps({
   id: {
     required: true,
   },
 });
+const books = ref(null);
+const listeLivres = ref([]);
 
 onMounted(() => {
   getAllLivresCategorie(props.id)
