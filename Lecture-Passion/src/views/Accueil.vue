@@ -1,21 +1,12 @@
-<script setup>
-import ListeCategorie from '@/components/ListeCategorie.vue';
-import { getLivres } from '@/services/BookService.mjs';
-import { ref, onMounted } from 'vue';
+<script setup lang="ts">
+import ListeLivre from '@/components/ListeLivre.vue';
+import { useBookStore } from '@/stores/bookStore';
+import { onMounted } from 'vue';
 
-const books = ref(null);
-const listeLivres = ref([]); // Initialisez listeLivres avec un tableau vide
+const bookStore = useBookStore();
 
-// Connexion à l'API au moment du montage du composant
 onMounted(() => {
-  getLivres(5)
-    .then((reponse) => {
-      books.value = reponse.data;
-      listeLivres.value = books.value.data.rows;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  bookStore.fetchBooks({ limit: 5 });
 });
 </script>
 <template>
@@ -32,7 +23,7 @@ onMounted(() => {
             </p>
           </div>
         </section>
-        <ListeCategorie :name="'Dernière Sortie'" :livres="listeLivres" />
+        <ListeLivre :name="'Dernière Sortie'" :livres="bookStore.books" />
       </div>
     </main>
   </div>

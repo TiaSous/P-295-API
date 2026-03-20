@@ -1,24 +1,5 @@
-<script setup>
-import { onMounted, ref } from 'vue';
+<script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
-import { decodeToken } from './tools/decodeToken.mjs';
-
-const token = ref();
-const userId = ref(0);
-onMounted(() => {
-  try {
-    getToken();
-  } catch {
-    userId.value = 0;
-  }
-});
-
-// récupère le token pour le user id
-function getToken() {
-  const test = localStorage.getItem('token');
-  token.value = decodeToken(test);
-  userId.value = token.value.userId;
-}
 </script>
 
 <template>
@@ -26,12 +7,6 @@ function getToken() {
     <nav>
       <RouterLink to="/">
         <h1 class="logo">BOOK STORY</h1>
-      </RouterLink>
-      <RouterLink :to="{ name: 'user', params: { id: userId } }" class="navigation">
-        <p class="button-3" role="button">Mes ouvrages</p>
-      </RouterLink>
-      <RouterLink class="navigation" to="/liste">
-        <p class="button-3" role="button">Liste</p>
       </RouterLink>
       <RouterLink to="/connection">
         <img class="user" src="./assets/image/connection.png" alt="" />

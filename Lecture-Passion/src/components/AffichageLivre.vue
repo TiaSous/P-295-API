@@ -1,7 +1,9 @@
-<script setup>
+<script setup lang="ts">
+import { Book } from '@/model/bo/book';
+
 // livre à afficher
 const props = defineProps({
-  livre: Object,
+  livre: Book,
 });
 </script>
 
@@ -15,17 +17,10 @@ const props = defineProps({
         <RouterLink :to="{ name: 'livre-details', params: { id: livre.id_ouvrage } }">
           <h2>{{ livre.ouvTitre }}</h2>
         </RouterLink>
-        <p>{{ livre.t_ecrivain.ecrPrenom }} {{ livre.t_ecrivain.ecrNom }}</p>
+        <p>{{ livre.ecrivain.ecrPrenom }} {{ livre.ecrivain.ecrNom }}</p>
         <p>{{ livre.ouvMoyenneAppreciation }}</p>
       </div>
-      <RouterLink
-        :to="{
-          name: 'user',
-          params: { id: livre.t_utilisateur.id_utilisateur },
-        }"
-      >
-        <p>Publié par : {{ livre.t_utilisateur.utiPseudo }}</p>
-      </RouterLink>
+      <p>Publié par : {{ livre.user.utiPseudo }}</p>
     </div>
   </div>
 </template>

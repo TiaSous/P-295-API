@@ -1,22 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
-import { login } from '@/services/BookService.mjs';
+import { useUserStore } from '@/stores/userStore';
 
 const nom = ref();
 const mdp = ref();
+const userStore = useUserStore();
 
 // lorsqu'il tente de se connecter
 function OnSubmit() {
-  login(nom, mdp)
-    .then((response) => {
-      localStorage.setItem('token', response.data.token);
-      alert('vous êtes connecté');
-      window.location.reload();
-    })
-    .catch(() => {
-      alert("vous n'êtes pas connecté");
-      console.log('test');
-    });
+  userStore.login(nom.value, mdp.value);
 }
 </script>
 
