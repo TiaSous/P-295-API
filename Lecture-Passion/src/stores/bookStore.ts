@@ -1,5 +1,4 @@
 import { Book } from '@/model/bo/book';
-import { getBookParams } from '@/model/dto/bookDto';
 import { getAllBooks } from '@/services/api/bookService';
 import { defineStore } from 'pinia';
 
@@ -9,9 +8,9 @@ export const useBookStore = defineStore('book', {
     isLoading: false,
   }),
   actions: {
-    async fetchBooks(params?: getBookParams) {
+    async fetchBooks() {
       this.isLoading = true;
-      const books = await getAllBooks(params);
+      const books = await getAllBooks();
       this.books = books;
       this.isLoading = false;
     },

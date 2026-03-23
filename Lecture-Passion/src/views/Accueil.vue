@@ -6,7 +6,7 @@ import { onMounted } from 'vue';
 const bookStore = useBookStore();
 
 onMounted(() => {
-  bookStore.fetchBooks({ limit: 5 });
+  bookStore.fetchBooks();
 });
 </script>
 <template>

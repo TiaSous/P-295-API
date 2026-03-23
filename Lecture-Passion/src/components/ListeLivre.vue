@@ -11,7 +11,7 @@ const props = defineProps({
 
 <template>
   <h2>{{ name }}</h2>
-  <div v-if="livres.length <= 0">
+  <div v-if="livres?.length <= 0">
     <p>Chargement</p>
   </div>
   <div v-else>

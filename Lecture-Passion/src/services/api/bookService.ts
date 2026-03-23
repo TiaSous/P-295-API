@@ -1,18 +1,10 @@
 import { Book } from '@/model/bo/book';
-import { getBookParams } from '@/model/dto/bookDto';
 import { mapToBook } from '../mapping/bookMapping';
 import clientHttp from '@/services/clientHttp';
 
-export const getAllBooks = async (params?: getBookParams): Promise<Book[]> => {
-  const response = await clientHttp.get('/api/livres', {
-    params: {
-      page: params?.page,
-      limit: params?.limit,
-      offset: params?.offset,
-      titre: params?.titre,
-    },
-  });
-  const books: Book[] = response.data.data.map(mapToBook);
+export const getAllBooks = async (): Promise<Book[]> => {
+  const response = await clientHttp.get('/Book');
+  const books: Book[] = response.data.map(mapToBook);
   return books;
 };
 

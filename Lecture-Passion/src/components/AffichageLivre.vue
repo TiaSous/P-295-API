@@ -9,18 +9,17 @@ const props = defineProps({
 
 <template>
   <div class="livre">
-    <RouterLink :to="{ name: 'livre-details', params: { id: livre.id_ouvrage } }">
-      <img :src="'/' + livre.ouvCouverture" alt="couverture du livre" />
+    <RouterLink :to="{ name: 'livre-details', params: { id: livre?.id } }">
+      <img :src="'/' + livre?.cover" alt="couverture du livre" />
     </RouterLink>
     <div class="livre-description">
       <div>
-        <RouterLink :to="{ name: 'livre-details', params: { id: livre.id_ouvrage } }">
-          <h2>{{ livre.ouvTitre }}</h2>
+        <RouterLink :to="{ name: 'livre-details', params: { id: livre?.id } }">
+          <h2>{{ livre?.title }}</h2>
         </RouterLink>
-        <p>{{ livre.ecrivain.ecrPrenom }} {{ livre.ecrivain.ecrNom }}</p>
-        <p>{{ livre.ouvMoyenneAppreciation }}</p>
+        <p>{{ livre?.author.name }}</p>
       </div>
-      <p>Publié par : {{ livre.user.utiPseudo }}</p>
+      <p>Publié par : {{ livre?.publisher }}</p>
     </div>
   </div>
 </template>
