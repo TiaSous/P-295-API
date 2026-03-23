@@ -1,5 +1,4 @@
 import { UserApp } from '@/model/bo/userApp';
-import { login } from '@/services/api/authService';
 import { defineStore } from 'pinia';
 
 export const useUserStore = defineStore('user', {
@@ -21,10 +20,10 @@ export const useUserStore = defineStore('user', {
       this.user = null;
     },
     async login(username: string, password: string) {
-      const result = await login(username, password);
-      this.user = result.user;
-      this.setToken(result.token);
-      alert('vous êtes connecté');
+      // const result = await login(username, password);
+      // this.user = result.user;
+      // this.setToken(result.token);
+      // alert('vous êtes connecté');
     },
   },
 });
