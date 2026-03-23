@@ -1,36 +1,68 @@
-# Creation date : 18.03.2024
-# Created by : CSR
-# Description : This compose file creates a stack of two containers (nodejs + mysql)
-#
 version: "2"
 
 services:
+  frontend:
+    build:
+      context: ./Lecture-Passion
+      dockerfile: Dockerfile
+      args:
+        VITE_MODE: development
+    ports:
+      - "3000:80"
+    depends_on:
+      - app
+    networks:
+      - app-network
+
   db:
     image: mysql:8.0.30
     hostname: db
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: db_user
-      MYSQL_PASSWORD: db_user_pass
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     restart: always
     ports:
       - "3306:3306"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysql",
+          "-h",
+          "127.0.0.1",
+          "-u${DB_USER}",
+          "-p${DB_PASSWORD}",
+          "-e",
+          "SELECT 1",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
     volumes:
       - ./db:/docker-entrypoint-initdb.d
       - dbdata:/var/lib/mysql
+    networks:
+      - app-network
 
-  phpmyadmin:
-    image: phpmyadmin:5.2.0
-    links:
-      - db
-    environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      PMA_ARBITRARY: 1
-    restart: always
+  backend:
+    build: ./API-ASP-Book
     ports:
-      - 8084:80
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Default=${API_CONNECTION_STRING}
+    networks:
+      - app-network
 
-# The database will be persistent among containers restarts.
 volumes:
   dbdata:
+
+networks:
+  app-network:
+    driver: bridge

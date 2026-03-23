@@ -1,7 +1,9 @@
 import { useUserStore } from '@/stores/userStore';
 import axios from 'axios';
 
-const clientHttp = axios.create();
+const clientHttp = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8080',
+});
 
 clientHttp.interceptors.request.use((config) => {
   const userStore = useUserStore();

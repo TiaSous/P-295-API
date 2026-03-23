@@ -1,113 +1,108 @@
-CREATE DATABASE IF NOT EXISTS db_librairie;
+CREATE DATABASE IF NOT EXISTS library;
 
-USE db_librairie;
+USE library;
 
+-- ============================================================
+-- INSERTION DE DONNÉES DE SEED POUR LA BASE DE DONNÉES LIVRE
+-- ============================================================
 
-CREATE TABLE t_utilisateur(
-   id_utilisateur INT NOT NULL AUTO_INCREMENT,
-   utiPseudo VARCHAR(50) NOT NULL,
-   utiMotDePasse VARCHAR(255)  NOT NULL,
-   utiDateEntree DATE,
-   utiNbOuvrageProposer INT,
-   utiNbCommentaire INT,
-   utiRole VARCHAR(255) NOT NULL,
-   PRIMARY KEY(id_utilisateur)
-);
+-- ============================================================
+-- 1. INSERTION DES UTILISATEURS (t_utilisateur)
+-- ============================================================
+INSERT INTO t_utilisateur (Username, Password, Role) VALUES
+('alice_smith', 'hashed_password_123', 'user'),
+('bob_johnson', 'hashed_password_456', 'user'),
+('carol_white', 'hashed_password_789', 'admin'),
+('david_brown', 'hashed_password_101', 'user'),
+('emma_davis', 'hashed_password_202', 'user');
 
-CREATE TABLE t_categorie(
-   id_categorie INT NOT NULL AUTO_INCREMENT,
-   catNom VARCHAR(50) NOT NULL,
-   PRIMARY KEY(id_categorie)
-);
+-- ============================================================
+-- 2. INSERTION DES AUTEURS (t_author)
+-- ============================================================
+INSERT INTO t_author (LastName, FirstName) VALUES
+('Rowling', 'J.K.'),
+('Tolkien', 'J.R.R.'),
+('Martin', 'George R.R.'),
+('Asimov', 'Isaac'),
+('Clarke', 'Arthur C.'),
+('Austen', 'Jane'),
+('Orwell', 'George'),
+('Hemingway', 'Ernest'),
+('Fitzgerald', 'F. Scott'),
+('Christie', 'Agatha');
 
-CREATE TABLE t_ecrivain(
-   id_ecrivain INT NOT NULL AUTO_INCREMENT,
-   ecrNom VARCHAR(50) NOT NULL,
-   ecrPrenom VARCHAR(50) NOT NULL,
-   PRIMARY KEY(id_ecrivain)
-);
+-- ============================================================
+-- 3. INSERTION DES CATÉGORIES (t_category)
+-- ============================================================
+INSERT INTO t_category (Name) VALUES
+('Science-Fiction'),
+('Fantasy'),
+('Mystère'),
+('Romance'),
+('Thriller'),
+('Aventure'),
+('Historique'),
+('Biographie'),
+('Poésie'),
+('Jeunesse');
 
-CREATE TABLE t_editeur(
-   id_editeur INT NOT NULL AUTO_INCREMENT,
-   ediNom VARCHAR(50) NOT NULL,
-   PRIMARY KEY(id_editeur)
-);
+-- ============================================================
+-- 4. INSERTION DES ÉDITEURS (t_publisher)
+-- ============================================================
+INSERT INTO t_publisher (Name) VALUES
+('Bloomsbury Publishing'),
+('Allen & Unwin'),
+('Bantam Books'),
+('Doubleday'),
+('Penguin Books'),
+('Simon & Schuster'),
+('Hachette Book Group'),
+('Macmillan Publishers'),
+('Random House'),
+('Éditions Gallimard');
 
-CREATE TABLE t_ouvrage(
-   id_ouvrage INT NOT NULL AUTO_INCREMENT,
-   ouvTitre VARCHAR(50) NOT NULL,
-   ouvNbPage INT,
-   ouvResume VARCHAR(255),
-   ouvAnneeEdition DATE,
-   ouvCouverture VARCHAR(50),
-   ouvExtrait VARCHAR(255),
-   ouvMoyenneAppreciation INT,
-   fk_utilisateur INT NOT NULL,
-   fk_categorie INT,
-   fk_ecrivain INT,
-   fk_editeur INT,
-   PRIMARY KEY(id_ouvrage),
-   FOREIGN KEY(fk_utilisateur) REFERENCES t_utilisateur(id_utilisateur) ON DELETE CASCADE ON UPDATE CASCADE,
-   FOREIGN KEY(fk_categorie) REFERENCES t_categorie(id_categorie) ON DELETE CASCADE ON UPDATE CASCADE,
-   FOREIGN KEY(fk_ecrivain) REFERENCES t_ecrivain(id_ecrivain) ON DELETE CASCADE ON UPDATE CASCADE,
-   FOREIGN KEY(fk_editeur) REFERENCES t_editeur(id_editeur) ON DELETE CASCADE ON UPDATE CASCADE
-);
+-- ============================================================
+-- 5. INSERTION DES LIVRES (t_book)
+-- ============================================================
+INSERT INTO t_book (Title, NbPage, Resume, EditionYear, Cover, Passage, Rating, FkUser, FkCategory, FkAuthor, FkPublisher) VALUES
+('Harry Potter and the Philosopher''s Stone', 223, 'Un jeune magicien découvre qu''il est un sorcier et commence ses études à Poudlard.', '1997-06-26', 'cover_hp1.jpg', 'Chapter 1: The Boy Who Lived', 5, 1, 2, 1, 1),
+('The Lord of the Rings: The Fellowship of the Ring', 487, 'Un groupe d''aventuriers entreprend un long voyage pour détruire un anneau magique.', '1954-07-29', 'cover_lotr1.jpg', 'Chapter 1: A Long-expected Party', 5, 2, 2, 2, 2),
+('A Game of Thrones', 694, 'Les nobles familles de Westeros se battent pour le trône du Fer dans un monde de magie et de politique.', '1996-08-06', 'cover_got1.jpg', 'Prologue', 4, 3, 2, 3, 3),
+('Foundation', 255, 'Un psychohistorien tente de sauver la civilisation galactique de l''effondrement imminent.', '1951-06-01', 'cover_foundation.jpg', 'Chapter 1', 4, 4, 1, 4, 4),
+('2001: A Space Odyssey', 297, 'Une mission spatiale révèle un mystère cosmique ancien et l''évolution de l''humanité.', '1968-04-02', 'cover_2001.jpg', 'Part One: TMA-1', 5, 1, 1, 5, 5),
+('Pride and Prejudice', 279, 'L''histoire d''amour entre Elizabeth Bennet et Mr Darcy dans l''Angleterre du XIXe siècle.', '1813-01-28', 'cover_pp.jpg', 'Chapter 1', 5, 2, 4, 6, 6),
+('1984', 328, 'Un roman dystopique où un gouvernement totalitaire contrôle chaque aspect de la vie.', '1949-06-08', 'cover_1984.jpg', 'Part One, Chapter 1', 5, 3, 5, 7, 7),
+('The Old Man and the Sea', 127, 'Un vieux pêcheur cubain lutte contre un grand marlin dans l''océan.', '1952-09-01', 'cover_omts.jpg', 'Chapter 1', 4, 4, 6, 8, 8),
+('The Great Gatsby', 180, 'L''histoire de Jay Gatsby et de son obsession pour une femme dans les années 1920.', '1925-04-10', 'cover_gg.jpg', 'Chapter 1: In My Younger and More Vulnerable Years', 4, 5, 4, 9, 9),
+('Murder on the Orient Express', 256, 'Hercule Poirot enquête sur un meurtre dans un train luxueux bloqué par la neige.', '1934-01-01', 'cover_mooe.jpg', 'Chapter 1', 4, 1, 3, 10, 10);
 
-CREATE TABLE t_commentaire(
-   id_commentaire INT NOT NULL AUTO_INCREMENT,
-   comAppreciation INT NOT NULL,
-   comCommentaire VARCHAR(255) NOT NULL,
-   fk_ouvrage INT NOT NULL,
-   fk_utilisateur INT NOT NULL,
-   PRIMARY KEY(id_commentaire),
-   FOREIGN KEY(fk_ouvrage) REFERENCES t_ouvrage(id_ouvrage) ON DELETE CASCADE ON UPDATE CASCADE,
-   FOREIGN KEY(fk_utilisateur) REFERENCES t_utilisateur(id_utilisateur) ON DELETE CASCADE ON UPDATE CASCADE
-);
+-- ============================================================
+-- 6. INSERTION DES COMMENTAIRES (t_comment)
+-- ============================================================
+INSERT INTO t_comment (Content, Rating, FkBook, FkUser) VALUES
+('Excellent livre, très captivant!', 5, 1, 2),
+('Les personnages sont bien développés et l''histoire est magique.', 5, 1, 3),
+('Une œuvre maîtresse de la science-fiction.', 5, 2, 4),
+('Difficile à lire par endroits mais extraordinaire.', 4, 2, 5),
+('Un grand classique, vivement recommandé.', 5, 3, 1),
+('Incroyable, j''ai adoré chaque page.', 5, 4, 2),
+('Un classique de la science-fiction, à lire absolument.', 5, 5, 3),
+('Poétique et philosophique, simplement magnifique.', 5, 6, 4),
+('Un vrai chef-d''œuvre de la littérature.', 5, 7, 5),
+('Court mais intense, très beau.', 4, 8, 1),
+('Fascinant portrait de l''amour et du rêve américain.', 4, 9, 2),
+('Une intrigue palpitante du début à la fin.', 4, 10, 3);
 
--- Insérer des utilisateurs
-INSERT INTO t_utilisateur (id_utilisateur, utiPseudo, utiMotDePasse, utiDateEntree, utiNbOuvrageProposer, utiNbCommentaire, utiRole)
-VALUES 
-(1, 'Tiago', '$2b$10$dvqCnsw22gy8xiGVgJKzIOqjf4GCM1vmoA3iooUdSKYbJ3r056DCu', '2022-01-01', 5, 10, 'admin'),
-(2, 'Evin', '$2b$10$dvqCnsw22gy8xiGVgJKzIOqjf4GCM1vmoA3iooUdSKYbJ3r056DCu', '2022-02-01', 3, 7, 'admin'),
-(3, 'Alice', '$2b$10$dvqCnsw22gy8xiGVgJKzIOqjf4GCM1vmoA3iooUdSKYbJ3r056DCu', '2022-03-15', 8, 12, 'user')
-(4, 'Tiago', '$2b$10$dvqCnsw22gy8xiGVgJKzIOqjf4GCM1vmoA3iooUdSKYbJ3r056DCu', '2022-01-01', 5, 10, 'admin');
-
--- Insérer des catégories
-INSERT INTO t_categorie (id_categorie, catNom)
-VALUES 
-(1, 'Science-Fiction'),
-(2, 'Romance'),
-(3, 'Mystère'),
-(4, 'Historique');
-
--- Insérer des écrivains
-INSERT INTO t_ecrivain (id_ecrivain, ecrNom, ecrPrenom)
-VALUES 
-(1, 'Martin', 'George R. R.'),
-(2, 'Rowling', 'J.K.'),
-(3, 'Christie', 'Agatha'),
-(4, 'Hemingway', 'Ernest');
-
--- Insérer des éditeurs
-INSERT INTO t_editeur (id_editeur, ediNom)
-VALUES 
-(1, 'Editions Albin Michel'),
-(2, 'Editions Gallimard'),
-(3, 'HarperCollins'),
-(4, 'Random House');
-
--- Insérer des ouvrages
-INSERT INTO t_ouvrage (id_ouvrage, ouvTitre, ouvNbPage, ouvResume, ouvAnneeEdition, ouvCouverture, ouvExtrait, ouvMoyenneAppreciation, fk_utilisateur, fk_categorie, fk_ecrivain, fk_editeur)
-VALUES 
-(1, 'Le Trône de Fer', 800, 'Une épopée fantastique dans un monde imaginaire.', '1996-08-06', 'trone_de_fer.jpg', 'extrait_trone_de_fer.txt', 4, 1, 1, 1, 1),
-(2, 'Harry Potter à l\école des sorciers', 320, 'L\histoire de Harry Potter et ses amis à Poudlard.', '1997-06-26', 'harry_potter.jpg', 'extrait_harry_potter.txt', 5, 2, 2, 2, 2),
-(3, 'Le Crime de l\Orient-Express', 250, 'Un meurtre mystérieux à bord du célèbre train.', '1934-01-01', 'crime_orient_express.jpg', 'extrait_crime_orient_express.txt', 4, 3,3, 3, 3),
-(4, 'Le Vieil Homme et la Mer', 127, 'Un pêcheur cubain lutte contre un énorme poisson dans le golfe du Mexique.', '1952-09-01', 'vieil_homme_mer.jpg', 'extrait_vieil_homme_mer.txt', 5, 3,1, 4, 4);
-
--- Insérer des commentaires
-INSERT INTO t_commentaire (id_commentaire, comAppreciation, comCommentaire, fk_ouvrage, fk_utilisateur)
-VALUES 
-(1, 4, 'Une intrigue captivante!', 1, 1),
-(2, 5, 'Magique du début à la fin.', 2, 2),
-(3, 3, 'Un excellent mystère!', 3, 3),
-(4, 4, 'Une œuvre littéraire exceptionnelle.', 4, 1);
+-- ============================================================
+-- SCRIPT TERMINÉ
+-- ============================================================
+-- Vous pouvez maintenant exécuter ce script dans votre base de données
+-- Pour SQL Server:
+--   1. Ouvrez SQL Server Management Studio
+--   2. Connectez-vous à votre base de données
+--   3. Ouvrez une nouvelle requête (New Query)
+--   4. Collez ce script
+--   5. Exécutez (F5)
+--
+-- Les IDs seront auto-générés pour chaque entité grâce à l'IDENTITY
+-- ============================================================
