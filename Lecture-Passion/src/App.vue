@@ -32,7 +32,7 @@ onMounted(async () => {
   <header>
     <nav>
       <RouterLink to="/">
-        <h1 class="logo">BOOK STORY TEST</h1>
+        <h1 class="logo">BOOK STORY</h1>
       </RouterLink>
       <button @click="handleLogin">login</button>
       <button @click="handleLogout">logout</button>
