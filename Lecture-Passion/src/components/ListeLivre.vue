@@ -1,0 +1,20 @@
+<script setup lang="ts">
+import AffichageLivre from '@/components/AffichageLivre.vue';
+import { Book } from '@/model/bo/book';
+
+// liste des livres
+const props = defineProps({
+  name: String,
+  livres: Array<Book>,
+});
+</script>
+
+<template>
+  <h2>{{ name }}</h2>
+  <div v-if="livres?.length <= 0">
+    <p>Chargement</p>
+  </div>
+  <div v-else>
+    <AffichageLivre v-for="livre in props.livres" :livre="livre"></AffichageLivre>
+  </div>
+</template>
