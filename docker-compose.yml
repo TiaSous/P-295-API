@@ -7,6 +7,8 @@ services:
       dockerfile: Dockerfile
       args:
         VITE_MODE: development
+        VITE_MSAL_CLIENT_ID: ${VITE_MSAL_CLIENT_ID}
+        VITE_MSAL_TENANT_ID: ${VITE_MSAL_TENANT_ID}
     ports:
       - "3000:80"
     depends_on:
