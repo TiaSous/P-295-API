@@ -28,9 +28,6 @@ export function useAuth() {
     try {
       const result = await myMSALObj.handleRedirectPromise();
       if (result) {
-        console.log('Token:', result.accessToken);
-        console.log('Compte connecté:', result.account);
-
         // Stocker le token et les infos utilisateur
         userStore.setToken(result.accessToken);
         userStore.setUser({
