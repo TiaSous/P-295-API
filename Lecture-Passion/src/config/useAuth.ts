@@ -1,35 +1,54 @@
-import { myMSALObj } from './msalConfig';
+import { ref, computed } from 'vue';
+import { AccountInfo, InteractionRequiredAuthError } from '@azure/msal-browser';
+import { myMSALObj, graphScopes } from './msalConfig';
+import { useUserStore } from '@/stores/userStore';
 
 export function useAuth() {
+  const userStore = useUserStore();
+
   const login = async () => {
     try {
-      if (!myMSALObj) {
-        throw new Error('MSAL object is not initialized');
-      }
-      await myMSALObj.loginRedirect();
-
-      const loginResponse = await myMSALObj.loginRedirect();
-      console.log('Login successful:', loginResponse);
+      await myMSALObj.loginRedirect(graphScopes);
     } catch (error) {
       console.error('Erreur lors de la connexion :', error);
     }
   };
 
   const logout = () => {
-    if (!myMSALObj) {
-      console.error('MSAL object is not initialized');
-      return;
+    try {
+      myMSALObj.logoutRedirect({
+        postLogoutRedirectUri: window.location.origin,
+      });
+    } catch (error) {
+      console.error('Erreur lors de la déconnexion :', error);
     }
-    myMSALObj.logoutRedirect();
-    console.log('Logout successful');
   };
 
   const handleRedirect = async () => {
     try {
-      await myMSALObj.handleRedirectPromise();
+      const result = await myMSALObj.handleRedirectPromise();
+      if (result) {
+        console.log('Token:', result.accessToken);
+        console.log('Compte connecté:', result.account);
+
+        // Stocker le token et les infos utilisateur
+        userStore.setToken(result.accessToken);
+        userStore.setUser({
+          id: result.account?.homeAccountId || '',
+          username: result.account?.username || '',
+          role: 'user',
+        });
+
+        console.log('Redirect traité avec succès, données stockées');
+      }
     } catch (error) {
       console.error('Erreur lors du traitement du redirect :', error);
     }
   };
-  return { login, logout, handleRedirect };
+
+  return {
+    login,
+    logout,
+    handleRedirect,
+  };
 }

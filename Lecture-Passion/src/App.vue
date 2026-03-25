@@ -2,29 +2,11 @@
 import { RouterLink, RouterView } from 'vue-router';
 import { useAuth } from './config/useAuth';
 import { onMounted } from 'vue';
-import { myMSALObj } from './config/msalConfig';
 
 const { login, logout, handleRedirect } = useAuth();
 
-const handleLogin = async () => {
-  await login();
-};
-
-const handleLogout = () => {
-  logout();
-};
-
-const initialize = async () => {
-  try {
-    await myMSALObj.initialize();
-  } catch (error) {
-    console.error('Error initializing MSAL:', error);
-  }
-};
-
-onMounted(async () => {
-  await initialize();
-  await handleRedirect();
+onMounted(() => {
+  handleRedirect();
 });
 </script>
 
@@ -34,8 +16,8 @@ onMounted(async () => {
       <RouterLink to="/">
         <h1 class="logo">BOOK STORY</h1>
       </RouterLink>
-      <button @click="handleLogin">login</button>
-      <button @click="handleLogout">logout</button>
+      <button @click="login">login</button>
+      <button @click="logout">logout</button>
     </nav>
   </header>
   <main>
