@@ -3,7 +3,8 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+var connString = builder.Configuration.GetConnectionString("DefaultConnection");
+Console.WriteLine($"CONNECTION STRING USED: {connString}");
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
