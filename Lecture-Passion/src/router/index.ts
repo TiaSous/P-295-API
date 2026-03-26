@@ -16,6 +16,10 @@ const router = createRouter({
       component: DetailsLivre,
       props: true,
     },
+    {
+      path: '/auth-response',
+      redirect: '/',
+    },
   ],
 });
 

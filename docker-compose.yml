@@ -9,6 +9,7 @@ services:
         VITE_MODE: development
         VITE_MSAL_CLIENT_ID: ${VITE_MSAL_CLIENT_ID}
         VITE_MSAL_TENANT_ID: ${VITE_MSAL_TENANT_ID}
+        VITE_MSAL_REDIRECT_URI: ${VITE_MSAL_REDIRECT_URI}
     ports:
       - "3000:80"
     depends_on:
@@ -58,7 +59,7 @@ services:
         condition: service_healthy
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__Default=${API_CONNECTION_STRING}
+      - ConnectionStrings__DefaultConnection=${API_CONNECTION_STRING}
     networks:
       - app-network
 

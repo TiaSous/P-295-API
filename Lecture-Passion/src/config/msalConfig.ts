@@ -4,7 +4,7 @@ export const msalConfig = {
   auth: {
     clientId: import.meta.env.VITE_MSAL_CLIENT_ID,
     authority: 'https://login.microsoftonline.com/' + import.meta.env.VITE_MSAL_TENANT_ID,
-    redirectUri: window.location.origin,
+    redirectUri: import.meta.env.VITE_MSAL_REDIRECT_URI,
   },
   cache: {
     cacheLocation: 'localStorage',
@@ -13,7 +13,7 @@ export const msalConfig = {
 };
 
 export const graphScopes: RedirectRequest = {
-  scopes: ['openid', 'profile', 'User.Read'],
+  scopes: ['openid', 'profile', 'email'],
 };
 
 export const myMSALObj = new PublicClientApplication(msalConfig);

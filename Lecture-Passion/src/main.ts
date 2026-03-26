@@ -3,11 +3,16 @@ import App from './App.vue';
 import router from './router';
 import './assets/main.css';
 import { createPinia } from 'pinia';
+import { myMSALObj } from './config/msalConfig';
 
-const pinia = createPinia();
-const app = createApp(App);
+(async () => {
+  await myMSALObj.initialize();
 
-app.use(pinia);
-app.use(router);
+  const pinia = createPinia();
+  const app = createApp(App);
 
-app.mount('#app');
+  app.use(pinia);
+  app.use(router);
+
+  app.mount('#app');
+})();

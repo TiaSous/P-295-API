@@ -12,18 +12,9 @@ export const useUserStore = defineStore('user', {
   actions: {
     setToken(token: string) {
       this.token = token;
-      localStorage.setItem('token', token);
     },
-    logout() {
-      this.token = null;
-      localStorage.removeItem('token');
-      this.user = null;
-    },
-    async login(username: string, password: string) {
-      // const result = await login(username, password);
-      // this.user = result.user;
-      // this.setToken(result.token);
-      // alert('vous êtes connecté');
+    setUser(user: UserApp) {
+      this.user = user;
     },
   },
 });
