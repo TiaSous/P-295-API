@@ -18,6 +18,6 @@ describe('bookStore', () => {
     await store.fetchBooks();
 
     expect(store.books).toEqual(fakeBooks);
-    expect(store.isLoading).toBe(true);
+    expect(store.isLoading).toBe(false);
   });
 });
