@@ -5,12 +5,12 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  run-tests_and-lint:
+  ci:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./Lecture-Passion
-    name: Run tests and lint
+    name: Run CI
 
     steps:
       - name: Checkout code
