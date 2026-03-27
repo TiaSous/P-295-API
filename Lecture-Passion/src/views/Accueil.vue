@@ -18,7 +18,7 @@ onMounted(() => {
           <h1>Bienvenue !</h1>
           <div class="site-description">
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque aspernatur possimus odio quo omnis mollitia
+              Test Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque aspernatur possimus odio quo omnis mollitia
               atque non aliquam fugiat alias, autem est quia nam voluptatem provident quaerat. Ipsam, fugit. Cupiditate.
             </p>
           </div>
