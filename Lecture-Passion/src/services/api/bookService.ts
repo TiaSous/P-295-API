@@ -1,4 +1,4 @@
-import { Book } from '@/model/bo/book';
+import type { Book } from '@/model/bo/book';
 import { mapToBook } from '../mapping/bookMapping';
 import clientHttp from '@/services/clientHttp';
 

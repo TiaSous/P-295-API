@@ -1,4 +1,5 @@
-import { PublicClientApplication, RedirectRequest } from '@azure/msal-browser';
+import type { RedirectRequest } from '@azure/msal-browser';
+import { PublicClientApplication } from '@azure/msal-browser';
 
 export const msalConfig = {
   auth: {

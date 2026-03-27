@@ -1,4 +1,4 @@
-import { UserApp } from '@/model/bo/userApp';
+import type { UserApp } from '@/model/bo/userApp';
 import { defineStore } from 'pinia';
 
 export const useUserStore = defineStore('user', {

@@ -1,4 +1,4 @@
-import { Book } from '@/model/bo/book';
+import type { Book } from '@/model/bo/book';
 
 export const mapToBook = (apiData: any): Book => {
   return {

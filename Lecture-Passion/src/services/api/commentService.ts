@@ -1,5 +1,5 @@
 import clientHttp from '@/services/clientHttp';
-import { Comment } from '@/model/bo/comment';
+import type { Comment } from '@/model/bo/comment';
 
 export const getComment = async (id) => {
   const result = await clientHttp.get('/api/commentaires/' + id);

@@ -1,4 +1,4 @@
-import { Book } from '@/model/bo/book';
+import type { Book } from '@/model/bo/book';
 import { getAllBooks } from '@/services/api/bookService';
 import { defineStore } from 'pinia';
 

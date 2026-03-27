@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { Book } from '@/model/bo/book';
-import { Comment } from '@/model/bo/comment';
+import type { Comment } from '@/model/bo/comment';
 import { getBookById } from '@/services/api/bookService.js';
 import { addComment, getComment } from '@/services/api/commentService';
 import { useUserStore } from '@/stores/userStore';
 import { computed, onMounted, ref } from 'vue';
 
+const props = defineProps(['id']);
+
 const userStore = useUserStore();
 
-const props = defineProps(['id']); // id du livre
+ // id du livre
 
 const livre = ref(new Book());
 const id = computed(() => parseInt(props.id));

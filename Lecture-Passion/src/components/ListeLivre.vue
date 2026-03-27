@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AffichageLivre from '@/components/AffichageLivre.vue';
-import { Book } from '@/model/bo/book';
+import type { Book } from '@/model/bo/book';
 
 // liste des livres
 const props = defineProps({
